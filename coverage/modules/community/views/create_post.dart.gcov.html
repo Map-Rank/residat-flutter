@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">157</td>
-            <td class="headerCovTableEntry">412</td>
-            <td class="headerCovTableEntryLo">38.1 %</td>
+            <td class="headerCovTableEntry">413</td>
+            <td class="headerCovTableEntryLo">38.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-09-20 16:03:59</td>
+            <td class="headerValue">2024-12-12 17:58:55</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -80,7 +80,7 @@
 <a name="18"><span class="lineNum">      18 </span>            : import 'package:flutter_gen/gen_l10n/app_localizations.dart';</a>
 <a name="19"><span class="lineNum">      19 </span>            : </a>
 <a name="20"><span class="lineNum">      20 </span>            : class CreatePostView extends GetView&lt;CommunityController&gt; {</a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         26 :   const CreatePostView({super.key});</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         30 :   const CreatePostView({super.key});</span></a>
 <a name="22"><span class="lineNum">      22 </span>            : </a>
 <a name="23"><span class="lineNum">      23 </span>            : </a>
 <a name="24"><span class="lineNum">      24 </span><span class="lineCov">          1 :   @override</span></a>
@@ -819,213 +819,214 @@
 <a name="757"><span class="lineNum">     757 </span>            : </a>
 <a name="758"><span class="lineNum">     758 </span><span class="lineCov">          1 :                             GestureDetector(</span></a>
 <a name="759"><span class="lineNum">     759 </span><span class="lineNoCov">          0 :                               onTap: (){</span></a>
-<a name="760"><span class="lineNum">     760 </span><span class="lineNoCov">          0 :                                 showDialog(context: context,</span></a>
-<a name="761"><span class="lineNum">     761 </span><span class="lineNoCov">          0 :                                   builder: (context) =&gt; Dialog(</span></a>
-<a name="762"><span class="lineNum">     762 </span><span class="lineNoCov">          0 :                                     insetPadding: EdgeInsets.all(20),</span></a>
-<a name="763"><span class="lineNum">     763 </span><span class="lineNoCov">          0 :                                     child:  BuildSelectSector(),</span></a>
-<a name="764"><span class="lineNum">     764 </span>            :                                   ),);</a>
-<a name="765"><span class="lineNum">     765 </span>            :                               },</a>
-<a name="766"><span class="lineNum">     766 </span><span class="lineCov">          1 :                               child: Container(</span></a>
-<a name="767"><span class="lineNum">     767 </span><span class="lineCov">          2 :                                   width: Get.width,</span></a>
-<a name="768"><span class="lineNum">     768 </span><span class="lineCov">          1 :                                   decoration: BoxDecoration(shape: BoxShape.rectangle,</span></a>
-<a name="769"><span class="lineNum">     769 </span><span class="lineCov">          1 :                                       borderRadius: BorderRadius.circular(10),</span></a>
-<a name="770"><span class="lineNum">     770 </span><span class="lineCov">          5 :                                       border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),</span></a>
-<a name="771"><span class="lineNum">     771 </span><span class="lineCov">          1 :                                   padding: EdgeInsets.all(20),</span></a>
-<a name="772"><span class="lineNum">     772 </span><span class="lineCov">          3 :                                   child: controller.sectorsSelected.isNotEmpty?</span></a>
-<a name="773"><span class="lineNum">     773 </span><span class="lineNoCov">          0 :                                   Row(</span></a>
-<a name="774"><span class="lineNum">     774 </span><span class="lineNoCov">          0 :                                     children: [</span></a>
-<a name="775"><span class="lineNum">     775 </span><span class="lineNoCov">          0 :                                       SizedBox(</span></a>
-<a name="776"><span class="lineNum">     776 </span><span class="lineNoCov">          0 :                                         width: Get.width*0.73,</span></a>
-<a name="777"><span class="lineNum">     777 </span><span class="lineNoCov">          0 :                                         child: RichText(text: TextSpan(</span></a>
-<a name="778"><span class="lineNum">     778 </span><span class="lineNoCov">          0 :                                             children:[</span></a>
-<a name="779"><span class="lineNum">     779 </span><span class="lineNoCov">          0 :                                               for(var sector in controller.sectorsSelected)...[</span></a>
-<a name="780"><span class="lineNum">     780 </span><span class="lineNoCov">          0 :                                                 TextSpan(text: '${sector['name']}, ',style: Get.textTheme.headlineMedium, )</span></a>
-<a name="781"><span class="lineNum">     781 </span>            :                                               ],</a>
-<a name="782"><span class="lineNum">     782 </span>            : </a>
+<a name="760"><span class="lineNum">     760 </span><span class="lineNoCov">          0 :                                 controller.filterBySector.value = false;</span></a>
+<a name="761"><span class="lineNum">     761 </span><span class="lineNoCov">          0 :                                 showDialog(context: context,</span></a>
+<a name="762"><span class="lineNum">     762 </span><span class="lineNoCov">          0 :                                   builder: (context) =&gt; Dialog(</span></a>
+<a name="763"><span class="lineNum">     763 </span><span class="lineNoCov">          0 :                                     insetPadding: EdgeInsets.all(20),</span></a>
+<a name="764"><span class="lineNum">     764 </span><span class="lineNoCov">          0 :                                     child:  BuildSelectSector(),</span></a>
+<a name="765"><span class="lineNum">     765 </span>            :                                   ),);</a>
+<a name="766"><span class="lineNum">     766 </span>            :                               },</a>
+<a name="767"><span class="lineNum">     767 </span><span class="lineCov">          1 :                               child: Container(</span></a>
+<a name="768"><span class="lineNum">     768 </span><span class="lineCov">          2 :                                   width: Get.width,</span></a>
+<a name="769"><span class="lineNum">     769 </span><span class="lineCov">          1 :                                   decoration: BoxDecoration(shape: BoxShape.rectangle,</span></a>
+<a name="770"><span class="lineNum">     770 </span><span class="lineCov">          1 :                                       borderRadius: BorderRadius.circular(10),</span></a>
+<a name="771"><span class="lineNum">     771 </span><span class="lineCov">          5 :                                       border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),</span></a>
+<a name="772"><span class="lineNum">     772 </span><span class="lineCov">          1 :                                   padding: EdgeInsets.all(20),</span></a>
+<a name="773"><span class="lineNum">     773 </span><span class="lineCov">          3 :                                   child: controller.sectorsSelected.isNotEmpty?</span></a>
+<a name="774"><span class="lineNum">     774 </span><span class="lineNoCov">          0 :                                   Row(</span></a>
+<a name="775"><span class="lineNum">     775 </span><span class="lineNoCov">          0 :                                     children: [</span></a>
+<a name="776"><span class="lineNum">     776 </span><span class="lineNoCov">          0 :                                       SizedBox(</span></a>
+<a name="777"><span class="lineNum">     777 </span><span class="lineNoCov">          0 :                                         width: Get.width*0.73,</span></a>
+<a name="778"><span class="lineNum">     778 </span><span class="lineNoCov">          0 :                                         child: RichText(text: TextSpan(</span></a>
+<a name="779"><span class="lineNum">     779 </span><span class="lineNoCov">          0 :                                             children:[</span></a>
+<a name="780"><span class="lineNum">     780 </span><span class="lineNoCov">          0 :                                               for(var sector in controller.sectorsSelected)...[</span></a>
+<a name="781"><span class="lineNum">     781 </span><span class="lineNoCov">          0 :                                                 TextSpan(text: '${sector['name']}, ',style: Get.textTheme.headlineMedium, )</span></a>
+<a name="782"><span class="lineNum">     782 </span>            :                                               ],</a>
 <a name="783"><span class="lineNum">     783 </span>            : </a>
-<a name="784"><span class="lineNum">     784 </span>            :                                             ]</a>
-<a name="785"><span class="lineNum">     785 </span>            :                                         )),</a>
-<a name="786"><span class="lineNum">     786 </span>            :                                       ),</a>
-<a name="787"><span class="lineNum">     787 </span><span class="lineNoCov">          0 :                                       FaIcon(FontAwesomeIcons.angleDown, size: 10,)</span></a>
-<a name="788"><span class="lineNum">     788 </span>            : </a>
-<a name="789"><span class="lineNum">     789 </span>            :                                     ],</a>
-<a name="790"><span class="lineNum">     790 </span>            :                                   ):</a>
-<a name="791"><span class="lineNum">     791 </span><span class="lineCov">          1 :                                   Row(</span></a>
-<a name="792"><span class="lineNum">     792 </span>            :                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,</a>
-<a name="793"><span class="lineNum">     793 </span>            :                                     crossAxisAlignment: CrossAxisAlignment.center,</a>
-<a name="794"><span class="lineNum">     794 </span><span class="lineCov">          1 :                                     children: [</span></a>
-<a name="795"><span class="lineNum">     795 </span><span class="lineCov">          9 :                                       Text(AppLocalizations.of(context).choose_sector, style: Get.theme.textTheme.headlineMedium!.merge(TextStyle(color: Colors.grey, fontSize: 18),)),</span></a>
-<a name="796"><span class="lineNum">     796 </span><span class="lineCov">          1 :                                       FaIcon(FontAwesomeIcons.angleDown, size: 10,)</span></a>
-<a name="797"><span class="lineNum">     797 </span>            :                                     ],</a>
-<a name="798"><span class="lineNum">     798 </span>            :                                   ),</a>
-<a name="799"><span class="lineNum">     799 </span>            : </a>
-<a name="800"><span class="lineNum">     800 </span>            :                               ),</a>
-<a name="801"><span class="lineNum">     801 </span>            :                             ),</a>
-<a name="802"><span class="lineNum">     802 </span>            :                           ]</a>
-<a name="803"><span class="lineNum">     803 </span>            : </a>
-<a name="804"><span class="lineNum">     804 </span><span class="lineCov">          1 :                       ),).marginOnly(bottom: 20, top: 20),</span></a>
-<a name="805"><span class="lineNum">     805 </span>            :                     ],</a>
-<a name="806"><span class="lineNum">     806 </span>            :                   ),</a>
-<a name="807"><span class="lineNum">     807 </span>            : </a>
-<a name="808"><span class="lineNum">     808 </span>            :                 )</a>
-<a name="809"><span class="lineNum">     809 </span>            : </a>
+<a name="784"><span class="lineNum">     784 </span>            : </a>
+<a name="785"><span class="lineNum">     785 </span>            :                                             ]</a>
+<a name="786"><span class="lineNum">     786 </span>            :                                         )),</a>
+<a name="787"><span class="lineNum">     787 </span>            :                                       ),</a>
+<a name="788"><span class="lineNum">     788 </span><span class="lineNoCov">          0 :                                       FaIcon(FontAwesomeIcons.angleDown, size: 10,)</span></a>
+<a name="789"><span class="lineNum">     789 </span>            : </a>
+<a name="790"><span class="lineNum">     790 </span>            :                                     ],</a>
+<a name="791"><span class="lineNum">     791 </span>            :                                   ):</a>
+<a name="792"><span class="lineNum">     792 </span><span class="lineCov">          1 :                                   Row(</span></a>
+<a name="793"><span class="lineNum">     793 </span>            :                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,</a>
+<a name="794"><span class="lineNum">     794 </span>            :                                     crossAxisAlignment: CrossAxisAlignment.center,</a>
+<a name="795"><span class="lineNum">     795 </span><span class="lineCov">          1 :                                     children: [</span></a>
+<a name="796"><span class="lineNum">     796 </span><span class="lineCov">          9 :                                       Text(AppLocalizations.of(context).choose_sector, style: Get.theme.textTheme.headlineMedium!.merge(TextStyle(color: Colors.grey, fontSize: 18),)),</span></a>
+<a name="797"><span class="lineNum">     797 </span><span class="lineCov">          1 :                                       FaIcon(FontAwesomeIcons.angleDown, size: 10,)</span></a>
+<a name="798"><span class="lineNum">     798 </span>            :                                     ],</a>
+<a name="799"><span class="lineNum">     799 </span>            :                                   ),</a>
+<a name="800"><span class="lineNum">     800 </span>            : </a>
+<a name="801"><span class="lineNum">     801 </span>            :                               ),</a>
+<a name="802"><span class="lineNum">     802 </span>            :                             ),</a>
+<a name="803"><span class="lineNum">     803 </span>            :                           ]</a>
+<a name="804"><span class="lineNum">     804 </span>            : </a>
+<a name="805"><span class="lineNum">     805 </span><span class="lineCov">          1 :                       ),).marginOnly(bottom: 20, top: 20),</span></a>
+<a name="806"><span class="lineNum">     806 </span>            :                     ],</a>
+<a name="807"><span class="lineNum">     807 </span>            :                   ),</a>
+<a name="808"><span class="lineNum">     808 </span>            : </a>
+<a name="809"><span class="lineNum">     809 </span>            :                 )</a>
 <a name="810"><span class="lineNum">     810 </span>            : </a>
 <a name="811"><span class="lineNum">     811 </span>            : </a>
 <a name="812"><span class="lineNum">     812 </span>            : </a>
-<a name="813"><span class="lineNum">     813 </span>            :               ],</a>
-<a name="814"><span class="lineNum">     814 </span>            :             )</a>
-<a name="815"><span class="lineNum">     815 </span>            :         )</a>
-<a name="816"><span class="lineNum">     816 </span>            :     );</a>
-<a name="817"><span class="lineNum">     817 </span>            :   }</a>
-<a name="818"><span class="lineNum">     818 </span>            : </a>
+<a name="813"><span class="lineNum">     813 </span>            : </a>
+<a name="814"><span class="lineNum">     814 </span>            :               ],</a>
+<a name="815"><span class="lineNum">     815 </span>            :             )</a>
+<a name="816"><span class="lineNum">     816 </span>            :         )</a>
+<a name="817"><span class="lineNum">     817 </span>            :     );</a>
+<a name="818"><span class="lineNum">     818 </span>            :   }</a>
 <a name="819"><span class="lineNum">     819 </span>            : </a>
 <a name="820"><span class="lineNum">     820 </span>            : </a>
 <a name="821"><span class="lineNum">     821 </span>            : </a>
-<a name="822"><span class="lineNum">     822 </span><span class="lineCov">          1 :   Widget buildInputImages(BuildContext context){</span></a>
-<a name="823"><span class="lineNum">     823 </span><span class="lineCov">          1 :     return Column(</span></a>
-<a name="824"><span class="lineNum">     824 </span><span class="lineCov">          1 :       children: [</span></a>
-<a name="825"><span class="lineNum">     825 </span><span class="lineCov">          1 :         Container(</span></a>
-<a name="826"><span class="lineNum">     826 </span>            :           decoration: const BoxDecoration(</a>
-<a name="827"><span class="lineNum">     827 </span>            :             color: Colors.white,</a>
-<a name="828"><span class="lineNum">     828 </span>            :           ),</a>
-<a name="829"><span class="lineNum">     829 </span>            :           margin: const EdgeInsets.only(bottom: 20),</a>
-<a name="830"><span class="lineNum">     830 </span><span class="lineCov">          1 :           child: Column(</span></a>
-<a name="831"><span class="lineNum">     831 </span><span class="lineCov">          1 :             children: [</span></a>
-<a name="832"><span class="lineNum">     832 </span>            :               const SizedBox(height: 10),</a>
-<a name="833"><span class="lineNum">     833 </span><span class="lineCov">          2 :               Obx(() =&gt;</span></a>
-<a name="834"><span class="lineNum">     834 </span><span class="lineCov">          3 :               controller.createUpdatePosts.value?</span></a>
-<a name="835"><span class="lineNum">     835 </span><span class="lineCov">          1 :               SizedBox(</span></a>
-<a name="836"><span class="lineNum">     836 </span><span class="lineCov">          3 :                 height: Get.height/4,</span></a>
-<a name="837"><span class="lineNum">     837 </span><span class="lineCov">          1 :                 child: ListView.builder(</span></a>
-<a name="838"><span class="lineNum">     838 </span>            :                   scrollDirection: Axis.horizontal,</a>
-<a name="839"><span class="lineNum">     839 </span><span class="lineCov">          4 :                   itemCount: controller.post.imagesUrl?.length,</span></a>
-<a name="840"><span class="lineNum">     840 </span><span class="lineCov">          1 :                   itemBuilder: (context, index) {</span></a>
-<a name="841"><span class="lineNum">     841 </span><span class="lineCov">          1 :                     return GestureDetector(</span></a>
-<a name="842"><span class="lineNum">     842 </span>            :                       //onTap: onPictureTapped,</a>
-<a name="843"><span class="lineNum">     843 </span><span class="lineCov">          1 :                       child: FadeInImage(</span></a>
-<a name="844"><span class="lineNum">     844 </span><span class="lineCov">          3 :                         width: Get.width-50,</span></a>
-<a name="845"><span class="lineNum">     845 </span><span class="lineCov">          3 :                         height: Get.height/4,</span></a>
-<a name="846"><span class="lineNum">     846 </span>            :                         fit: BoxFit.cover,</a>
-<a name="847"><span class="lineNum">     847 </span><span class="lineCov">          4 :                         image:  NetworkImage('${GlobalService().baseUrl}'</span></a>
-<a name="848"><span class="lineNum">     848 </span><span class="lineCov">         12 :                             '${controller.post.imagesUrl![index]['url'].substring(1,controller.post.imagesUrl![index]['url'].length)}',</span></a>
-<a name="849"><span class="lineNum">     849 </span><span class="lineCov">          1 :                             headers: GlobalService.getTokenHeaders()</span></a>
-<a name="850"><span class="lineNum">     850 </span>            :                         ),</a>
-<a name="851"><span class="lineNum">     851 </span>            :                         placeholder: const AssetImage(</a>
-<a name="852"><span class="lineNum">     852 </span>            :                             &quot;assets/images/loading.gif&quot;),</a>
-<a name="853"><span class="lineNum">     853 </span>            :                         imageErrorBuilder:</a>
-<a name="854"><span class="lineNum">     854 </span><span class="lineCov">          1 :                             (context, error, stackTrace) {</span></a>
-<a name="855"><span class="lineNum">     855 </span><span class="lineCov">          1 :                           return Image.asset(</span></a>
-<a name="856"><span class="lineNum">     856 </span>            :                               &quot;assets/images/loading.gif&quot;,</a>
-<a name="857"><span class="lineNum">     857 </span><span class="lineCov">          2 :                               width: Get.width,</span></a>
-<a name="858"><span class="lineNum">     858 </span><span class="lineCov">          3 :                               height: Get.height/4,</span></a>
-<a name="859"><span class="lineNum">     859 </span>            :                               fit: BoxFit.fitWidth);</a>
-<a name="860"><span class="lineNum">     860 </span>            :                         },</a>
-<a name="861"><span class="lineNum">     861 </span><span class="lineCov">          1 :                       ).marginOnly(right: 10),</span></a>
-<a name="862"><span class="lineNum">     862 </span>            :                     );</a>
-<a name="863"><span class="lineNum">     863 </span>            : </a>
-<a name="864"><span class="lineNum">     864 </span>            :                   },</a>
-<a name="865"><span class="lineNum">     865 </span>            :                 ),</a>
-<a name="866"><span class="lineNum">     866 </span>            :               )</a>
-<a name="867"><span class="lineNum">     867 </span><span class="lineNoCov">          0 :                   :SizedBox()</span></a>
-<a name="868"><span class="lineNum">     868 </span>            : </a>
-<a name="869"><span class="lineNum">     869 </span>            :               ),</a>
-<a name="870"><span class="lineNum">     870 </span><span class="lineCov">          6 :               Obx(() =&gt;  controller.imageFiles.length &lt;= 0 ?</span></a>
-<a name="871"><span class="lineNum">     871 </span><span class="lineCov">          1 :               SizedBox()</span></a>
-<a name="872"><span class="lineNum">     872 </span><span class="lineNoCov">          0 :                   : SizedBox(</span></a>
-<a name="873"><span class="lineNum">     873 </span><span class="lineNoCov">          0 :                 height:Get.height/4,</span></a>
-<a name="874"><span class="lineNum">     874 </span><span class="lineNoCov">          0 :                 child: ListView.separated(</span></a>
-<a name="875"><span class="lineNum">     875 </span>            :                     scrollDirection: Axis.horizontal,</a>
-<a name="876"><span class="lineNum">     876 </span>            :                     padding: const EdgeInsets.all(12),</a>
-<a name="877"><span class="lineNum">     877 </span><span class="lineNoCov">          0 :                     itemBuilder: (context, index){</span></a>
-<a name="878"><span class="lineNum">     878 </span><span class="lineNoCov">          0 :                       return Stack(</span></a>
-<a name="879"><span class="lineNum">     879 </span>            :                         //mainAxisAlignment: MainAxisAlignment.end,</a>
-<a name="880"><span class="lineNum">     880 </span><span class="lineNoCov">          0 :                         children: [</span></a>
-<a name="881"><span class="lineNum">     881 </span><span class="lineNoCov">          0 :                           Padding(</span></a>
-<a name="882"><span class="lineNum">     882 </span>            :                               padding: const EdgeInsets.symmetric(vertical: 10),</a>
-<a name="883"><span class="lineNum">     883 </span><span class="lineNoCov">          0 :                               child: ClipRRect(</span></a>
-<a name="884"><span class="lineNum">     884 </span>            :                                 borderRadius: const BorderRadius.all(Radius.circular(10)),</a>
-<a name="885"><span class="lineNum">     885 </span><span class="lineNoCov">          0 :                                 child: Image.file(</span></a>
-<a name="886"><span class="lineNum">     886 </span><span class="lineNoCov">          0 :                                   controller.imageFiles[index],</span></a>
-<a name="887"><span class="lineNum">     887 </span>            :                                   fit: BoxFit.cover,</a>
-<a name="888"><span class="lineNum">     888 </span><span class="lineNoCov">          0 :                                   width: Get.width/2,</span></a>
-<a name="889"><span class="lineNum">     889 </span><span class="lineNoCov">          0 :                                   height:Get.height/4,</span></a>
-<a name="890"><span class="lineNum">     890 </span>            :                                 ),</a>
-<a name="891"><span class="lineNum">     891 </span>            :                               )</a>
-<a name="892"><span class="lineNum">     892 </span>            :                           ),</a>
-<a name="893"><span class="lineNum">     893 </span><span class="lineNoCov">          0 :                           Positioned(</span></a>
-<a name="894"><span class="lineNum">     894 </span>            :                             top:0,</a>
-<a name="895"><span class="lineNum">     895 </span>            :                             right:0,</a>
-<a name="896"><span class="lineNum">     896 </span><span class="lineNoCov">          0 :                             child: Align(</span></a>
-<a name="897"><span class="lineNum">     897 </span>            :                               //alignment: Alignment.centerRight,</a>
-<a name="898"><span class="lineNum">     898 </span><span class="lineNoCov">          0 :                               child: IconButton(</span></a>
-<a name="899"><span class="lineNum">     899 </span><span class="lineNoCov">          0 :                                   onPressed: (){</span></a>
-<a name="900"><span class="lineNum">     900 </span><span class="lineNoCov">          0 :                                     controller.imageFiles.removeAt(index);</span></a>
-<a name="901"><span class="lineNum">     901 </span>            :                                   },</a>
-<a name="902"><span class="lineNum">     902 </span>            :                                   icon: const Icon(Icons.delete, color: inactive, size: 25, )</a>
-<a name="903"><span class="lineNum">     903 </span>            :                               ),</a>
-<a name="904"><span class="lineNum">     904 </span>            :                             ),</a>
-<a name="905"><span class="lineNum">     905 </span>            :                           ),</a>
-<a name="906"><span class="lineNum">     906 </span>            :                         ],</a>
-<a name="907"><span class="lineNum">     907 </span>            :                       );</a>
-<a name="908"><span class="lineNum">     908 </span>            :                     },</a>
-<a name="909"><span class="lineNum">     909 </span><span class="lineNoCov">          0 :                     separatorBuilder: (context, index){</span></a>
-<a name="910"><span class="lineNum">     910 </span>            :                       return const SizedBox(width: 8);</a>
-<a name="911"><span class="lineNum">     911 </span>            :                     },</a>
-<a name="912"><span class="lineNum">     912 </span><span class="lineNoCov">          0 :                     itemCount: controller.imageFiles.length),</span></a>
-<a name="913"><span class="lineNum">     913 </span>            :               ),</a>
+<a name="822"><span class="lineNum">     822 </span>            : </a>
+<a name="823"><span class="lineNum">     823 </span><span class="lineCov">          1 :   Widget buildInputImages(BuildContext context){</span></a>
+<a name="824"><span class="lineNum">     824 </span><span class="lineCov">          1 :     return Column(</span></a>
+<a name="825"><span class="lineNum">     825 </span><span class="lineCov">          1 :       children: [</span></a>
+<a name="826"><span class="lineNum">     826 </span><span class="lineCov">          1 :         Container(</span></a>
+<a name="827"><span class="lineNum">     827 </span>            :           decoration: const BoxDecoration(</a>
+<a name="828"><span class="lineNum">     828 </span>            :             color: Colors.white,</a>
+<a name="829"><span class="lineNum">     829 </span>            :           ),</a>
+<a name="830"><span class="lineNum">     830 </span>            :           margin: const EdgeInsets.only(bottom: 20),</a>
+<a name="831"><span class="lineNum">     831 </span><span class="lineCov">          1 :           child: Column(</span></a>
+<a name="832"><span class="lineNum">     832 </span><span class="lineCov">          1 :             children: [</span></a>
+<a name="833"><span class="lineNum">     833 </span>            :               const SizedBox(height: 10),</a>
+<a name="834"><span class="lineNum">     834 </span><span class="lineCov">          2 :               Obx(() =&gt;</span></a>
+<a name="835"><span class="lineNum">     835 </span><span class="lineCov">          3 :               controller.createUpdatePosts.value?</span></a>
+<a name="836"><span class="lineNum">     836 </span><span class="lineCov">          1 :               SizedBox(</span></a>
+<a name="837"><span class="lineNum">     837 </span><span class="lineCov">          3 :                 height: Get.height/4,</span></a>
+<a name="838"><span class="lineNum">     838 </span><span class="lineCov">          1 :                 child: ListView.builder(</span></a>
+<a name="839"><span class="lineNum">     839 </span>            :                   scrollDirection: Axis.horizontal,</a>
+<a name="840"><span class="lineNum">     840 </span><span class="lineCov">          4 :                   itemCount: controller.post.imagesUrl?.length,</span></a>
+<a name="841"><span class="lineNum">     841 </span><span class="lineCov">          1 :                   itemBuilder: (context, index) {</span></a>
+<a name="842"><span class="lineNum">     842 </span><span class="lineCov">          1 :                     return GestureDetector(</span></a>
+<a name="843"><span class="lineNum">     843 </span>            :                       //onTap: onPictureTapped,</a>
+<a name="844"><span class="lineNum">     844 </span><span class="lineCov">          1 :                       child: FadeInImage(</span></a>
+<a name="845"><span class="lineNum">     845 </span><span class="lineCov">          3 :                         width: Get.width-50,</span></a>
+<a name="846"><span class="lineNum">     846 </span><span class="lineCov">          3 :                         height: Get.height/4,</span></a>
+<a name="847"><span class="lineNum">     847 </span>            :                         fit: BoxFit.cover,</a>
+<a name="848"><span class="lineNum">     848 </span><span class="lineCov">          4 :                         image:  NetworkImage('${GlobalService().baseUrl}'</span></a>
+<a name="849"><span class="lineNum">     849 </span><span class="lineCov">         12 :                             '${controller.post.imagesUrl![index]['url'].substring(1,controller.post.imagesUrl![index]['url'].length)}',</span></a>
+<a name="850"><span class="lineNum">     850 </span><span class="lineCov">          1 :                             headers: GlobalService.getTokenHeaders()</span></a>
+<a name="851"><span class="lineNum">     851 </span>            :                         ),</a>
+<a name="852"><span class="lineNum">     852 </span>            :                         placeholder: const AssetImage(</a>
+<a name="853"><span class="lineNum">     853 </span>            :                             &quot;assets/images/loading.gif&quot;),</a>
+<a name="854"><span class="lineNum">     854 </span>            :                         imageErrorBuilder:</a>
+<a name="855"><span class="lineNum">     855 </span><span class="lineCov">          1 :                             (context, error, stackTrace) {</span></a>
+<a name="856"><span class="lineNum">     856 </span><span class="lineCov">          1 :                           return Image.asset(</span></a>
+<a name="857"><span class="lineNum">     857 </span>            :                               &quot;assets/images/loading.gif&quot;,</a>
+<a name="858"><span class="lineNum">     858 </span><span class="lineCov">          2 :                               width: Get.width,</span></a>
+<a name="859"><span class="lineNum">     859 </span><span class="lineCov">          3 :                               height: Get.height/4,</span></a>
+<a name="860"><span class="lineNum">     860 </span>            :                               fit: BoxFit.fitWidth);</a>
+<a name="861"><span class="lineNum">     861 </span>            :                         },</a>
+<a name="862"><span class="lineNum">     862 </span><span class="lineCov">          1 :                       ).marginOnly(right: 10),</span></a>
+<a name="863"><span class="lineNum">     863 </span>            :                     );</a>
+<a name="864"><span class="lineNum">     864 </span>            : </a>
+<a name="865"><span class="lineNum">     865 </span>            :                   },</a>
+<a name="866"><span class="lineNum">     866 </span>            :                 ),</a>
+<a name="867"><span class="lineNum">     867 </span>            :               )</a>
+<a name="868"><span class="lineNum">     868 </span><span class="lineNoCov">          0 :                   :SizedBox()</span></a>
+<a name="869"><span class="lineNum">     869 </span>            : </a>
+<a name="870"><span class="lineNum">     870 </span>            :               ),</a>
+<a name="871"><span class="lineNum">     871 </span><span class="lineCov">          6 :               Obx(() =&gt;  controller.imageFiles.length &lt;= 0 ?</span></a>
+<a name="872"><span class="lineNum">     872 </span><span class="lineCov">          1 :               SizedBox()</span></a>
+<a name="873"><span class="lineNum">     873 </span><span class="lineNoCov">          0 :                   : SizedBox(</span></a>
+<a name="874"><span class="lineNum">     874 </span><span class="lineNoCov">          0 :                 height:Get.height/4,</span></a>
+<a name="875"><span class="lineNum">     875 </span><span class="lineNoCov">          0 :                 child: ListView.separated(</span></a>
+<a name="876"><span class="lineNum">     876 </span>            :                     scrollDirection: Axis.horizontal,</a>
+<a name="877"><span class="lineNum">     877 </span>            :                     padding: const EdgeInsets.all(12),</a>
+<a name="878"><span class="lineNum">     878 </span><span class="lineNoCov">          0 :                     itemBuilder: (context, index){</span></a>
+<a name="879"><span class="lineNum">     879 </span><span class="lineNoCov">          0 :                       return Stack(</span></a>
+<a name="880"><span class="lineNum">     880 </span>            :                         //mainAxisAlignment: MainAxisAlignment.end,</a>
+<a name="881"><span class="lineNum">     881 </span><span class="lineNoCov">          0 :                         children: [</span></a>
+<a name="882"><span class="lineNum">     882 </span><span class="lineNoCov">          0 :                           Padding(</span></a>
+<a name="883"><span class="lineNum">     883 </span>            :                               padding: const EdgeInsets.symmetric(vertical: 10),</a>
+<a name="884"><span class="lineNum">     884 </span><span class="lineNoCov">          0 :                               child: ClipRRect(</span></a>
+<a name="885"><span class="lineNum">     885 </span>            :                                 borderRadius: const BorderRadius.all(Radius.circular(10)),</a>
+<a name="886"><span class="lineNum">     886 </span><span class="lineNoCov">          0 :                                 child: Image.file(</span></a>
+<a name="887"><span class="lineNum">     887 </span><span class="lineNoCov">          0 :                                   controller.imageFiles[index],</span></a>
+<a name="888"><span class="lineNum">     888 </span>            :                                   fit: BoxFit.cover,</a>
+<a name="889"><span class="lineNum">     889 </span><span class="lineNoCov">          0 :                                   width: Get.width/2,</span></a>
+<a name="890"><span class="lineNum">     890 </span><span class="lineNoCov">          0 :                                   height:Get.height/4,</span></a>
+<a name="891"><span class="lineNum">     891 </span>            :                                 ),</a>
+<a name="892"><span class="lineNum">     892 </span>            :                               )</a>
+<a name="893"><span class="lineNum">     893 </span>            :                           ),</a>
+<a name="894"><span class="lineNum">     894 </span><span class="lineNoCov">          0 :                           Positioned(</span></a>
+<a name="895"><span class="lineNum">     895 </span>            :                             top:0,</a>
+<a name="896"><span class="lineNum">     896 </span>            :                             right:0,</a>
+<a name="897"><span class="lineNum">     897 </span><span class="lineNoCov">          0 :                             child: Align(</span></a>
+<a name="898"><span class="lineNum">     898 </span>            :                               //alignment: Alignment.centerRight,</a>
+<a name="899"><span class="lineNum">     899 </span><span class="lineNoCov">          0 :                               child: IconButton(</span></a>
+<a name="900"><span class="lineNum">     900 </span><span class="lineNoCov">          0 :                                   onPressed: (){</span></a>
+<a name="901"><span class="lineNum">     901 </span><span class="lineNoCov">          0 :                                     controller.imageFiles.removeAt(index);</span></a>
+<a name="902"><span class="lineNum">     902 </span>            :                                   },</a>
+<a name="903"><span class="lineNum">     903 </span>            :                                   icon: const Icon(Icons.delete, color: inactive, size: 25, )</a>
+<a name="904"><span class="lineNum">     904 </span>            :                               ),</a>
+<a name="905"><span class="lineNum">     905 </span>            :                             ),</a>
+<a name="906"><span class="lineNum">     906 </span>            :                           ),</a>
+<a name="907"><span class="lineNum">     907 </span>            :                         ],</a>
+<a name="908"><span class="lineNum">     908 </span>            :                       );</a>
+<a name="909"><span class="lineNum">     909 </span>            :                     },</a>
+<a name="910"><span class="lineNum">     910 </span><span class="lineNoCov">          0 :                     separatorBuilder: (context, index){</span></a>
+<a name="911"><span class="lineNum">     911 </span>            :                       return const SizedBox(width: 8);</a>
+<a name="912"><span class="lineNum">     912 </span>            :                     },</a>
+<a name="913"><span class="lineNum">     913 </span><span class="lineNoCov">          0 :                     itemCount: controller.imageFiles.length),</span></a>
 <a name="914"><span class="lineNum">     914 </span>            :               ),</a>
-<a name="915"><span class="lineNum">     915 </span>            :             ],</a>
-<a name="916"><span class="lineNum">     916 </span>            :           ),</a>
-<a name="917"><span class="lineNum">     917 </span>            :         ),</a>
-<a name="918"><span class="lineNum">     918 </span><span class="lineCov">          1 :         Align(</span></a>
-<a name="919"><span class="lineNum">     919 </span>            :           alignment: Alignment.topRight,</a>
-<a name="920"><span class="lineNum">     920 </span><span class="lineCov">          1 :           child: IconButton(onPressed: (){</span></a>
-<a name="921"><span class="lineNum">     921 </span><span class="lineNoCov">          0 :             showDialog(</span></a>
-<a name="922"><span class="lineNum">     922 </span><span class="lineNoCov">          0 :                 context: Get.context!,</span></a>
-<a name="923"><span class="lineNum">     923 </span><span class="lineNoCov">          0 :                 builder: (_){</span></a>
-<a name="924"><span class="lineNum">     924 </span><span class="lineNoCov">          0 :                   return AlertDialog(</span></a>
-<a name="925"><span class="lineNum">     925 </span>            :                     shape: const RoundedRectangleBorder(</a>
-<a name="926"><span class="lineNum">     926 </span>            :                         borderRadius: BorderRadius.all(Radius.circular(20))</a>
-<a name="927"><span class="lineNum">     927 </span>            :                     ),</a>
-<a name="928"><span class="lineNum">     928 </span><span class="lineNoCov">          0 :                     content: Container(</span></a>
-<a name="929"><span class="lineNum">     929 </span>            :                         height: 140,</a>
-<a name="930"><span class="lineNum">     930 </span>            :                         padding: const EdgeInsets.all(10),</a>
-<a name="931"><span class="lineNum">     931 </span><span class="lineNoCov">          0 :                         child: Column(</span></a>
-<a name="932"><span class="lineNum">     932 </span><span class="lineNoCov">          0 :                             children: [</span></a>
-<a name="933"><span class="lineNum">     933 </span><span class="lineNoCov">          0 :                               ListTile(</span></a>
-<a name="934"><span class="lineNum">     934 </span><span class="lineNoCov">          0 :                                 onTap: ()async{</span></a>
-<a name="935"><span class="lineNum">     935 </span><span class="lineNoCov">          0 :                                   await controller.pickImage(ImageSource.camera);</span></a>
-<a name="936"><span class="lineNum">     936 </span><span class="lineNoCov">          0 :                                   Navigator.pop(Get.context!);</span></a>
-<a name="937"><span class="lineNum">     937 </span>            :                                 },</a>
-<a name="938"><span class="lineNum">     938 </span>            :                                 leading: const Icon(FontAwesomeIcons.camera),</a>
-<a name="939"><span class="lineNum">     939 </span><span class="lineNoCov">          0 :                                 title: Text(AppLocalizations.of(context).take_picture, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),</span></a>
-<a name="940"><span class="lineNum">     940 </span>            :                               ),</a>
-<a name="941"><span class="lineNum">     941 </span><span class="lineNoCov">          0 :                               ListTile(</span></a>
-<a name="942"><span class="lineNum">     942 </span><span class="lineNoCov">          0 :                                 onTap: ()async{</span></a>
-<a name="943"><span class="lineNum">     943 </span><span class="lineNoCov">          0 :                                   await controller.pickImage(ImageSource.gallery);</span></a>
-<a name="944"><span class="lineNum">     944 </span><span class="lineNoCov">          0 :                                   Navigator.pop(Get.context!);</span></a>
-<a name="945"><span class="lineNum">     945 </span>            :                                 },</a>
-<a name="946"><span class="lineNum">     946 </span>            :                                 leading: const Icon(FontAwesomeIcons.image),</a>
-<a name="947"><span class="lineNum">     947 </span><span class="lineNoCov">          0 :                                 title: Text(AppLocalizations.of(context).upload_image, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),</span></a>
-<a name="948"><span class="lineNum">     948 </span>            :                               )</a>
-<a name="949"><span class="lineNum">     949 </span>            :                             ]</a>
-<a name="950"><span class="lineNum">     950 </span>            :                         )</a>
-<a name="951"><span class="lineNum">     951 </span>            :                     ),</a>
-<a name="952"><span class="lineNum">     952 </span><span class="lineNoCov">          0 :                     actions: [</span></a>
-<a name="953"><span class="lineNum">     953 </span><span class="lineNoCov">          0 :                       TextButton(</span></a>
-<a name="954"><span class="lineNum">     954 </span><span class="lineNoCov">          0 :                           onPressed: ()=&gt; Navigator.pop(context),</span></a>
-<a name="955"><span class="lineNum">     955 </span><span class="lineNoCov">          0 :                           child: Text(AppLocalizations.of(context).cancel, style: Get.textTheme.headlineMedium!.merge(const TextStyle(color: inactive)),))</span></a>
-<a name="956"><span class="lineNum">     956 </span>            :                     ],</a>
-<a name="957"><span class="lineNum">     957 </span>            :                   );</a>
-<a name="958"><span class="lineNum">     958 </span>            :                 });</a>
-<a name="959"><span class="lineNum">     959 </span><span class="lineCov">          1 :           }, icon: Icon(FontAwesomeIcons.camera)),</span></a>
-<a name="960"><span class="lineNum">     960 </span>            :         )</a>
-<a name="961"><span class="lineNum">     961 </span>            :       ],</a>
-<a name="962"><span class="lineNum">     962 </span>            :     )</a>
-<a name="963"><span class="lineNum">     963 </span>            :      ;</a>
-<a name="964"><span class="lineNum">     964 </span>            :   }</a>
-<a name="965"><span class="lineNum">     965 </span>            : </a>
-<a name="966"><span class="lineNum">     966 </span>            : }</a>
+<a name="915"><span class="lineNum">     915 </span>            :               ),</a>
+<a name="916"><span class="lineNum">     916 </span>            :             ],</a>
+<a name="917"><span class="lineNum">     917 </span>            :           ),</a>
+<a name="918"><span class="lineNum">     918 </span>            :         ),</a>
+<a name="919"><span class="lineNum">     919 </span><span class="lineCov">          1 :         Align(</span></a>
+<a name="920"><span class="lineNum">     920 </span>            :           alignment: Alignment.topRight,</a>
+<a name="921"><span class="lineNum">     921 </span><span class="lineCov">          1 :           child: IconButton(onPressed: (){</span></a>
+<a name="922"><span class="lineNum">     922 </span><span class="lineNoCov">          0 :             showDialog(</span></a>
+<a name="923"><span class="lineNum">     923 </span><span class="lineNoCov">          0 :                 context: Get.context!,</span></a>
+<a name="924"><span class="lineNum">     924 </span><span class="lineNoCov">          0 :                 builder: (_){</span></a>
+<a name="925"><span class="lineNum">     925 </span><span class="lineNoCov">          0 :                   return AlertDialog(</span></a>
+<a name="926"><span class="lineNum">     926 </span>            :                     shape: const RoundedRectangleBorder(</a>
+<a name="927"><span class="lineNum">     927 </span>            :                         borderRadius: BorderRadius.all(Radius.circular(20))</a>
+<a name="928"><span class="lineNum">     928 </span>            :                     ),</a>
+<a name="929"><span class="lineNum">     929 </span><span class="lineNoCov">          0 :                     content: Container(</span></a>
+<a name="930"><span class="lineNum">     930 </span>            :                         height: 140,</a>
+<a name="931"><span class="lineNum">     931 </span>            :                         padding: const EdgeInsets.all(10),</a>
+<a name="932"><span class="lineNum">     932 </span><span class="lineNoCov">          0 :                         child: Column(</span></a>
+<a name="933"><span class="lineNum">     933 </span><span class="lineNoCov">          0 :                             children: [</span></a>
+<a name="934"><span class="lineNum">     934 </span><span class="lineNoCov">          0 :                               ListTile(</span></a>
+<a name="935"><span class="lineNum">     935 </span><span class="lineNoCov">          0 :                                 onTap: ()async{</span></a>
+<a name="936"><span class="lineNum">     936 </span><span class="lineNoCov">          0 :                                   await controller.pickImage(ImageSource.camera);</span></a>
+<a name="937"><span class="lineNum">     937 </span><span class="lineNoCov">          0 :                                   Navigator.pop(Get.context!);</span></a>
+<a name="938"><span class="lineNum">     938 </span>            :                                 },</a>
+<a name="939"><span class="lineNum">     939 </span>            :                                 leading: const Icon(FontAwesomeIcons.camera),</a>
+<a name="940"><span class="lineNum">     940 </span><span class="lineNoCov">          0 :                                 title: Text(AppLocalizations.of(context).take_picture, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),</span></a>
+<a name="941"><span class="lineNum">     941 </span>            :                               ),</a>
+<a name="942"><span class="lineNum">     942 </span><span class="lineNoCov">          0 :                               ListTile(</span></a>
+<a name="943"><span class="lineNum">     943 </span><span class="lineNoCov">          0 :                                 onTap: ()async{</span></a>
+<a name="944"><span class="lineNum">     944 </span><span class="lineNoCov">          0 :                                   await controller.pickImage(ImageSource.gallery);</span></a>
+<a name="945"><span class="lineNum">     945 </span><span class="lineNoCov">          0 :                                   Navigator.pop(Get.context!);</span></a>
+<a name="946"><span class="lineNum">     946 </span>            :                                 },</a>
+<a name="947"><span class="lineNum">     947 </span>            :                                 leading: const Icon(FontAwesomeIcons.image),</a>
+<a name="948"><span class="lineNum">     948 </span><span class="lineNoCov">          0 :                                 title: Text(AppLocalizations.of(context).upload_image, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),</span></a>
+<a name="949"><span class="lineNum">     949 </span>            :                               )</a>
+<a name="950"><span class="lineNum">     950 </span>            :                             ]</a>
+<a name="951"><span class="lineNum">     951 </span>            :                         )</a>
+<a name="952"><span class="lineNum">     952 </span>            :                     ),</a>
+<a name="953"><span class="lineNum">     953 </span><span class="lineNoCov">          0 :                     actions: [</span></a>
+<a name="954"><span class="lineNum">     954 </span><span class="lineNoCov">          0 :                       TextButton(</span></a>
+<a name="955"><span class="lineNum">     955 </span><span class="lineNoCov">          0 :                           onPressed: ()=&gt; Navigator.pop(context),</span></a>
+<a name="956"><span class="lineNum">     956 </span><span class="lineNoCov">          0 :                           child: Text(AppLocalizations.of(context).cancel, style: Get.textTheme.headlineMedium!.merge(const TextStyle(color: inactive)),))</span></a>
+<a name="957"><span class="lineNum">     957 </span>            :                     ],</a>
+<a name="958"><span class="lineNum">     958 </span>            :                   );</a>
+<a name="959"><span class="lineNum">     959 </span>            :                 });</a>
+<a name="960"><span class="lineNum">     960 </span><span class="lineCov">          1 :           }, icon: Icon(FontAwesomeIcons.camera)),</span></a>
+<a name="961"><span class="lineNum">     961 </span>            :         )</a>
+<a name="962"><span class="lineNum">     962 </span>            :       ],</a>
+<a name="963"><span class="lineNum">     963 </span>            :     )</a>
+<a name="964"><span class="lineNum">     964 </span>            :      ;</a>
+<a name="965"><span class="lineNum">     965 </span>            :   }</a>
+<a name="966"><span class="lineNum">     966 </span>            : </a>
+<a name="967"><span class="lineNum">     967 </span>            : }</a>
 </pre>
       </td>
     </tr>

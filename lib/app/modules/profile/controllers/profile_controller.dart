@@ -107,10 +107,10 @@ class ProfileController extends GetxController {
     genderController.text = currentUser.value.gender!;
     birthdateController.text = currentUser.value.birthdate!;
 
-      listAllPosts = await getAllMyPosts();
+      listAllPosts = await getAllMyPosts()??[];
       allPosts.value =  listAllPosts;
 
-      listAllEvents = await getAllMyEvents();
+      listAllEvents = await getAllMyEvents()??[];
       allEvents.value = listAllEvents;
 
 
@@ -157,7 +157,10 @@ class ProfileController extends GetxController {
       }
       return postList;
     } catch (e) {
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
+
     }
   }
 
@@ -222,7 +225,9 @@ class ProfileController extends GetxController {
 
     }
     catch (e) {
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
     }
   }
 

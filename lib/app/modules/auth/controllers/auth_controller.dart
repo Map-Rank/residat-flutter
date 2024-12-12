@@ -601,6 +601,8 @@ class AuthController extends GetxController {
       currentUser.value= user;
       currentUser.value.myPosts = user.myPosts;
       currentUser.value.myEvents = user.myEvents;
+      currentUser.value.followerCount = user.followerCount;
+      currentUser.value.followingCount = user.followingCount;
       currentUser.value.authToken = box.read("authToken");
 
       Get.find<AuthService>().user.value = currentUser.value;

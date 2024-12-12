@@ -274,7 +274,7 @@ class CommunityController extends GetxController {
       //imageFiles = [];
     }
 
-    var listZones = await getAllZonesFilterByName();
+    var listZones = await getAllZonesFilterByName()??[];
 
     listAllZones = listZones.cast<Map<String, dynamic>>();
     zones = listAllZones;

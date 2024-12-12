@@ -74,8 +74,9 @@ class PostCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     imageScrollController = ScrollController();
     return Container(
-        color: Get.theme.primaryColor,
-
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,10 +143,10 @@ class PostCardWidget extends StatelessWidget {
 
                               isCommunityPage!?
                               followWidget!:
-                                SizedBox(
-                                    width: 15,
-                                    height: 15,
-                                    child: popUpWidget!),
+                              SizedBox(
+                                  width: 15,
+                                  height: 15,
+                                  child: popUpWidget!),
 
 
                             ],
@@ -160,11 +161,11 @@ class PostCardWidget extends StatelessWidget {
                             children: [
                               const FaIcon(FontAwesomeIcons.locationDot, size: 15,).marginOnly(right: 10),
                               SizedBox(
-                                  //width: Get.width/4,
-                                  child: Text(zone.toString(), style: Get.textTheme.bodySmall, overflow: TextOverflow.ellipsis,).marginOnly(right: 10),),
+                                //width: Get.width/4,
+                                child: Text(zone.toString(), style: Get.textTheme.bodySmall, overflow: TextOverflow.ellipsis,).marginOnly(right: 10),),
                               const FaIcon(FontAwesomeIcons.solidCircle, size: 5,).marginOnly(right: 10),
                               SizedBox(
-                                 //width: Get.width/4,
+                                //width: Get.width/4,
                                   child: Text(publishedDate!, style: Get.textTheme.bodySmall)),
 
 
@@ -181,14 +182,14 @@ class PostCardWidget extends StatelessWidget {
                 ),
               ).paddingSymmetric(horizontal: 10),
 
-        ReadMoreText(
-            content == null? '':content?.replaceAllMapped(RegExp(r'<p>|<\/p>'), (match) {
-              return match.group(0) == '</p>' ? '\n' : ''; // Replace </p> with \n and remove <p>
-            })
-                .replaceAll(RegExp(r'^\s*\n', multiLine: false), ''), // Remove empty lines),
-            maxLines: 3,
-            trimMode: TrimMode.line,
-            textStyle: Get.textTheme.displayMedium!).paddingSymmetric(horizontal: 10).marginOnly(top: 20),
+              ReadMoreText(
+                  content == null? '':content?.replaceAllMapped(RegExp(r'<p>|<\/p>'), (match) {
+                    return match.group(0) == '</p>' ? '\n' : ''; // Replace </p> with \n and remove <p>
+                  })
+                      .replaceAll(RegExp(r'^\s*\n', multiLine: false), ''), // Remove empty lines),
+                  maxLines: 3,
+                  trimMode: TrimMode.line,
+                  textStyle: Get.textTheme.displayMedium!).paddingSymmetric(horizontal: 10).marginOnly(top: 20),
               if(images!.isNotEmpty)...[
                 if( images!.length == 1)...[
                   GestureDetector(
@@ -219,74 +220,180 @@ class PostCardWidget extends StatelessWidget {
                 ]
                 else...[
                   SizedBox(
-                    height: 375,
-                    child: ListView.builder(
-                      controller: imageScrollController,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: images?.length,
-                      itemBuilder: (context, index) {
-                        return Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: onPictureTapped,
-                              child: FadeInImage(
-                                width: Get.width,
-                                height: 375,
-                                fit: BoxFit.cover,
-                                image: NetworkImage('${images![index]['url']}',
-                                    headers: GlobalService.getTokenHeaders()
-                                ),
-                                placeholder: const AssetImage(
-                                  "assets/images/loading.gif",),
-                                imageErrorBuilder:
-                                    (context, error, stackTrace) {
-                                  return Image.asset(
-                                      "assets/images/loading.gif",
-                                      width: Get.width,
-                                      height: 375,
-                                      fit: BoxFit.fitHeight);
-                                },
-                              ),
-                            ),
-                            Positioned(
-                              top: 375/2.2,
-                              child: SizedBox(
-                                width: Get.width,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  //crossAxisAlignment: CrossAxisAlignment.stretch,
-                                  children: [
-                                    if(index > 0)...[
-                                      GestureDetector(
-                                        child: Icon(Icons.arrow_back_ios_outlined,color: Colors.white,),
-                                        onTap: (){
-                                          imageScrollController!.jumpTo(imageScrollController!.position.pixels - Get.width);
+                      height: 375,
+                      child: images!.length == 2?
+                      Row(
+                        children: [
+                          Expanded(
+                              child: GestureDetector(
+                                onTap: onPictureTapped,
+                                child: SizedBox(
+                                    height: Get.height,
+                                    child: _buildImage(images![0]['url'], Colors.transparent)),
+                              )),
+                          SizedBox(width: 2),
+                          Expanded(child: GestureDetector(
+                            onTap: onPictureTapped,
+                            child: SizedBox(
+                                height: Get.height,
+                                child: _buildImage(images![1]['url'], Colors.transparent)),
+                          )),
 
-                                        },
-                                      )
-                                    ],
-                                    Spacer(),
-                                    if(index < images!.length-1)...[
-                                      GestureDetector(
-                                        child: Icon(Icons.arrow_forward_ios_outlined, color: Colors.white,),
-                                        onTap: (){
-                                          imageScrollController!.jumpTo(imageScrollController!.position.pixels + Get.width);
-                                        },
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                              ),
-                            )
+                        ],
+                      )
+                          :images!.length == 3?
+                      Row(
+                        children: [
+                          Expanded(
+                              child: GestureDetector(
+                                onTap: onPictureTapped,
+                                child: SizedBox(
+                                    height: Get.height,
+                                    child: _buildImage(images![0]['url'], Colors.transparent)),
+                              )),
+                          SizedBox(width: 2),
+                          Expanded(child: GestureDetector(
+                            onTap: onPictureTapped,
+                            child: SizedBox(
+                                height: Get.height,
+                                child: _buildImage(images![1]['url'], Colors.transparent)),
+                          )),
+                          SizedBox(width: 2),
+                          Expanded(child: GestureDetector(
+                            onTap: onPictureTapped,
+                            child: SizedBox(
+                                height: Get.height,
+                                child: _buildImage(images![2]['url'], Colors.transparent)),
+                          )),
+                        ],
+                      ):
+                      Row(
+                        children: [
+                          Expanded(
+                              child: GestureDetector(
+                                onTap: onPictureTapped,
+                                child: SizedBox(
+                                    height: Get.height,
+                                    child: _buildImage(images![0]['url'], Colors.transparent)),
+                              )),
+                          SizedBox(width: 2),
+                          Expanded(child: GestureDetector(
+                            onTap: onPictureTapped,
+                            child: SizedBox(
+                                height: Get.height,
+                                child: _buildImage(images![1]['url'], Colors.transparent)),
+                          )),
+                          SizedBox(width: 2),
+                          Expanded(child: GestureDetector(
+                            onTap: onPictureTapped,
+                            child: SizedBox(
+                                height: Get.height,
+                                child: _buildImage(images![2]['url'], Colors.transparent)),
+                          )),
+                          images!.length > 4?
+                          Expanded(
+                              child: GestureDetector(
+                                onTap: () => onPictureTapped,
+                                child: SizedBox(
+                                  height: Get.height,
+                                    child: _buildMoreOverlay(images![3]['url'], images!.length - 4)),
+                              ))
+                              :Expanded(
+                              child: GestureDetector(
+                                onTap: onPictureTapped,
+                                child: SizedBox(
+                                  height: Get.height,
+                                    child: _buildImage(images![3]['url'], Colors.transparent)),
+                              )),
+                        ],
+                      )
 
-
-
-                          ],
-                        );
-
-                      },
-                    ),
                   )
+
+
+
+                  //The code belows allows to display images exactly like on LinkedIn and Facebook
+
+                  // SizedBox(
+                  //     height: 375,
+                  //     child: images!.length == 2?
+                  //     Row(
+                  //       children: [
+                  //         Expanded(
+                  //             child: GestureDetector(
+                  //               onTap: onPictureTapped,
+                  //               child: SizedBox(
+                  //               height: Get.height,
+                  //               child: _buildImage(images![0]['url'],  Colors.transparent)),
+                  //             )),
+                  //         SizedBox(width: 2),
+                  //         Expanded(child: GestureDetector(
+                  //           onTap: onPictureTapped,
+                  //           child: SizedBox(
+                  //               height: Get.height,
+                  //               child: _buildImage(images![1]['url'],  Colors.transparent)),
+                  //         )),
+                  //       ],
+                  //     )
+                  //         :images!.length == 3?
+                  //     Column(
+                  //       children: [
+                  //         Expanded(child:
+                  //         SizedBox(
+                  //             width: Get.width,
+                  //             height: Get.height*3/4,
+                  //             child: _buildImage(images![0]['url'],  Colors.transparent))),
+                  //         SizedBox(height: 2),
+                  //         Row(
+                  //           children: [
+                  //             Expanded(
+                  //                 child: SizedBox(
+                  //                   height: Get.height/5,
+                  //                     child: _buildImage(images![1]['url'],  Colors.transparent))),
+                  //             SizedBox(width: 2),
+                  //             Expanded(child: SizedBox(
+                  //                 height: Get.height/5,
+                  //                 child: _buildImage(images![2]['url'],  Colors.transparent))),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ):Column(
+                  //       children: [
+                  //         Expanded(child: SizedBox(
+                  //             width: Get.width,
+                  //             height: Get.height*3/4,
+                  //             child: _buildImage(images![0]['url'], Colors.transparent))),
+                  //         SizedBox(height: 2),
+                  //         Row(
+                  //           children: [
+                  //             Expanded(
+                  //                 child: GestureDetector(
+                  //                   onTap: () => onPictureTapped,
+                  //                   child: SizedBox(
+                  //                     height: Get.height/5,
+                  //                       child: _buildImage(images![1]['url'],  Colors.transparent)),
+                  //                 )),
+                  //             SizedBox(width: 2),
+                  //             Expanded(child:
+                  //             GestureDetector(
+                  //               onTap: () => onPictureTapped,
+                  //               child: SizedBox(
+                  //                 height: Get.height/5,
+                  //                   child: _buildImage(images![2]['url'],  Colors.transparent)),
+                  //             )),
+                  //             SizedBox(width: 2),
+                  //             images!.length > 4?
+                  //             Expanded(child: _buildMoreOverlay(images![3]['url'], images!.length - 4))
+                  //                 :Expanded(
+                  //                 child: SizedBox(
+                  //                   height: Get.height/5,
+                  //                     child: _buildImage(images![3]['url'],  Colors.transparent))),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     )
+                  //
+                  // )
                 ]
 
                 ,
@@ -340,7 +447,7 @@ class PostCardWidget extends StatelessWidget {
                     child: Column(
                       children:  [
                         likeWidget!,
-                         Text(AppLocalizations.of(context).like_verb)
+                        Text(AppLocalizations.of(context).like_verb)
                       ],
                     ),
                   ),
@@ -380,6 +487,69 @@ class PostCardWidget extends StatelessWidget {
 
             ]
         ).paddingSymmetric( vertical: 10)
+    );
+  }
+
+
+
+  Widget _buildImage(String imageUrl, Color color) {
+    return GestureDetector(
+      onTap: onPictureTapped,
+      child: ClipRRect(
+        //borderRadius: BorderRadius.circular(8.0),
+        child: Image.network(
+          imageUrl,
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset(
+                "assets/images/loading.gif",
+                width: 40,
+                height: 40,
+                fit: BoxFit.fitWidth);
+          },
+          fit: BoxFit.cover,
+          color: color==Colors.transparent?null:color.withOpacity(0.5),
+          colorBlendMode: BlendMode.hardLight,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMoreOverlay(String imageUrl, int remainingCount) {
+    return SizedBox(
+      height: Get.height/5,
+      child: GestureDetector(
+        onTap: onPictureTapped,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            _buildImage(imageUrl, Colors.black87),
+            Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '+$remainingCount',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'more',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                  ],
+                )
+            ),
+          ],
+        ),
+      ),
     );
   }
 

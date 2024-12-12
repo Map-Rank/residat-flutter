@@ -211,6 +211,15 @@ class MockCommunityRepository extends _i1.Mock
       ) as _i5.Future<dynamic>);
 
   @override
+  _i5.Future<dynamic> getPostsByZone(int? zone_id) => (super.noSuchMethod(
+        Invocation.method(
+          #getPostsByZone,
+          [zone_id],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
   _i5.Future<dynamic> filterPostsByZone(
     int? page,
     int? zoneId,
@@ -349,9 +358,28 @@ class MockUserRepository extends _i1.Mock implements _i8.UserRepository {
       ) as _i5.Future<dynamic>);
 
   @override
+  _i5.Future<dynamic> checkTokenValidity(String? token) => (super.noSuchMethod(
+        Invocation.method(
+          #checkTokenValidity,
+          [token],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
   _i5.Future<dynamic> register(_i4.UserModel? user) => (super.noSuchMethod(
         Invocation.method(
           #register,
+          [user],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> registerInstitution(_i4.UserModel? user) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #registerInstitution,
           [user],
         ),
         returnValue: _i5.Future<dynamic>.value(),
@@ -362,6 +390,15 @@ class MockUserRepository extends _i1.Mock implements _i8.UserRepository {
         Invocation.method(
           #getUser,
           [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> getAnotherUserProfile(int? userId) => (super.noSuchMethod(
+        Invocation.method(
+          #getAnotherUserProfile,
+          [userId],
         ),
         returnValue: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);
@@ -431,6 +468,25 @@ class MockZoneRepository extends _i1.Mock implements _i10.ZoneRepository {
   }
 
   @override
+  _i5.Future<dynamic> getCameroonGeoJson() => (super.noSuchMethod(
+        Invocation.method(
+          #getCameroonGeoJson,
+          [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> getSpecificZoneGeoJson(String? url) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpecificZoneGeoJson,
+          [url],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
   _i5.Future<dynamic> getAllRegions(
     int? levelId,
     int? parentId,
@@ -483,6 +539,34 @@ class MockZoneRepository extends _i1.Mock implements _i10.ZoneRepository {
         Invocation.method(
           #getSpecificZone,
           [zoneId],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> getSpecificZoneByName(String? name) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpecificZoneByName,
+          [name],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> getAllZonesFilterByName() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllZonesFilterByName,
+          [],
+        ),
+        returnValue: _i5.Future<dynamic>.value(),
+      ) as _i5.Future<dynamic>);
+
+  @override
+  _i5.Future<dynamic> getDisastersMarkers() => (super.noSuchMethod(
+        Invocation.method(
+          #getDisastersMarkers,
+          [],
         ),
         returnValue: _i5.Future<dynamic>.value(),
       ) as _i5.Future<dynamic>);

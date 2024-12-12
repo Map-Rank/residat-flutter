@@ -29,8 +29,13 @@ class DashboardController extends GetxController {
   var cancelSearchSubDivision = false.obs;
   RxDouble defaultLat = 7.3696495.obs;
   RxDouble defaultLng = 12.3445856.obs;
+
+  RxDouble locationLat = 7.3696495.obs;
+  RxDouble locationLng = 12.3445856.obs;
+  var  locationName = ''.obs;
   late String cameroonGeoJson;
   late String regionGeoJson;
+  late String divisionGeoJson;
   List<Marker> markers = [];
 
   Rx<GeoJsonParser> hydroMapGeoJsonParser = GeoJsonParser(
@@ -43,22 +48,31 @@ class DashboardController extends GetxController {
   Rx<GeoJsonParser> regionGeoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.black,
     defaultPolygonBorderColor: Colors.black,
-    defaultPolygonFillColor: Colors.blue.withOpacity(0.1),
+    defaultPolygonFillColor: Colors.transparent,
     defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
   ).obs;
 
   Rx<GeoJsonParser> divisionGeoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.black,
     defaultPolygonBorderColor: Colors.black,
-    defaultPolygonFillColor: Colors.blue.withOpacity(0.1),
+    defaultPolygonFillColor: Colors.blue.withOpacity(0.2),
     defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
   ).obs;
 
   Rx<GeoJsonParser> subDivisionGeoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.red,
     defaultPolygonBorderColor: Colors.red,
-    defaultPolygonFillColor: Colors.blue.withOpacity(0.1),
+    defaultPolygonFillColor: Colors.blue.withOpacity(0.3),
     defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
+
+  ).obs;
+
+  Rx<GeoJsonParser> locationGeoJsonParser = GeoJsonParser(
+    defaultMarkerColor: Colors.red,
+    defaultPolygonBorderColor: Colors.orange,
+    defaultPolygonFillColor: Colors.orange.withOpacity(0.4),
+    defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
+
   ).obs;
 
   List<Map<String, dynamic>> zones = [];
@@ -79,6 +93,7 @@ class DashboardController extends GetxController {
   var loadingHydroMapGeoJson = true.obs;
   var loadingDivisionGeoJson = true.obs;
   var loadingSubDivisionGeoJson = true.obs;
+  var loadingLocationGeoJson = true.obs;
   var loadingDisastersMarkers = true.obs;
 
   var loadingCameroonCheckBox = false.obs;
@@ -109,6 +124,12 @@ class DashboardController extends GetxController {
 
     var zone = await getSpecificZoneByName("Cameroun");
     var listPosts = await getPostsByZone(zone);
+
+    loadingCameroonCheckBox.value = true;
+    await getCameroonGeoJson().then((_) {
+        processData();
+        loadingCameroonGeoJson.value = true;
+      });
 
     listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>();
     postsZoneStatistics.value = listPostsZoneStatistics;
@@ -147,10 +168,14 @@ class DashboardController extends GetxController {
 
   getSpecificZoneByName(String name) async {
     var zone_name = name;
+    locationName.value = name;
     try {
-      if(name.contains("-") && name != 'FAR-NORTH'){
-        zone_name = name.replaceAll("-", " ");
-      }
+      // if(name.contains("-") && name != 'FAR-NORTH'){
+      //   zone_name = name.replaceAll("-", " ");
+      // }
+      // if(name.contains("-") && name != 'FAR-NORTH'){
+      //   zone_name = name.replaceAll("-", " ");
+      // }
 
       var result = await zoneRepository.getSpecificZoneByName(zone_name.toUpperCase());
       return result;
@@ -167,7 +192,7 @@ class DashboardController extends GetxController {
       var result = await zoneRepository.getDisastersMarkers();
       for(var disaster in result){
         if(disaster["type"].toUpperCase()  == "FLOOD"){
-          markers.add(Marker(point: LatLng(disaster["latitude"], disaster["longitude"]), child: Icon(Icons.location_on, color: Colors.blue,)));
+          markers.add(Marker(point: LatLng(disaster["latitude"], disaster["longitude"]), child: Icon(Icons.notifications, color: Colors.red,)));
         }
 
       }
@@ -223,6 +248,10 @@ class DashboardController extends GetxController {
     subDivisionGeoJsonParser.value.parseGeoJsonAsString(geoJson);
   }
 
+  processLocationGeoJson(String geoJson){
+    locationGeoJsonParser.value.parseGeoJsonAsString(geoJson);
+  }
+
   Future<void> processData() async {
     // parse a small test geoJson
     // normally one would use http to access geojson on web and this is
@@ -256,12 +285,36 @@ class DashboardController extends GetxController {
     print('zone: $zone');
     if(!zone.isEmpty){
       getSpecificZoneGeoJson(zone[0]['geojson']).then((data) {
+        divisionGeoJson = data;
         processSubDivisionGeoJson(data);
         loadingSubDivisionGeoJson.value = true;
       });
     }
     else{
       loadingSubDivisionGeoJson.value = true;
+    }
+    var listPosts = await getPostsByZone(zone);
+
+    listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>();
+    postsZoneStatistics.value = listPostsZoneStatistics;
+
+
+
+  }
+
+  displayLocation(LatLng point) async {
+    var name = await isPointInAnyPolygon(point, subDivisionGeoJsonParser.value.polygons, jsonDecode(divisionGeoJson)["features"]);
+    print('Name is again: $name');
+    var zone = await getSpecificZoneByName(name);
+    print('zone: $zone');
+    if(!zone.isEmpty){
+      getSpecificZoneGeoJson(zone[0]['geojson']).then((data) {
+        processLocationGeoJson(data);
+        loadingLocationGeoJson.value = true;
+      });
+    }
+    else{
+      loadingLocationGeoJson.value = true;
     }
     var listPosts = await getPostsByZone(zone);
 
@@ -317,6 +370,7 @@ class DashboardController extends GetxController {
       //for (var geoPolygon in feature['geometry']['coordinates'][0]) {
         if (_isPolygonEqual(feature['geometry']['coordinates'][0], polygon)) {
           var name = feature['properties']['name'];
+          print('see: ${feature['properties']}');
           return name; // Polygon matches one in GeoJSON
         }
      // }

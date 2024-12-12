@@ -6,6 +6,7 @@ import 'package:mapnrank/app/modules/auth/views/welcome_institutonal_user_view.d
 import 'package:mapnrank/app/modules/community/views/create_post.dart';
 import 'package:mapnrank/app/modules/events/views/create_event.dart';
 import 'package:mapnrank/app/modules/events/views/event_details_view.dart';
+import 'package:mapnrank/app/modules/notifications/views/institutional_create_message.dart';
 import 'package:mapnrank/app/modules/other_user_profile/binding/other_user_profile_binding.dart';
 import 'package:mapnrank/app/modules/other_user_profile/views/other_user_profile_view.dart';
 import 'package:mapnrank/app/modules/profile/views/events_view.dart';
@@ -20,6 +21,7 @@ import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/forgot_password_view.dart';
 import '../modules/community/views/comment_view.dart';
 import '../modules/community/views/details_view.dart';
+import '../modules/notifications/bindings/notification_binding.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/account_view.dart';
 import '../modules/profile/views/articles_view.dart';
@@ -39,6 +41,7 @@ class Theme1AppPages {
     GetPage(name: Routes.FORGOT_PASSWORD, page: () => ForgotPasswordView(), binding: AuthBinding(), transition: Transition.zoom),
     GetPage(name: Routes.REGISTER, page: () => RegisterView(), binding: AuthBinding(), transition: Transition.zoom),
     GetPage(name: Routes.INSTITUTIONAL_USER, page: () => InstitutionalUserView(), binding: AuthBinding(), transition: Transition.zoom),
+    GetPage(name: Routes.INSTITUTION_CREATE_MESSAGE, page: () => InstitutionCreateMessage(), binding: NotificationBinding(), transition: Transition.zoom),
     GetPage(name: Routes.WELCOME_INSTITUTIONAL_USER, page: () => WelcomeInstitutionalUserView(), binding: AuthBinding(), transition: Transition.zoom),
     GetPage(name: Routes.ROOT, page: () => const RootView(), binding: RootBinding(), transition: Transition.zoom ),
     GetPage(name: Routes.CREATE_POST, page: () => const CreatePostView(), transition: Transition.downToUp ),

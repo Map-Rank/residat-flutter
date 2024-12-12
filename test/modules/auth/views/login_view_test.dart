@@ -44,6 +44,10 @@ class MockAuthController extends GetxController with Mock implements AuthControl
   late final MockAuthService authService;
   var loginWithPhoneNumber = false.obs;
   var loginOrRegister = false.obs;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  var emailFocus = false;
+  var phoneFocus = false;
 
 
   @override

@@ -19,6 +19,9 @@ class MockCommunityController extends GetxController with Mock implements Commun
   var loadingSectors = false.obs;
 
   @override
+  var filterBySector = false.obs;
+
+  @override
   var selectedIndex = 0.obs;
 
   @override

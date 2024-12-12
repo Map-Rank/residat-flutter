@@ -1,12 +1,11 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mapnrank/app/models/event_model.dart';
-import 'package:mapnrank/app/models/feedback_model.dart';
 import 'package:mapnrank/app/models/post_model.dart';
 import 'package:mapnrank/app/modules/auth/controllers/auth_controller.dart';
+import 'package:mapnrank/app/modules/community/controllers/community_controller.dart';
 import 'package:mapnrank/app/modules/profile/controllers/profile_controller.dart';
 import 'package:mapnrank/app/services/auth_service.dart';
 import 'package:mockito/annotations.dart';
@@ -277,6 +276,55 @@ void main() {
 
     // Assert
     verifyNever(mockUserRepository.sendFeedback(any));
+  });
+
+  group('initializePostDetails', () {
+    test('should initialize post details successfully', () {
+      Get.lazyPut(()=>CommunityController());
+      final post = Post(
+        content: 'Sample Content',
+        zone: 'Sample Zone',
+        postId: 1,
+        commentCount: RxInt(5),
+        likeCount: RxInt(0),
+        shareCount: RxInt(0),
+        publishedDate: DateTime.now().toString(),
+        imagesUrl: ['image1.jpg', 'image2.jpg'],
+        user: UserModel(userId: 1, firstName: "User Name"),
+        liked: true,
+        likeTapped: RxBool(false),
+        isFollowing: RxBool(true),
+        commentList: [],
+        sectors: ['Sector1'],
+        zonePostId: 101,
+        zoneLevelId: 1,
+        zoneParentId: 0,
+      );
+
+      ProfileController().initializeMyPostDetails(post);
+
+      expect(Get.find<CommunityController>().postDetails.value.content, post.content);
+      expect(Get.find<CommunityController>().postDetails.value.zone, post.zone);
+      expect(Get.find<CommunityController>().postDetails.value.postId, post.postId);
+      expect(Get.find<CommunityController>().postDetails.value.commentCount, post.commentCount);
+      expect(Get.find<CommunityController>().postDetails.value.likeCount, post.likeCount);
+      expect(Get.find<CommunityController>().postDetails.value.shareCount, post.shareCount);
+      expect(Get.find<CommunityController>().postDetails.value.publishedDate, post.publishedDate);
+      expect(Get.find<CommunityController>().postDetails.value.imagesUrl, post.imagesUrl);
+      expect(Get.find<CommunityController>().postDetails.value.user, post.user);
+      expect(Get.find<CommunityController>().postDetails.value.liked, post.liked);
+      expect(Get.find<CommunityController>().postDetails.value.likeTapped, post.likeTapped);
+      expect(Get.find<CommunityController>().postDetails.value.isFollowing, post.isFollowing);
+      expect(Get.find<CommunityController>().postDetails.value.commentList, post.commentList);
+      expect(Get.find<CommunityController>().postDetails.value.sectors, post.sectors);
+      expect(Get.find<CommunityController>().postDetails.value.zonePostId, post.zonePostId);
+      expect(Get.find<CommunityController>().postDetails.value.zoneLevelId, post.zoneLevelId);
+      expect(Get.find<CommunityController>().postDetails.value.zoneParentId, post.zoneParentId);
+      expect(Get.find<CommunityController>().likeCount?.value, post.likeCount?.value);
+      expect(Get.find<CommunityController>().shareCount?.value, post.shareCount?.value);
+    });
+
+
   });
 
 

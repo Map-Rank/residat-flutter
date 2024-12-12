@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -46,6 +47,8 @@ class MockAppLocalizations extends Mock implements AppLocalizations {}
 class MockBuildContext extends Mock implements BuildContext {}
 class MockUi extends Mock implements Ui {}
 class MockImage extends Mock implements Im.Image {}
+// Mock Timer class
+class MockTimer extends Mock implements Timer {}
 
 
 @GenerateMocks([
@@ -504,6 +507,87 @@ void main() {
 
   });
 
+  test('RegisterInstitution method success', () async {
+    // Set up the initial state
+    final user = UserModel(
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane.doe@example.com',
+      phoneNumber: '9876543210',
+      gender: 'female',
+      userId: 2,
+      birthdate: '1995-02-15',
+      authToken: 'auth456',
+      zoneId: 'est',
+      password: null,
+      avatarUrl: 'https://example.com/avatar2.jpg',
+      myPosts: [],
+
+    ); // Assuming a User class exists
+    authController.currentUser.value = user;
+
+    // Mock the register method to return a user
+    when(mockUserRepository.registerInstitution(any))
+        .thenAnswer((_) async => user);
+
+    // Mock AuthService and RootController behaviors
+    when(mockAuthService.user).thenReturn(UserModel(
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane.doe@example.com',
+      phoneNumber: '9876543210',
+      gender: 'female',
+      userId: 2,
+      birthdate: '1995-02-15',
+      authToken: 'auth456',
+      zoneId: 'est',
+      password: null,
+      avatarUrl: 'https://example.com/avatar2.jpg',
+      myPosts: [],
+
+    ).obs);
+    when(mockRootController.changePage(0)).thenAnswer((_) async => {});
+
+    // Call the register method
+    await authController.registerInstitution();
+
+    // Verify that the register method was called
+    verify(mockUserRepository.registerInstitution(user)).called(1);
+    // Verify that the user is set in AuthService
+    expect(mockAuthService.user.value, equals(user));
+
+  });
+
+  test('RegisterInstitution method failure', () async {
+    // Set up the initial state
+    final user = UserModel(
+      firstName: 'Jane',
+      lastName: 'Doe',
+      email: 'jane.doe@example.com',
+      phoneNumber: '9876543210',
+      gender: 'female',
+      userId: 2,
+      birthdate: '1995-02-15',
+      authToken: 'auth456',
+      zoneId: 'est',
+      password: null,
+      avatarUrl: 'https://example.com/avatar2.jpg',
+      myPosts: [],
+    ); // Assuming a User class exists
+    authController.currentUser.value = user;
+
+    // Mock the register method to throw an exception
+    when(mockUserRepository.registerInstitution(any)).thenThrow(Exception('Registration failed'));
+
+    // Call the register method
+    authController.registerInstitution();
+
+    // Verify that the register method was called
+    verify(mockUserRepository.registerInstitution(user)).called(1);
+    // Verify that the error snackbar was shown
+
+  });
+
   test('getAllSectors() should return data from sectorRepository', () async {
     // Arrange: Mock the getAllSectors response
     final mockSectorsResponse = {
@@ -746,6 +830,7 @@ void main() {
 
   });
 
+
   // test('profileImagePicker from camera', () async {
   //
   //   // Get a temporary directory
@@ -906,9 +991,11 @@ void main() {
 // });
 
 
+
   tearDown(() {
     Get.reset();
   });
+
 
 
 

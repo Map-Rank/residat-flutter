@@ -118,8 +118,9 @@ class RootController extends GetxController {
   }
 
   void getNotificationsCount() async {
+    var list = [];
     var count = 0;
-    var list = await _notificationController.getNotifications();
+    list =  await _notificationController.getNotifications()??[];
     for(int i =0; i<list.length; i++ ){
 
           count = count +1;

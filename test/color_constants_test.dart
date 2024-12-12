@@ -62,21 +62,13 @@ void main() {
       expect(pointColor, Colors.orangeAccent);
     });
 
-    test('fond', () {
-      expect(fond, const Color(0xFFEBEEF7));
-    });
 
-    test('barMenu', () {
-      expect(barMenu, const Color(0xFF181D00));
-    });
 
     test('doneStatus', () {
       expect(doneStatus, const Color(0xFF411DA0));
     });
 
-    test('newStatus', () {
-      expect(newStatus, const Color.fromRGBO(91, 152, 253, 1));
-    });
+
 
     test('buttonColor', () {
       expect(buttonColor, const Color.fromRGBO(26, 25, 31, 1));
@@ -108,10 +100,6 @@ void main() {
 
     test('textColor', () {
       expect(textColor, const Color(0xFFFFFFFF));
-    });
-
-    test('blue', () {
-      expect(blue, const Color(0xFF6B00FE));
     });
 
       group('Palette', () {

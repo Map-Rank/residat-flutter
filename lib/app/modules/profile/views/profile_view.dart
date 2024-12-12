@@ -26,6 +26,7 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: Helper().onWillPop,
       child: Scaffold(
@@ -189,7 +190,7 @@ class ProfileView extends GetView<ProfileController> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      '0',
+                                      "${controller.currentUser.value.followerCount??0} / ${controller.currentUser.value.followingCount??0} ",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0),
@@ -197,7 +198,7 @@ class ProfileView extends GetView<ProfileController> {
                                     Padding(
                                       padding: EdgeInsets.only(top: 8.0),
                                       child: Text(
-                                        AppLocalizations.of(context).followers_count,
+                                        "${AppLocalizations.of(context).followers_count} / ${AppLocalizations.of(context).following}",
                                         style: TextStyle(
                                             color: Colors.grey,
                                             fontSize: 14.0),
