@@ -1,4 +1,4 @@
-// coverage:ignore-file
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
@@ -18,19 +18,20 @@ import '../../../repositories/zone_repository.dart';
 import '../../../services/auth_service.dart';
 import 'package:latlong2/latlong.dart';
 
-
-
-
 class DashboardController extends GetxController {
-  late WebViewController webViewController;
   final Rx<UserModel> currentUser = Get
       .find<AuthService>()
       .user;
   var cancelSearchSubDivision = false.obs;
   RxDouble defaultLat = 7.3696495.obs;
   RxDouble defaultLng = 12.3445856.obs;
+
+  RxDouble locationLat = 7.3696495.obs;
+  RxDouble locationLng = 12.3445856.obs;
+  var  locationName = ''.obs;
   late String cameroonGeoJson;
   late String regionGeoJson;
+  late String divisionGeoJson;
   List<Marker> markers = [];
 
   Rx<GeoJsonParser> hydroMapGeoJsonParser = GeoJsonParser(
@@ -43,22 +44,31 @@ class DashboardController extends GetxController {
   Rx<GeoJsonParser> regionGeoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.black,
     defaultPolygonBorderColor: Colors.black,
-    defaultPolygonFillColor: Colors.blue.withOpacity(0.1),
+    defaultPolygonFillColor: Colors.transparent,
     defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
   ).obs;
 
   Rx<GeoJsonParser> divisionGeoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.black,
     defaultPolygonBorderColor: Colors.black,
-    defaultPolygonFillColor: Colors.blue.withOpacity(0.1),
+    defaultPolygonFillColor: Colors.blue.withOpacity(0.2),
     defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
   ).obs;
 
   Rx<GeoJsonParser> subDivisionGeoJsonParser = GeoJsonParser(
     defaultMarkerColor: Colors.red,
     defaultPolygonBorderColor: Colors.red,
-    defaultPolygonFillColor: Colors.blue.withOpacity(0.1),
+    defaultPolygonFillColor: Colors.blue.withOpacity(0.3),
     defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
+
+  ).obs;
+
+  Rx<GeoJsonParser> locationGeoJsonParser = GeoJsonParser(
+    defaultMarkerColor: Colors.red,
+    defaultPolygonBorderColor: Colors.orange,
+    defaultPolygonFillColor: Colors.orange.withOpacity(0.4),
+    defaultCircleMarkerColor: Colors.red.withOpacity(0.25),
+
   ).obs;
 
   List<Map<String, dynamic>> zones = [];
@@ -79,6 +89,7 @@ class DashboardController extends GetxController {
   var loadingHydroMapGeoJson = true.obs;
   var loadingDivisionGeoJson = true.obs;
   var loadingSubDivisionGeoJson = true.obs;
+  var loadingLocationGeoJson = true.obs;
   var loadingDisastersMarkers = true.obs;
 
   var loadingCameroonCheckBox = false.obs;
@@ -102,15 +113,21 @@ class DashboardController extends GetxController {
     sectorRepository = SectorRepository();
     communityRepository = CommunityRepository();
 
-    var listZones = await getAllZonesFilterByName();
+    var listZones = await getAllZonesFilterByName()??[];
 
-    listAllZones = listZones.cast<Map<String, dynamic>>();
+    listAllZones = listZones.cast<Map<String, dynamic>>()??[];
     zones = listAllZones;
 
     var zone = await getSpecificZoneByName("Cameroun");
-    var listPosts = await getPostsByZone(zone);
+    var listPosts = await getPostsByZone(zone)??[];
 
-    listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>();
+    loadingCameroonCheckBox.value = true;
+    await getCameroonGeoJson().then((_) {
+        processData();
+        loadingCameroonGeoJson.value = true;
+      });
+
+    listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>()??[];
     postsZoneStatistics.value = listPostsZoneStatistics;
     print('PostZone Statistics: $postsZoneStatistics');
     super.onInit();
@@ -144,13 +161,16 @@ class DashboardController extends GetxController {
       }
     }
   }
-
   getSpecificZoneByName(String name) async {
     var zone_name = name;
+    locationName.value = name;
     try {
-      if(name.contains("-") && name != 'FAR-NORTH'){
-        zone_name = name.replaceAll("-", " ");
-      }
+      // if(name.contains("-") && name != 'FAR-NORTH'){
+      //   zone_name = name.replaceAll("-", " ");
+      // }
+      // if(name.contains("-") && name != 'FAR-NORTH'){
+      //   zone_name = name.replaceAll("-", " ");
+      // }
 
       var result = await zoneRepository.getSpecificZoneByName(zone_name.toUpperCase());
       return result;
@@ -167,7 +187,7 @@ class DashboardController extends GetxController {
       var result = await zoneRepository.getDisastersMarkers();
       for(var disaster in result){
         if(disaster["type"].toUpperCase()  == "FLOOD"){
-          markers.add(Marker(point: LatLng(disaster["latitude"], disaster["longitude"]), child: Icon(Icons.location_on, color: Colors.blue,)));
+          markers.add(Marker(point: LatLng(disaster["latitude"], disaster["longitude"]), child: Icon(Icons.notifications, color: Colors.red,)));
         }
 
       }
@@ -199,7 +219,7 @@ class DashboardController extends GetxController {
 
   getSpecificZoneGeoJson(String url) async {
     try {
-      var result = await zoneRepository.getSpecificZoneGeoJson(url);
+      var result = await zoneRepository.getSpecificZoneGeoJson(url)??'';
       var geoJson = '''${result}''';
 
       return geoJson;
@@ -223,6 +243,10 @@ class DashboardController extends GetxController {
     subDivisionGeoJsonParser.value.parseGeoJsonAsString(geoJson);
   }
 
+  processLocationGeoJson(String geoJson){
+    locationGeoJsonParser.value.parseGeoJsonAsString(geoJson);
+  }
+
   Future<void> processData() async {
     // parse a small test geoJson
     // normally one would use http to access geojson on web and this is
@@ -232,18 +256,19 @@ class DashboardController extends GetxController {
 
 
   displayDivisions(LatLng point) async {
+    print(jsonDecode(cameroonGeoJson)["features"]);
     var name = await isPointInAnyPolygon(point, regionGeoJsonParser.value.polygons, jsonDecode(cameroonGeoJson)["features"]);
     print('Name is: $name');
-    var zone = await getSpecificZoneByName(name);
+    var zone = await getSpecificZoneByName(name.toString())??[{'geojson':''}];
     getSpecificZoneGeoJson(zone[0]['geojson']).then((data) {
-      regionGeoJson = data;
-      processDivisionGeoJson(data);
+      regionGeoJson = data??'';
+      processDivisionGeoJson(data??'');
       loadingDivisionGeoJson.value = true;
     });
 
     var listPosts = await getPostsByZone(zone);
 
-    listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>();
+    listPostsZoneStatistics = listPosts??[].cast<Map<String, dynamic>>();
     postsZoneStatistics.value = listPostsZoneStatistics;
 
 
@@ -256,6 +281,7 @@ class DashboardController extends GetxController {
     print('zone: $zone');
     if(!zone.isEmpty){
       getSpecificZoneGeoJson(zone[0]['geojson']).then((data) {
+        divisionGeoJson = data;
         processSubDivisionGeoJson(data);
         loadingSubDivisionGeoJson.value = true;
       });
@@ -272,10 +298,33 @@ class DashboardController extends GetxController {
 
   }
 
+  displayLocation(LatLng point) async {
+    var name = await isPointInAnyPolygon(point, subDivisionGeoJsonParser.value.polygons, jsonDecode(divisionGeoJson)["features"]);
+    print('Name is again: $name');
+    var zone = await getSpecificZoneByName(name);
+    print('zone: $zone');
+    if(!zone.isEmpty){
+      getSpecificZoneGeoJson(zone[0]['geojson']).then((data) {
+        processLocationGeoJson(data);
+        loadingLocationGeoJson.value = true;
+      });
+    }
+    else{
+      loadingLocationGeoJson.value = true;
+    }
+    var listPosts = await getPostsByZone(zone);
+
+    listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>();
+    postsZoneStatistics.value = listPostsZoneStatistics;
+
+
+
+  }
+
 
    isPointInAnyPolygon(LatLng point, List<Polygon<Object>> polygons, var features) async {
     for (Polygon<Object> polygon in polygons) {
-      if (_isPointInPolygon(point, polygon.points)) {
+      if (isPointInPolygon(point, polygon.points)) {
         var name = await isPolygonInGeoJSON(polygon,features);
         return name;
       }
@@ -283,7 +332,7 @@ class DashboardController extends GetxController {
     return false;
   }
 
-  bool _isPointInPolygon(LatLng point, List<LatLng> vertices) {
+  bool isPointInPolygon(LatLng point, List<LatLng> vertices) {
     int intersections = 0;
     int vertexCount = vertices.length;
 
@@ -291,7 +340,7 @@ class DashboardController extends GetxController {
       LatLng vertex1 = vertices[i];
       LatLng vertex2 = vertices[(i + 1) % vertexCount];
 
-      if (_isIntersecting(point, vertex1, vertex2)) {
+      if (isIntersecting(point, vertex1, vertex2)) {
         intersections++;
       }
     }
@@ -300,7 +349,7 @@ class DashboardController extends GetxController {
     return (intersections % 2) != 0;
   }
 
-  bool _isIntersecting(LatLng point, LatLng vertex1, LatLng vertex2) {
+  bool isIntersecting(LatLng point, LatLng vertex1, LatLng vertex2) {
     // Check if the ray intersects with the polygon edge.
     bool isIntersecting = ((vertex1.latitude > point.latitude) != (vertex2.latitude > point.latitude)) &&
         (point.longitude < (vertex2.longitude - vertex1.longitude) * (point.latitude - vertex1.latitude) /
@@ -315,8 +364,9 @@ class DashboardController extends GetxController {
    isPolygonInGeoJSON(Polygon<Object> polygon,  var features) async {
     for (var feature in features) {
       //for (var geoPolygon in feature['geometry']['coordinates'][0]) {
-        if (_isPolygonEqual(feature['geometry']['coordinates'][0], polygon)) {
+        if (isPolygonEqual(feature['geometry']['coordinates'][0], polygon)) {
           var name = feature['properties']['name'];
+
           return name; // Polygon matches one in GeoJSON
         }
      // }
@@ -326,7 +376,7 @@ class DashboardController extends GetxController {
   }
 
 // Helper function to check if two polygons are equal
-  bool _isPolygonEqual(var geoPolygon, Polygon<Object> polygon) {
+  bool isPolygonEqual(var geoPolygon, Polygon<Object> polygon) {
 
     final geoPoints = geoPolygon;
 
@@ -340,6 +390,8 @@ class DashboardController extends GetxController {
 
     return true;
   }
+
+
 
 }
 

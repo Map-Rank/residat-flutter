@@ -8,6 +8,8 @@ import 'package:mapnrank/app/modules/community/widgets/comment_widget.dart';
 import 'package:mapnrank/app/modules/global_widgets/post_card_widget_boilerplate.dart';
 import '../../../../color_constants.dart';
 import '../../../models/user_model.dart';
+import '../../../routes/app_routes.dart';
+import '../../../services/global_services.dart';
 import '../../global_widgets/post_card_widget.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -207,10 +209,32 @@ class CommentView extends GetView<CommunityController> {
                         return Container(
                           padding: EdgeInsets.only(left: 20, right: 20),
                           child: CommentWidget(
+                            userAvatar: GestureDetector(
+                              onTap: (){
+                                Get.toNamed(Routes.OTHER_USER_PROFILE, arguments: {'userId':controller.commentList[index]['user']['id']});
+                              },
+                              child: ClipOval(
+                                  child: FadeInImage(
+                                      width: 40,
+                                      height: 40,
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(controller.commentList[index]['user']['avatar'], headers: GlobalService.getTokenHeaders()),
+                                      placeholder: AssetImage(
+                                          "assets/images/loading.gif"),
+                                      imageErrorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.asset(
+                                            "assets/images/user_admin.png",
+                                            width: 50,
+                                            height: 50,
+                                            fit: BoxFit.fitWidth);
+                                      }
+                                  )
+                              ).marginOnly(right: 10),
+                            ),
                             user: '${controller.commentList[index]['user']['first_name'][0].toUpperCase()}${controller.commentList[index]['user']['first_name'].substring(1).toLowerCase()} '
                                 '${controller.commentList[index]['user']['last_name'][0].toUpperCase()}${controller.commentList[index]['user']['last_name'].substring(1).toLowerCase()}' ,
                             comment: controller.commentList[index]['text'],
-                            imageUrl: controller.commentList[index]['user']['avatar'],
                           ),
                         );
 

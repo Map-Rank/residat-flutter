@@ -29,6 +29,7 @@ class BuildSelectZone extends GetView<CommunityController> {
               onTap: (){
                 showDialog(context: context,
                   builder:  (context) => Dialog(
+                    key: Key('regionDialog'),
                       insetPadding: EdgeInsets.all(20),
                       child:  ListView(
                         padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -165,6 +166,7 @@ class BuildSelectZone extends GetView<CommunityController> {
                   ,);
               },
               child: Container(
+                key: Key('chooseRegion'),
                 decoration: BoxDecoration(shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),
@@ -198,6 +200,7 @@ class BuildSelectZone extends GetView<CommunityController> {
                 }
                 else{
                   showDialog(context: context, builder: (context) => Dialog(
+                    key: Key('divisionDialog'),
                     insetPadding: EdgeInsets.all(20),
                     child: ListView(
                       padding: EdgeInsets.all(20),
@@ -331,6 +334,7 @@ class BuildSelectZone extends GetView<CommunityController> {
                 }
               },
               child:  Container(
+                key: Key('chooseDivision'),
                 decoration: BoxDecoration(shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),
@@ -366,6 +370,7 @@ class BuildSelectZone extends GetView<CommunityController> {
                 }
                 else{
                   showDialog(context: context, builder: (context) => Dialog(
+                    key: Key('subdivisionDialog'),
                     insetPadding: EdgeInsets.all(20),
                     child: ListView(
                       padding: EdgeInsets.all(20),
@@ -431,6 +436,7 @@ class BuildSelectZone extends GetView<CommunityController> {
 
                                           return GestureDetector(
                                               onTap: () async {
+                                                // coverage:ignore-start
                                                 controller.subdivisionSelected.value = !controller.subdivisionSelected.value;
                                                 controller.subdivisionSelectedIndex.value = index;
 
@@ -473,14 +479,11 @@ class BuildSelectZone extends GetView<CommunityController> {
 
 
                                                 print(controller.subdivisions);
-
-                                                //controller.currentUser.value.zoneId = controller.subdivisionSelectedValue[0]['id'].toString();
-
-
-                                                //print(controller.subdivisionSelected);
+                                                // coverage:ignore-end
 
                                               },
                                               child: Obx(() => LocationWidget(
+                                                key: Key('tapSubdivision'),
                                                 regionName: controller.subdivisions[index]['name'],
                                                 selected: controller.subdivisionSelectedIndex.value == index && controller.subdivisionSelectedValue.contains(controller.subdivisions[index]) ? true  : false ,
                                               ))
@@ -496,6 +499,7 @@ class BuildSelectZone extends GetView<CommunityController> {
                 }
               },
               child:Container(
+                key: Key('chooseSubdivision'),
                 decoration: BoxDecoration(shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),

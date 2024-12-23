@@ -25,15 +25,7 @@ class LoginView extends GetView<AuthController> {
     return WillPopScope(
       onWillPop: Helper().onWillPop,
       child: Scaffold(
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-          toolbarHeight: 0,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.transparent,
-        ),
 
-        //extendBodyBehindAppBar: true,
         body: Stack(
           children: [
             Image.asset(
@@ -51,7 +43,7 @@ class LoginView extends GetView<AuthController> {
                   borderRadius: BorderRadius.circular(10)
                 ),
                 padding: EdgeInsets.symmetric( horizontal:  20),
-                margin: EdgeInsets.fromLTRB(5, 80, 5, 60),
+                margin: EdgeInsets.fromLTRB(5, 100, 5, 60),
                 child: Form(
                   key: controller.loginFormKey,
                   child: ListView(
@@ -63,7 +55,7 @@ class LoginView extends GetView<AuthController> {
                           'assets/images/logo.png',
                           //fit: BoxFit.cover,
                           width: 150,
-                          height: 100,
+                          height: 80,
 
                         ),
                       ),
@@ -146,6 +138,7 @@ class LoginView extends GetView<AuthController> {
                               key: null, suffixIcon: const Icon(null), suffix: Icon(null),
                             )
                                 :Column(
+                              key: Key('phoneWidget'),
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
@@ -264,6 +257,7 @@ class LoginView extends GetView<AuthController> {
                                 )
                             ).paddingSymmetric(vertical: 20, )
                                 :BlockButtonWidget(
+                              key: Key('loginSpinkit'),
                               onPressed: () async {
 
                               },

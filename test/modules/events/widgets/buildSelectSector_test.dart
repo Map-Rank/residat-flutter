@@ -23,6 +23,9 @@ class MockEventsController extends GetxController with Mock implements EventsCon
   var sectorsSelected = <Map<String, dynamic>>[].obs;
 
   @override
+  var filterBySector = false.obs;
+
+  @override
   var noFilter = false.obs;
 
   @override

@@ -138,4 +138,96 @@ void main() {
 
   });
 
+  testWidgets('choose region button shows dialog when tapped',
+          (WidgetTester tester) async {
+            // Arrange
+            // Initialize Get and the mock controller
+            Get.lazyPut(()=>CommunityController());
+            Get.lazyPut(()=>AuthService());
+            Get.lazyPut(()=>LaravelApiClient(dio: Dio()));
+            final mockController = MockCommunityController();
+            Get.lazyPut(()=>MockCommunityController());
+        // Arrange
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: CreatePostView(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              // ... other localization delegates
+            ],
+            locale: const Locale('en'), // S
+          ),
+        );
+
+        // Act
+        await tester.tap(find.byKey(Key('chooseRegion')));
+        await tester.pumpAndSettle();
+
+        // Assert
+        expect(find.byKey(Key('regionDialog')), findsOneWidget);
+      });
+
+  testWidgets('choose division button shows dialog when tapped',
+          (WidgetTester tester) async {
+        // Arrange
+        // Initialize Get and the mock controller
+           // CommunityController().regionSelectedValue.value = [{'zone':2}];
+
+        Get.lazyPut(()=>CommunityController());
+        Get.lazyPut(()=>AuthService());
+        Get.lazyPut(()=>LaravelApiClient(dio: Dio()));
+        final mockController = MockCommunityController();
+        Get.lazyPut(()=>MockCommunityController());
+        // Arrange
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: CreatePostView(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              // ... other localization delegates
+            ],
+            locale: const Locale('en'), // S
+          ),
+        );
+
+        // Act
+        await tester.tap(find.byKey(Key('chooseDivision')));
+        await tester.pumpAndSettle();
+
+        // Assert
+        //expect(find.byKey(Key('divisionDialog')), findsOneWidget);
+      });
+
+  testWidgets('choose subdivision button shows dialog when tapped',
+          (WidgetTester tester) async {
+        // Arrange
+        // Initialize Get and the mock controller
+        Get.lazyPut(()=>CommunityController());
+        Get.lazyPut(()=>AuthService());
+        Get.lazyPut(()=>LaravelApiClient(dio: Dio()));
+        final mockController = MockCommunityController();
+        Get.lazyPut(()=>MockCommunityController());
+
+        CommunityController().regionSelectedValue = [{'zone': 1}].obs;
+        // Arrange
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: CreatePostView(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              // ... other localization delegates
+            ],
+            locale: const Locale('en'), // S
+          ),
+        );
+
+        // Act
+        await tester.tap(find.byKey(Key('chooseSubdivision')));
+        await tester.pumpAndSettle();
+
+        // Assert
+       // expect(find.byKey(Key('subdivisionDialog')), findsOneWidget);
+      });
+
+
 }

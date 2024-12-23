@@ -239,11 +239,18 @@
   "submit": "Soumettre",
   "get_on_whatsap": "Contactez-nous sur Whatsapp",
 
-    "update_profile_success":"Mise à jour du profile avec succes",
+    "update_profile_success":"Mise à jour du profile avec succès",
 
     "no_notification":"Vous n''avez pas de notification",
     "no_alert":"Vous n''avez pas d''alert",
-    "notification":"Notification",
+    "notification":"Inbox",
+    "create_mass_message":"Créer message de masse",
+    "notification_title":"Titre notification",
+    "enter_notification_title":"Entrez titre notification",
+    "notification_content":"contenu du message",
+    "enter_notification_content":"Entrez le contenu du message",
+    "select_notification_location_description":"Sélectionnez la zone que vous voudriez atteindre avec ce message",
+    "notification_created_successfully":"Notification crée avec succès",
     "your_events": "Vos Évènements Créés",
     "forgot_password": "Mot de passe oublié",
     "forgot_password_description": "Entrez votre email pour obtenir votre mail de vérification",
@@ -310,6 +317,10 @@
     "edit": "Modifier",
     "update": "Modifier",
     "ok": "Ok",
+    "created": "Créé",
+    "on": "le",
+    "at": "à",
+    "by": "Par",
     "or": "ou"
   
 

@@ -1,10 +1,14 @@
 import 'dart:io';
+import 'dart:ui';
+import 'dart:ui';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mapnrank/app/models/user_model.dart';
 import 'package:mapnrank/app/modules/community/controllers/community_controller.dart';
 import 'package:mapnrank/app/modules/community/widgets/comment_loading_widget.dart';
@@ -19,7 +23,9 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mapnrank/app/models/post_model.dart';
 
+import '../../events/controllers/events_controller_test.dart';
 import 'community_controller_test.mocks.dart';
+import 'package:image/image.dart' as Im;
 
 class MockRootController extends Mock implements RootController {}
 
@@ -29,6 +35,10 @@ class MockRootController extends Mock implements RootController {}
   UserRepository,
   ZoneRepository,
   SectorRepository,
+  ImagePicker,
+  Directory,
+  File,
+  Image,
 ])
 class MockSnackbarController extends GetxController {
   var isSnackbarOpen = false.obs;
@@ -47,8 +57,14 @@ void main() {
     late MockSectorRepository mockSectorRepository;
     late CommunityController communityController;
     late MockSnackbarController mockSnackbarController;
-    late MockRootController
-        mockRootController; // Replace with your actual controller or service type
+    late MockRootController mockRootController;
+    late MockImagePicker mockImagePicker;
+    late MockDirectory mockDirectory;
+    late MockFile mockFile;
+    late MockImage mockImage;
+    late Im.Image mockDecodedImage;
+    late List<int> encodedImageBytes;
+    late MockImageLibrary mockImageLibrary;// Replace with your actual controller or service type
 
     setUp(() {
       TestWidgetsFlutterBinding.ensureInitialized();
@@ -59,10 +75,17 @@ void main() {
       mockZoneRepository = MockZoneRepository();
       mockSectorRepository = MockSectorRepository();
       communityController = CommunityController();
+      mockImagePicker = MockImagePicker();
+      mockDirectory = MockDirectory();
+      mockFile = MockFile();
+      mockImage = MockImage();
       communityController.sectorRepository = mockSectorRepository;
       communityController.userRepository = mockUserRepository;
       communityController.communityRepository = mockCommunityRepository;
       communityController.zoneRepository = mockZoneRepository;
+      mockImageLibrary = MockImageLibrary();
+      mockDecodedImage = Im.Image(width: 100, height: 100);
+      encodedImageBytes = [1, 2, 3, 4];
       mockRootController = MockRootController();
       const TEST_MOCK_STORAGE = './test/test_pictures';
       const channel = MethodChannel(
@@ -1179,6 +1202,153 @@ void main() {
       expect(find.byType(CommentLoadingWidget), findsNothing);
       expect(Get.isSnackbarOpen, false);
     });
+
+    // test('pickImage with camera source processes and compresses image', () async {
+    //   communityController.post = Post();
+    //
+    //   const TEST_MOCK_STORAGE = './test/test_pictures/filter.PNG';
+    //   const channel = MethodChannel(
+    //     'plugins.flutter.io/image_picker',
+    //   );
+    //   channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    //     return TEST_MOCK_STORAGE;
+    //   });
+    //
+    //   // Arrange
+    //   final pickedFile = XFile('test/test_pictures/filter.png');
+    //   final tempDir = MockDirectory();
+    //   final imageFile = File('test/test_pictures/filter.png');
+    //   final imageBytes = Uint8List.fromList([0, 1, 2, 3, 4,0]); // Dummy bytes
+    //   final path = '/temp/path';
+    //   when(tempDir.path).thenReturn(path);// Dummy bytes
+    //
+    //   when(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80))
+    //       .thenAnswer((_) async => pickedFile);
+    //
+    //   when(mockFile.readAsBytesSync()).thenAnswer((_) => imageBytes);
+    //   when(mockFile.lengthSync()).thenReturn(2048); // 2KBing
+    //
+    //
+    //   // Simulate the decodeImage and encodeJpg functions
+    //   when(mockImageLibrary.decodeImage(imageBytes)).thenReturn(mockDecodedImage);
+    //   // when(mockImageLibrary.encodeJpg(mockDecodedImage, quality: 90))
+    //   //     .thenReturn(encodedImageBytes);
+    //   //when(Im.decodeImage(imageBytes)).thenReturn(mockImage);
+    //   //when(mockImageLibrary.encodeJpg(mockImage, quality: 25)).thenReturn(imageBytes);
+    //
+    //
+    //   // Assert that the decoded image is the mock image
+    //
+    //   // Act
+    //   await communityController.pickImage(ImageSource.camera);
+    //   communityController.post.imagesFilePaths = [imageFile];
+    //   var decodedImage = mockImageLibrary.decodeImage(imageBytes);
+    //   //var result = mockImageLibrary.encodeJpg(Im.Image(width:100, height:100), quality: 90);
+    //
+    //   //final encodedImage = Im.encodeJpg(image!, quality: 25);
+    //
+    //   // Assert
+    //   expect(communityController.imageFiles.isNotEmpty, true);
+    //   expect(decodedImage, mockDecodedImage);
+    //   //expect(result, encodedImageBytes);
+    //   //expect(eventsController.event.imagesFileBanner?.isNotEmpty, true);
+    //   //verify(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80)).called(1);
+    //   //verify(getTemporaryDirectory()).called(1);
+    // });
+    //
+    // test('pickImage with gallery source processes and compresses multiple images', () async {
+    //   communityController.post = Post();
+    //   const TEST_MOCK_STORAGE = ['./test/test_pictures/filter.PNG'];
+    //   const channel = MethodChannel(
+    //     'plugins.flutter.io/image_picker',
+    //   );
+    //   channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    //     return TEST_MOCK_STORAGE;
+    //   });
+    //   // Arrange
+    //   final pickedFiles = [
+    //     XFile('test/test_pictures/filter.PNG'),
+    //     XFile('test/test_pictures/filter.PNG')
+    //   ];
+    //   final tempDir = MockDirectory();
+    //   final imageFile1 = File('test/test_pictures/filter.png');
+    //   final imageFile2 = File('test/test_pictures/filter.png');
+    //   final imageBytes = [0, 0, 0];
+    //   final path = '/temp/path';// Dummy bytes
+    //   communityController.imageFiles.value = [];
+    //
+    //   when(mockImagePicker.pickMultiImage())
+    //       .thenAnswer((_) async => pickedFiles);
+    //
+    //   when(tempDir.path).thenReturn(path);
+    //
+    //   // // Simulate image encoding
+    //   // //when(Im.encodeJpg(mockFile, quality: 25)).thenReturn(Uint8List(0));
+    //   //
+    //   // Act
+    //   await communityController.pickImage(ImageSource.gallery);
+    //   //eventsController.imageFiles.value = pickedFiles;
+    //   //
+    //   // // Assert
+    //   expect(communityController.imageFiles.length, 1);
+    //   //expect(eventsController.event.imagesFileBanner?.length, 2);
+    //   // verify(mockImagePicker.pickMultiImage()).called(1);
+    //   // verify(getTemporaryDirectory()).called(2);  // Called for each image
+    // });
+    //
+    // test('pickFeedbackImage with camera source processes and compresses image', () async {
+    //
+    //   const TEST_MOCK_STORAGE = './test/test_pictures/filter.PNG';
+    //   const channel = MethodChannel(
+    //     'plugins.flutter.io/image_picker',
+    //   );
+    //   channel.setMockMethodCallHandler((MethodCall methodCall) async {
+    //     return TEST_MOCK_STORAGE;
+    //   });
+    //
+    //   // Arrange
+    //   final pickedFile = XFile('test/test_pictures/filter.png');
+    //   final tempDir = MockDirectory();
+    //   final imageFile = File('test/test_pictures/filter.png');
+    //   final imageBytes = Uint8List.fromList([0, 1, 2, 3, 4,0]); // Dummy bytes
+    //   final path = '/temp/path';
+    //   when(tempDir.path).thenReturn(path);// Dummy bytes
+    //
+    //   when(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80))
+    //       .thenAnswer((_) async => pickedFile);
+    //
+    //   when(mockFile.readAsBytesSync()).thenAnswer((_) => imageBytes);
+    //   when(mockFile.lengthSync()).thenReturn(2048); // 2KBing
+    //
+    //
+    //   // Simulate the decodeImage and encodeJpg functions
+    //   when(mockImageLibrary.decodeImage(imageBytes)).thenReturn(mockDecodedImage);
+    //   // when(mockImageLibrary.encodeJpg(mockDecodedImage, quality: 90))
+    //   //     .thenReturn(encodedImageBytes);
+    //   //when(Im.decodeImage(imageBytes)).thenReturn(mockImage);
+    //   //when(mockImageLibrary.encodeJpg(mockImage, quality: 25)).thenReturn(imageBytes);
+    //
+    //
+    //   // Assert that the decoded image is the mock image
+    //
+    //   // Act
+    //   await communityController.feedbackImagePicker(ImageSource.camera.toString());
+    //   communityController.feedbackImage = imageFile;
+    //   var decodedImage = mockImageLibrary.decodeImage(imageBytes);
+    //   //var result = mockImageLibrary.encodeJpg(Im.Image(width:100, height:100), quality: 90);
+    //
+    //   //final encodedImage = Im.encodeJpg(image!, quality: 25);
+    //
+    //   // Assert
+    //   expect(communityController.feedbackImage.isNull, false);
+    //   expect(decodedImage, mockDecodedImage);
+    //   //expect(result, encodedImageBytes);
+    //   //expect(eventsController.event.imagesFileBanner?.isNotEmpty, true);
+    //   //verify(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80)).called(1);
+    //   //verify(getTemporaryDirectory()).called(1);
+    // });
+
+
 
     tearDown(() {
       // Optionally, reset mock states or perform cleanup

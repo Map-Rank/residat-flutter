@@ -129,6 +129,7 @@ class FireBaseMessagingService extends GetxService {
     await FirebaseMessaging.instance.getToken().then((token) {
 
       var mtoken = token;
+      Get.find<AuthService>().user.value.firebaseToken = token;
       if (kDebugMode) {
         print("my token is $mtoken");
       }

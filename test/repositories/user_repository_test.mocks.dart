@@ -9,6 +9,7 @@ import 'package:dio/dio.dart' as _i2;
 import 'package:get/get.dart' as _i3;
 import 'package:mapnrank/app/models/event_model.dart' as _i10;
 import 'package:mapnrank/app/models/feedback_model.dart' as _i8;
+import 'package:mapnrank/app/models/notification_model.dart' as _i11;
 import 'package:mapnrank/app/models/post_model.dart' as _i9;
 import 'package:mapnrank/app/models/user_model.dart' as _i7;
 import 'package:mapnrank/app/providers/laravel_provider.dart' as _i4;
@@ -197,17 +198,15 @@ class MockLaravelApiClient extends _i1.Mock implements _i4.LaravelApiClient {
       ) as _i6.Future<_i4.LaravelApiClient>);
 
   @override
-  void forceRefresh() => super.noSuchMethod(
-        Invocation.method(
-          #forceRefresh,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   dynamic register(_i7.UserModel? user) => super.noSuchMethod(Invocation.method(
         #register,
+        [user],
+      ));
+
+  @override
+  dynamic registerInstitution(_i7.UserModel? user) =>
+      super.noSuchMethod(Invocation.method(
+        #registerInstitution,
         [user],
       ));
 
@@ -259,6 +258,15 @@ class MockLaravelApiClient extends _i1.Mock implements _i4.LaravelApiClient {
       ) as _i6.Future<dynamic>);
 
   @override
+  _i6.Future<dynamic> checkTokenValidity(String? token) => (super.noSuchMethod(
+        Invocation.method(
+          #checkTokenValidity,
+          [token],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
   _i6.Future<dynamic> followUser(int? userId) => (super.noSuchMethod(
         Invocation.method(
           #followUser,
@@ -300,10 +308,45 @@ class MockLaravelApiClient extends _i1.Mock implements _i4.LaravelApiClient {
       ) as _i6.Future<dynamic>);
 
   @override
+  _i6.Future<dynamic> getAllZonesFilterByName() => (super.noSuchMethod(
+        Invocation.method(
+          #getAllZonesFilterByName,
+          [],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> getSpecificZoneByName(String? name) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpecificZoneByName,
+          [name],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  dynamic getSpecificZoneGeoJson(String? url) =>
+      super.noSuchMethod(Invocation.method(
+        #getSpecificZoneGeoJson,
+        [url],
+      ));
+
+  @override
   _i6.Future<dynamic> getSpecificZone(int? zoneId) => (super.noSuchMethod(
         Invocation.method(
           #getSpecificZone,
           [zoneId],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> getDisasterMarkers() => (super.noSuchMethod(
+        Invocation.method(
+          #getDisasterMarkers,
+          [],
         ),
         returnValue: _i6.Future<dynamic>.value(),
       ) as _i6.Future<dynamic>);
@@ -322,6 +365,15 @@ class MockLaravelApiClient extends _i1.Mock implements _i4.LaravelApiClient {
         Invocation.method(
           #getAllPosts,
           [page],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> getPostsByZone(int? zone_id) => (super.noSuchMethod(
+        Invocation.method(
+          #getPostsByZone,
+          [zone_id],
         ),
         returnValue: _i6.Future<dynamic>.value(),
       ) as _i6.Future<dynamic>);
@@ -488,6 +540,42 @@ class MockLaravelApiClient extends _i1.Mock implements _i4.LaravelApiClient {
         ),
         returnValue: _i6.Future<dynamic>.value(),
       ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> getUserNotifications() => (super.noSuchMethod(
+        Invocation.method(
+          #getUserNotifications,
+          [],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> getSpecificNotification(dynamic id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getSpecificNotification,
+          [id],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  _i6.Future<dynamic> deleteSpecificNotification(dynamic id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteSpecificNotification,
+          [id],
+        ),
+        returnValue: _i6.Future<dynamic>.value(),
+      ) as _i6.Future<dynamic>);
+
+  @override
+  dynamic createNotification(_i11.NotificationModel? notification) =>
+      super.noSuchMethod(Invocation.method(
+        #createNotification,
+        [notification],
+      ));
 
   @override
   void onInit() => super.noSuchMethod(

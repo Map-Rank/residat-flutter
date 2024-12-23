@@ -17,14 +17,17 @@ class UserModel extends Model {
   String? avatarUrl;
   var imageFile;
   String? authToken;
+  String? followerCount;
+  String? followingCount;
+  String? firebaseToken;
   String? profession;
   static bool? auth;
   List? sectors;
   List? myPosts = [];
   List? myEvents = [];
 
-  UserModel({this.userId,this.firstName, this.language, this.email, this.authToken, this.password, this.phoneNumber, this.avatarUrl, this.birthdate, this.profession, this.gender,this.imageFile,
-  this.lastName,this.description, this.type, this.zoneId, this. sectors, this.myPosts, this.myEvents});
+  UserModel({this.userId,this.firstName, this.language, this.email, this.authToken, this.firebaseToken, this.password, this.phoneNumber, this.avatarUrl, this.birthdate, this.profession, this.gender,this.imageFile,
+  this.lastName,this.description, this.type, this.zoneId, this. sectors, this.myPosts, this.myEvents, this.followerCount, this.followingCount});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     firstName = stringFromJson(json, 'first_name');
@@ -41,8 +44,10 @@ class UserModel extends Model {
     zoneId = stringFromJson(json, 'zone_id');
     avatarUrl = stringFromJson(json, 'avatar');
     myPosts = listFromJson(json, 'my_posts');
-
-
+    followerCount = stringFromJson(json, 'follower_count');
+    firebaseToken = stringFromJson(json, 'fcm_token');
+    myEvents = listFromJson(json, 'my_events');
+    followingCount = stringFromJson(json, 'following_count');
 
     super.fromJson(json);
   }

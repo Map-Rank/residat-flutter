@@ -109,6 +109,7 @@ class CreatePostView extends GetView<CommunityController> {
               //padding: EdgeInsets.all(20),
 
               children: [
+
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -199,7 +200,6 @@ class CreatePostView extends GetView<CommunityController> {
                   ).marginOnly(top: 20, bottom: 5),
                 ),
 
-
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -227,6 +227,7 @@ class CreatePostView extends GetView<CommunityController> {
                             onTap: (){
                               showDialog(context: context,
                                 builder:  (context) => Dialog(
+                                  key: Key('regionDialog'),
                                     insetPadding: EdgeInsets.all(20),
                                     child:  ListView(
                                       padding: EdgeInsets.all(20),
@@ -369,6 +370,7 @@ class CreatePostView extends GetView<CommunityController> {
                                 ,);
                             },
                             child: Container(
+                              key: Key('chooseRegion'),
                               decoration: BoxDecoration(shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),
@@ -402,6 +404,7 @@ class CreatePostView extends GetView<CommunityController> {
                               }
                               else{
                                 showDialog(context: context, builder: (context) => Dialog(
+                                  key: Key('divisionDialog'),
                                   insetPadding: EdgeInsets.all(20),
                                   child: ListView(
                                     padding: EdgeInsets.all(20),
@@ -541,6 +544,7 @@ class CreatePostView extends GetView<CommunityController> {
                               }
                             },
                             child:  Container(
+                              key: Key('chooseDivision'),
                               decoration: BoxDecoration(shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),
@@ -576,6 +580,7 @@ class CreatePostView extends GetView<CommunityController> {
                               }
                               else{
                                 showDialog(context: context, builder: (context) => Dialog(
+                                  key: Key('subdivisionDialog'),
                                   insetPadding: EdgeInsets.all(20),
                                   child: ListView(
                                     padding: EdgeInsets.all(20),
@@ -713,6 +718,7 @@ class CreatePostView extends GetView<CommunityController> {
                               }
                             },
                             child:Container(
+                              key: Key('chooseSubdivision'),
                               decoration: BoxDecoration(shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),

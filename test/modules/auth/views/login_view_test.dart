@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mapnrank/app/models/setting_model.dart';
 import 'package:mapnrank/app/models/user_model.dart';
 import 'package:mapnrank/app/modules/auth/controllers/auth_controller.dart';
@@ -42,8 +43,12 @@ class MockAuthController extends GetxController with Mock implements AuthControl
   var loading = false.obs;
   late GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late final MockAuthService authService;
-  var loginWithPhoneNumber = false.obs;
+  final loginWithPhoneNumber = false.obs;
   var loginOrRegister = false.obs;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  var emailFocus = false;
+  var phoneFocus = false;
 
 
   @override
@@ -141,6 +146,38 @@ void main() {
     expect(find.byType(TextFieldWidget), findsNWidgets(2));
     expect(find.byType(BlockButtonWidget), findsOneWidget);
   });
+
+  // testWidgets('LoginView renders correctly with login with number', (WidgetTester tester) async {
+  //   // Act
+  //   mockAuthController.loginWithPhoneNumber.value = !mockAuthController.loginWithPhoneNumber.value;
+  //
+  //   await tester.pumpWidget(
+  //     GetMaterialApp(
+  //       home: Scaffold(
+  //         body: Localizations(
+  //           delegates: [
+  //             AppLocalizations.delegate,
+  //             GlobalMaterialLocalizations.delegate,
+  //             GlobalWidgetsLocalizations.delegate,
+  //             GlobalCupertinoLocalizations.delegate,
+  //           ],
+  //           locale: Locale('en'),
+  //
+  //           child: Builder(
+  //               builder: (BuildContext context) {
+  //                 return LoginView();
+  //               }
+  //
+  //           ),),
+  //       ),
+  //     ),
+  //   );
+  //
+  //   // Assert
+  //   //expect(find.text('WELCOME BACK!'), findsOneWidget);
+  //   expect(find.byType(IntlPhoneField), findsNWidgets(1));
+  //   expect(find.byType(BlockButtonWidget), findsOneWidget);
+  // });
 
   testWidgets('LoginView form validation', (WidgetTester tester) async {
     // Act

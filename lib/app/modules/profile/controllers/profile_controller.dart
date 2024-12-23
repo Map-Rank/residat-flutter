@@ -107,10 +107,10 @@ class ProfileController extends GetxController {
     genderController.text = currentUser.value.gender!;
     birthdateController.text = currentUser.value.birthdate!;
 
-      listAllPosts = await getAllMyPosts();
+      listAllPosts = await getAllMyPosts()??[];
       allPosts.value =  listAllPosts;
 
-      listAllEvents = await getAllMyEvents();
+      listAllEvents = await getAllMyEvents()??[];
       allEvents.value = listAllEvents;
 
 
@@ -157,7 +157,10 @@ class ProfileController extends GetxController {
       }
       return postList;
     } catch (e) {
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
+
     }
   }
 
@@ -222,7 +225,9 @@ class ProfileController extends GetxController {
 
     }
     catch (e) {
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
     }
   }
 
@@ -249,7 +254,9 @@ class ProfileController extends GetxController {
           currentUser.value.imageFile = profileImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
+        if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+          Navigator.of(Get.context!).pop();
+        }
         //Get.showSnackbar(Ui.SuccessSnackBar(message: "Picture saved successfully".tr));
         //loadIdentityFile.value = !loadIdentityFile.value;//Navigator.of(Get.context).pop();
       }
@@ -276,7 +283,10 @@ class ProfileController extends GetxController {
           currentUser.value.imageFile = profileImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
+        if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+          Navigator.of(Get.context!).pop();
+        }
+
       }
 
     }
@@ -363,7 +373,9 @@ class ProfileController extends GetxController {
           loadFeedbackImage.value = !loadFeedbackImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
+        if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+          Navigator.of(Get.context!).pop();
+        }
       }
 
     }

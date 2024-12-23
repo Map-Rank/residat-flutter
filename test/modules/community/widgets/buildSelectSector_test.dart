@@ -19,6 +19,9 @@ class MockCommunityController extends GetxController with Mock implements Commun
   var loadingSectors = false.obs;
 
   @override
+  var filterBySector = false.obs;
+
+  @override
   var selectedIndex = 0.obs;
 
   @override
@@ -117,5 +120,37 @@ void main() {
     // Verify the sector is removed from selected sectors
     expect(mockCommunityController.selectedIndex.value, 0);
     expect(mockCommunityController.sectorsSelected.isEmpty, true);
+  });
+
+  testWidgets('BuildSelectSector renders correctly and handles interactions', (WidgetTester tester) async {
+    mockCommunityController.loadingSectors.value = true;
+    await tester.pumpWidget(
+      GetMaterialApp(
+        home: Scaffold(
+          body: Localizations(
+            delegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            locale: Locale('en'),
+
+            child: Builder(
+                builder: (BuildContext context) {
+                  return BuildSelectSector();
+                }
+
+            ),),
+        ),
+      ),
+    );
+
+
+    await tester.pump();
+
+    await tester.pumpAndSettle();
+
+
   });
 }

@@ -66,6 +66,7 @@ void main() {
       lastName: 'Doe',
       email: 'john.doe@example.com',
       avatarUrl: null,
+      birthdate: '1994-02-02',
       myPosts: ['Post1', 'Post2'], // Example post identifiers
       myEvents: ['Event1', 'Event2'], );
 

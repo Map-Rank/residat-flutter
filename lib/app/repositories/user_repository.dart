@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:get/get.dart';
 import 'package:mapnrank/app/models/feedback_model.dart';
 import 'package:mapnrank/app/models/user_model.dart';

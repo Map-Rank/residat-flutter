@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-09-20 16:03:59</td>
+            <td class="headerValue">2024-12-23 11:38:51</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -148,8 +148,8 @@
 <a name="86"><span class="lineNum">      86 </span>            :   var chooseASubDivision = false.obs;</a>
 <a name="87"><span class="lineNum">      87 </span>            : </a>
 <a name="88"><span class="lineNum">      88 </span>            :   var inputImage = false.obs;</a>
-<a name="89"><span class="lineNum">      89 </span>            :   var inputSector = false.obs;</a>
-<a name="90"><span class="lineNum">      90 </span>            :   var inputZone = false.obs;</a>
+<a name="89"><span class="lineNum">      89 </span>            :   var filterBySector = false.obs;</a>
+<a name="90"><span class="lineNum">      90 </span>            :   var filterByLocation = false.obs;</a>
 <a name="91"><span class="lineNum">      91 </span>            : </a>
 <a name="92"><span class="lineNum">      92 </span>            :   TextEditingController eventOrganizerController = TextEditingController();</a>
 <a name="93"><span class="lineNum">      93 </span>            : </a>
@@ -161,8 +161,8 @@
 <a name="99"><span class="lineNum">      99 </span>            : </a>
 <a name="100"><span class="lineNum">     100 </span>            : </a>
 <a name="101"><span class="lineNum">     101 </span>            : </a>
-<a name="102"><span class="lineNum">     102 </span><span class="lineCov">          2 :   EventsController(){</span></a>
-<a name="103"><span class="lineNum">     103 </span><span class="lineCov">          4 :     Get.lazyPut(()=&gt;CommunityController());</span></a>
+<a name="102"><span class="lineNum">     102 </span><span class="lineCov">          3 :   EventsController(){</span></a>
+<a name="103"><span class="lineNum">     103 </span><span class="lineCov">          6 :     Get.lazyPut(()=&gt;CommunityController());</span></a>
 <a name="104"><span class="lineNum">     104 </span>            :   }</a>
 <a name="105"><span class="lineNum">     105 </span>            : </a>
 <a name="106"><span class="lineNum">     106 </span>            : </a>
@@ -272,7 +272,7 @@
 <a name="210"><span class="lineNum">     210 </span><span class="lineCov">          4 :       listAllEvents = [Event(), Event()];</span></a>
 <a name="211"><span class="lineNum">     211 </span>            :     }</a>
 <a name="212"><span class="lineNum">     212 </span>            : </a>
-<a name="213"><span class="lineNum">     213 </span><span class="lineCov">          3 :     allEvents.value= listAllEvents;</span></a>
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">          3 :     allEvents.value = listAllEvents;</span></a>
 <a name="214"><span class="lineNum">     214 </span><span class="lineCov">          1 :     emptyArrays();</span></a>
 <a name="215"><span class="lineNum">     215 </span>            :   }</a>
 <a name="216"><span class="lineNum">     216 </span>            : </a>
@@ -539,7 +539,7 @@
 <a name="477"><span class="lineNum">     477 </span>            : </a>
 <a name="478"><span class="lineNum">     478 </span>            :     }else {</a>
 <a name="479"><span class="lineNum">     479 </span><span class="lineNoCov">          0 :       loadingEvents.value = true;</span></a>
-<a name="480"><span class="lineNum">     480 </span><span class="lineNoCov">          0 :       listAllEvents = getAllEvents(0);</span></a>
+<a name="480"><span class="lineNum">     480 </span><span class="lineNoCov">          0 :       listAllEvents = await getAllEvents(0);</span></a>
 <a name="481"><span class="lineNum">     481 </span><span class="lineNoCov">          0 :       allEvents.value = listAllEvents;</span></a>
 <a name="482"><span class="lineNum">     482 </span><span class="lineNoCov">          0 :       noFilter.value = false;</span></a>
 <a name="483"><span class="lineNum">     483 </span>            :     }</a>

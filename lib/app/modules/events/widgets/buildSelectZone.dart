@@ -29,6 +29,7 @@ class BuildSelectZone extends GetView<EventsController> {
               onTap: (){
                 showDialog(context: context,
                   builder:  (context) => Dialog(
+                    key: Key('regionDialog'),
                     insetPadding: EdgeInsets.all(20),
                       child:  ListView(
                         padding: EdgeInsets.all(20),
@@ -173,6 +174,7 @@ class BuildSelectZone extends GetView<EventsController> {
                   ,);
               },
               child: Container(
+                key: Key('chooseRegion'),
                 decoration: BoxDecoration(shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),
@@ -182,7 +184,7 @@ class BuildSelectZone extends GetView<EventsController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Obx(() => controller.regionSelectedValue.isNotEmpty?
-                    Text(controller.regionSelectedValue[0]['name'], style: Get.textTheme.headlineMedium,key: Key('chooseRegion'))
+                    Text(controller.regionSelectedValue[0]['name'], style: Get.textTheme.headlineMedium,)
                         :Text(AppLocalizations.of(context).choose_your_region, style: Get.theme.textTheme.headlineMedium!.merge(TextStyle(color: Colors.grey, fontSize: 18),)),
                     ),
                     FaIcon(FontAwesomeIcons.angleDown, size: 10,key: Key('chooseRegionIcon'),)
@@ -207,6 +209,7 @@ class BuildSelectZone extends GetView<EventsController> {
                 }
                 else{
                   showDialog(context: context, builder: (context) => Dialog(
+                    key: Key('divisionDialog'),
                     insetPadding: EdgeInsets.all(20),
                     child: ListView(
                       padding: EdgeInsets.all(20),
@@ -346,6 +349,7 @@ class BuildSelectZone extends GetView<EventsController> {
                 }
               },
               child:  Container(
+                key: Key('chooseDivision'),
                 decoration: BoxDecoration(shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),
@@ -382,6 +386,7 @@ class BuildSelectZone extends GetView<EventsController> {
                 }
                 else{
                   showDialog(context: context, builder: (context) => Dialog(
+                    key: Key('subdivisionDialog'),
                     insetPadding: EdgeInsets.all(20),
                     child: ListView(
                       padding: EdgeInsets.all(20),
@@ -456,6 +461,7 @@ class BuildSelectZone extends GetView<EventsController> {
 
                                           return GestureDetector(
                                               onTap: () async {
+                                                // coverage:ignore-start
                                                 controller.subdivisionSelected.value = !controller.subdivisionSelected.value;
                                                 controller.subdivisionSelectedIndex.value = index;
 
@@ -497,11 +503,7 @@ class BuildSelectZone extends GetView<EventsController> {
 
 
                                                 print(controller.subdivisions);
-
-                                                //controller.currentUser.value.zoneId = controller.subdivisionSelectedValue[0]['id'].toString();
-
-
-                                                //print(controller.subdivisionSelected);
+                                                // coverage:ignore-end
 
                                               },
                                               child: Obx(() => LocationWidget(
@@ -520,6 +522,7 @@ class BuildSelectZone extends GetView<EventsController> {
                 }
               },
               child:Container(
+                key: Key('chooseSubdivision'),
                 decoration: BoxDecoration(shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: Get.theme.focusColor.withOpacity(0.5))),

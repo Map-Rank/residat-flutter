@@ -1,8 +1,9 @@
-// coverage:ignore-file
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mapnrank/app/routes/app_routes.dart';
 import 'package:mapnrank/app/services/global_services.dart';
 import '../../../../color_constants.dart';
 import '../../../../common/helper.dart';
@@ -88,21 +89,27 @@ class NotificationView extends GetView<NotificationController> {
             height: Get.height,
             decoration: BoxDecoration(color: backgroundColor,),
             child: ListView(
+              key: Key('listView'),
               children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: secondaryColor,
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Text('Send mass message', style:  TextStyle(color: Colors.white),),
-                  ).paddingSymmetric(vertical: 10, horizontal: 20),
-
-                ),
-
                 if(controller.currentUser.value.type?.toUpperCase() == "COUNCIL")...[
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: (){
+                        Get.toNamed(Routes.INSTITUTION_CREATE_MESSAGE);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: secondaryColor,
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Text('Send mass message', style:  TextStyle(color: Colors.white),),
+                      ).paddingSymmetric(vertical: 10, horizontal: 20),
+                    ),
+
+                  ),
+
                   Row(
                     children: [
                       GestureDetector(
@@ -152,18 +159,22 @@ class NotificationView extends GetView<NotificationController> {
                 ],
 
 
-                Obx(() => controller.loadingNotifications.value?CircularLoadingWidget(
+                Obx(() => controller.loadingNotifications.value?
+                CircularLoadingWidget(
+                  key: Key('circularLoading'),
                   height: 300,
                   onCompleteText: "Notification List is Empty".tr,
                   onComplete: (value) {
 
                   },
                 ):
-                    controller.currentUser.value.type?.toUpperCase() =='COUNCIL'?
+                    controller.currentUser.value.type?.toUpperCase() !='COUNCIL'?
                     ListView.separated(
                         itemCount: controller.notifications.length,
                         separatorBuilder: (context, index) {
-                          return SizedBox(height: 7);
+                          return SizedBox(
+                              height: 0,
+                          );
                         },
                         shrinkWrap: true,
                         primary: false,
@@ -175,7 +186,24 @@ class NotificationView extends GetView<NotificationController> {
                             },
                             onTap: (notification) async {
 
-                            }, icon: Icon(Icons.notifications_active_rounded),
+                            }, icon: ClipOval(
+                              child: FadeInImage(
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                                image:  NetworkImage(_notification.bannerUrl!, headers: GlobalService.getTokenHeaders()),
+                                placeholder: const AssetImage(
+                                    "assets/images/loading.gif"),
+                                imageErrorBuilder:
+                                    (context, error, stackTrace) {
+                                  return Image.asset(
+                                      "assets/images/user_admin.png",
+                                      width: 40,
+                                      height: 40,
+                                      fit: BoxFit.fitWidth);
+                                },
+                              )
+                          ),
                           );
                         }
                     )
@@ -183,7 +211,9 @@ class NotificationView extends GetView<NotificationController> {
                 ListView.separated(
                     itemCount: controller.createdNotifications.length,
                     separatorBuilder: (context, index) {
-                      return SizedBox(height: 7);
+                      return SizedBox(
+                        height: 0,
+                      );
                     },
                     shrinkWrap: true,
                     primary: false,
@@ -191,18 +221,36 @@ class NotificationView extends GetView<NotificationController> {
                       var _notification = controller.notifications.elementAt(index);
                       return NotificationItemWidget(
                         notification: _notification,
-                        onDismissed: (notification) {
+                        onDismissed: (notification) async {
+                          await controller.deleteSpecificNotification(_notification.notificationId);
                         },
                         onTap: (notification) async {
 
-                        }, icon: Icon(Icons.notifications_active_rounded),
+                        }, icon: ClipOval(
+                          child: FadeInImage(
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                            image:  NetworkImage(_notification.bannerUrl!, headers: GlobalService.getTokenHeaders()),
+                            placeholder: const AssetImage(
+                                "assets/images/loading.gif"),
+                            imageErrorBuilder:
+                                (context, error, stackTrace) {
+                              return Image.asset(
+                                  "assets/images/user_admin.png",
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.fitWidth);
+                            },
+                          )
+                      ),
                       );
                     }
                 )
                   :ListView.separated(
                     itemCount: controller.receivedNotifications.length,
                     separatorBuilder: (context, index) {
-                      return SizedBox(height: 7);
+                      return SizedBox(height: 0);
                     },
                     shrinkWrap: true,
                     primary: false,
@@ -214,7 +262,24 @@ class NotificationView extends GetView<NotificationController> {
                         },
                         onTap: (notification) async {
 
-                        }, icon: Icon(Icons.notifications_active_rounded),
+                        }, icon: ClipOval(
+                          child: FadeInImage(
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                            image:  NetworkImage(_notification.bannerUrl!, headers: GlobalService.getTokenHeaders()),
+                            placeholder: const AssetImage(
+                                "assets/images/loading.gif"),
+                            imageErrorBuilder:
+                                (context, error, stackTrace) {
+                              return Image.asset(
+                                  "assets/images/user_admin.png",
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.fitWidth);
+                            },
+                          )
+                      ),
                       );
                     }
                 ),)

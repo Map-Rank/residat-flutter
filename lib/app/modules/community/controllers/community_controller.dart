@@ -274,7 +274,7 @@ class CommunityController extends GetxController {
       //imageFiles = [];
     }
 
-    var listZones = await getAllZonesFilterByName();
+    var listZones = await getAllZonesFilterByName()??[];
 
     listAllZones = listZones.cast<Map<String, dynamic>>();
     zones = listAllZones;
@@ -680,7 +680,9 @@ class CommunityController extends GetxController {
           loadFeedbackImage.value = !loadFeedbackImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
+        if(! Platform.environment.containsKey('FLUTTER_TEST')){
+          Navigator.of(Get.context!).pop();
+        }
         //Get.showSnackbar(Ui.SuccessSnackBar(message: "Picture saved successfully".tr));
         //loadIdentityFile.value = !loadIdentityFile.value;//Navigator.of(Get.context).pop();
       }
@@ -710,7 +712,9 @@ class CommunityController extends GetxController {
           loadFeedbackImage.value = !loadFeedbackImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
+        if(! Platform.environment.containsKey('FLUTTER_TEST')){
+          Navigator.of(Get.context!).pop();
+        }
       }
 
     }

@@ -506,8 +506,8 @@ class CommunityView extends GetView<CommunityController> {
                                   child: TextButton.icon(
                                     icon: Image.asset(
                                         "assets/images/filter.png",
-                                        width: 20,
-                                        height: 20,
+                                        width: 15,
+                                        height: 15,
                                         fit: BoxFit.fitWidth) ,
                                     label: Text(AppLocalizations.of(context).filter_by_location, style: TextStyle(color: Colors.black),),
                                     onPressed: () {
@@ -535,8 +535,8 @@ class CommunityView extends GetView<CommunityController> {
                                   child: TextButton.icon(
                                     icon: Image.asset(
                                         "assets/images/filter.png",
-                                        width: 20,
-                                        height: 20,
+                                        width: 15,
+                                        height: 15,
                                         fit: BoxFit.fitWidth) ,
                                     label: Text(AppLocalizations.of(context).filter_by_sector, style: TextStyle(color: Colors.black)),
                                     onPressed: () {
