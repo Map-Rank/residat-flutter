@@ -73,6 +73,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNo
       }
 
     }
+  await GlobalService().getAppVersion();
 
 
 

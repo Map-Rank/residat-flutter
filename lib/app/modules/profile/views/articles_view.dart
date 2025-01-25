@@ -49,7 +49,7 @@ class ArticlesView extends GetView<ProfileController> {
           itemCount: controller.allPosts.length,
             itemBuilder: (context, index) =>
             Obx(() => PostCardWidget(
-              //likeTapped: RxBool(controller.allPosts[index].likeTapped),
+              likeTapped: controller.allPosts[index].likeTapped,
               content: controller.allPosts[index].content == false?'':controller.allPosts[index].content,
               zone: controller.allPosts[index].zone != null?controller.allPosts[index].zone['name']: '',
               publishedDate: controller.allPosts[index].publishedDate,
@@ -98,13 +98,18 @@ class ArticlesView extends GetView<ProfileController> {
 
                 controller.likeTapped.value = false;
                 Get.toNamed(Routes.COMMENT_VIEW,arguments: {'post': controller.allPosts[index]} );
+                var post = controller.allPosts[index];
+                var postDetails = await Get.find<CommunityController>().getAPost(controller.allPosts[index].postId);
+                controller.commentList.value = postDetails.commentList!;
+                await Get.find<CommunityController>().initializePostDetails(postDetails);
 
-                await Get.find<CommunityController>().getAPost(controller.allPosts[index].postId);
-                controller.likeCount!.value = controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0].likeCount;
-                controller.commentList.value = controller.postDetails.value.commentList!;
-                controller.commentCount!.value =controller.postDetails.value.commentCount!.value;
-                controller.likeCount?.value = controller.postDetails.value.likeCount!.value;
-                controller.shareCount?.value =controller.postDetails.value.shareCount!.value;
+
+
+                //controller.likeCount!.value = controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0].likeCount;
+                // controller.commentList.value = controller.postDetails.value.commentList!;
+                // controller.commentCount!.value =controller.postDetails.value.commentCount!.value;
+                // controller.likeCount?.value = controller.postDetails.value.likeCount!.value;
+                // controller.shareCount?.value =controller.postDetails.value.shareCount!.value;
 
               },
               onPictureTapped: () async{

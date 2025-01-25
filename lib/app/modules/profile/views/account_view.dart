@@ -12,6 +12,7 @@ import 'package:mapnrank/color_constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../services/global_services.dart';
+import '../../../services/permission_service.dart';
 
 class AccountView extends GetView<ProfileController> {
   const AccountView({super.key});
@@ -400,8 +401,12 @@ class AccountView extends GetView<ProfileController> {
                   children: [
                     ListTile(
                       onTap: ()async{
-                        await controller.profileImagePicker('camera');
-                        controller.loadProfileImage.value = true;
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.profileImagePicker('camera');
+                          controller.loadProfileImage.value = true;
+                        }
+
                         //Navigator.pop(Get.context);
 
 
@@ -411,8 +416,13 @@ class AccountView extends GetView<ProfileController> {
                     ),
                     ListTile(
                       onTap: ()async{
-                        await controller.profileImagePicker('gallery');
-                        controller.loadProfileImage.value = true;
+                         final bool galleryStatus = await GetPermissions.getStoragePermission();
+                         if(galleryStatus){
+                          await controller.profileImagePicker('gallery');
+                          controller.loadProfileImage.value = true;
+                        }
+
+
                         //Navigator.pop(Get.context);
 
                       },

@@ -16,6 +16,7 @@ import '../../../../color_constants.dart';
 import '../../../../common/ui.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../services/permission_service.dart';
 import '../../global_widgets/location_widget.dart';
 import '../controllers/notification_controller.dart';
 
@@ -700,16 +701,24 @@ class InstitutionCreateMessage extends GetView<NotificationController> {
                                       children: [
                                         ListTile(
                                           onTap: ()async{
-                                            await controller.pickImage(ImageSource.camera);
-                                            Navigator.pop(Get.context!);
+                                            final bool cameraStatus = await GetPermissions.getCameraPermission();
+                                            if(cameraStatus){
+                                              await controller.pickImage(ImageSource.camera);
+                                              Navigator.pop(Get.context!);
+                                            }
+
                                           },
                                           leading: const Icon(FontAwesomeIcons.camera),
                                           title: Text(AppLocalizations.of(context).take_picture, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),
                                         ),
                                         ListTile(
                                           onTap: ()async{
-                                            await controller.pickImage(ImageSource.gallery);
-                                            Navigator.pop(Get.context!);
+                                            final bool cameraStatus = await GetPermissions.getStoragePermission();
+                                            if(cameraStatus){
+                                              await controller.pickImage(ImageSource.gallery);
+                                              Navigator.pop(Get.context!);
+                                            }
+
                                           },
                                           leading: const Icon(FontAwesomeIcons.image),
                                           title: Text(AppLocalizations.of(context).upload_image, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),

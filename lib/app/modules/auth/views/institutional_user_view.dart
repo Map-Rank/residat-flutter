@@ -15,6 +15,7 @@ import 'package:mapnrank/common/helper.dart';
 import 'package:mapnrank/common/ui.dart';
 import '../../../../color_constants.dart';
 import '../../../models/setting_model.dart';
+import '../../../services/permission_service.dart';
 import '../../global_widgets/sector_item_widget.dart';
 import '../../global_widgets/text_field_widget.dart';
 import '../controllers/auth_controller.dart';
@@ -1452,7 +1453,11 @@ class InstitutionalUserView extends GetView<AuthController> {
                   children: [
                     ListTile(
                       onTap: ()async{
-                        await controller.profileImagePicker('camera');
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.profileImagePicker('camera');
+                        }
+
                         //Navigator.pop(Get.context);
 
 
@@ -1462,7 +1467,11 @@ class InstitutionalUserView extends GetView<AuthController> {
                     ),
                     ListTile(
                       onTap: ()async{
-                        await controller.profileImagePicker('gallery');
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.profileImagePicker('gallery');
+                        }
+
                         //Navigator.pop(Get.context);
 
                       },

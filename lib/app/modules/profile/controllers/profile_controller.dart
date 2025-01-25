@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mapnrank/app/repositories/sector_repository.dart';
 import 'package:mapnrank/app/repositories/zone_repository.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../common/ui.dart';
@@ -91,12 +92,14 @@ class ProfileController extends GetxController {
 
 
 
+
   ProfileController() {
 
   }
 
   @override
   void onInit() async {
+
     userRepository = UserRepository();
     zoneRepository = ZoneRepository();
     sectorRepository = SectorRepository();
@@ -112,6 +115,7 @@ class ProfileController extends GetxController {
 
       listAllEvents = await getAllMyEvents()??[];
       allEvents.value = listAllEvents;
+
 
 
 
@@ -191,7 +195,7 @@ class ProfileController extends GetxController {
     try{
 
       var list = currentUser.value.myEvents!;
-      print('List is: $list');
+      print('List of events is: $list');
 
       for( var i = 0; i< list.length; i++) {
         var event = Event(
@@ -212,8 +216,10 @@ class ProfileController extends GetxController {
           //sectors: list[i]['sectors']
 
         );
+        print('pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp');
         print(list[i]['image']);
         print(event.eventSectors);
+        print('tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt');
 
         //print(User.fromJson(list[i]['creator']));
         //if(list[i]['is_valid'] == "1"){

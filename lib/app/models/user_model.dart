@@ -69,6 +69,7 @@ class UserModel extends Model {
     data['description'] = description;
     data['type'] = type;
     data['language'] = language;
+    data['fcm_token'] = firebaseToken;
     //data['sectors'] = sectors;
 
 

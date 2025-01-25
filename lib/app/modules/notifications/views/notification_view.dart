@@ -45,8 +45,10 @@ class NotificationView extends GetView<NotificationController> {
                     child: Image.asset(
                         "assets/images/logo.png",
                         width: Get.width/6,
-                        height: Get.width/6,
-                        fit: BoxFit.fitWidth),
+                        height: MediaQuery
+                            .sizeOf(context)
+                            .width <600? Get.width/6 : 80,
+                        fit: BoxFit.fitHeight),
                   ).marginOnly(left: 10),
                  Spacer(),
                   ClipOval(

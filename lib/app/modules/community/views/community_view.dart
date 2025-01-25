@@ -20,6 +20,7 @@ import '../../../../color_constants.dart';
 import '../../../../common/helper.dart';
 import '../../../../common/ui.dart';
 import '../../../services/global_services.dart';
+import '../../../services/permission_service.dart';
 import '../../events/controllers/events_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -56,8 +57,10 @@ class CommunityView extends GetView<CommunityController> {
                     child: Image.asset(
                         "assets/images/logo.png",
                         width: Get.width/6,
-                        height: Get.width/6,
-                        fit: BoxFit.fitWidth),
+                        height: MediaQuery
+                            .sizeOf(context)
+                            .width <600? Get.width/6 : 80,
+                        fit: BoxFit.fitHeight),
                   ).marginOnly(left: 10),
                   Container(
                     height: 40,
@@ -653,11 +656,13 @@ class CommunityView extends GetView<CommunityController> {
 
                         },
                         onCommentTapped: () async{
-                          controller.likeTapped.value = false;
                           Get.toNamed(Routes.COMMENT_VIEW);
-                          await controller.getAPost(controller.allPosts[index].postId);
-                          controller.commentList.value = controller.postDetails.value.commentList!;
-                          controller.likeCount!.value = controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0].likeCount;
+                          var post = controller.allPosts[index];
+                          var postDetails = await controller.getAPost(controller.allPosts[index].postId);
+                          controller.commentList.value = postDetails.commentList!;
+                          await controller.initializePostDetails(post);
+
+                          //controller.likeCount!.value = controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0].likeCount;
 
 
                         },
@@ -791,7 +796,11 @@ class CommunityView extends GetView<CommunityController> {
                   children: [
                     ListTile(
                       onTap: ()async{
-                        await controller.feedbackImagePicker('camera');
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.feedbackImagePicker('camera');
+                        }
+
                         //Navigator.pop(Get.context);
 
 
@@ -801,7 +810,11 @@ class CommunityView extends GetView<CommunityController> {
                     ),
                     ListTile(
                       onTap: ()async{
-                        await controller.feedbackImagePicker('gallery');
+                        final bool cameraStatus = await GetPermissions.getStoragePermission();
+                        if(cameraStatus){
+                          await controller.feedbackImagePicker('gallery');
+                        }
+
                         //Navigator.pop(Get.context);
 
                       },

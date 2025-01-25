@@ -61,8 +61,10 @@ class EventsView extends GetView<EventsController> {
                     child: Image.asset(
                         "assets/images/logo.png",
                         width: Get.width/6,
-                        height: Get.width/6,
-                        fit: BoxFit.fitWidth),
+                        height: MediaQuery
+                            .sizeOf(context)
+                            .width <600? Get.width/6 : 80,
+                        fit: BoxFit.fitHeight),
                   ),
                   Container(
                     height: 40,

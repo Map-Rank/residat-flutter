@@ -48,6 +48,7 @@ class LaravelApiClient extends GetxService {
 
 
   register(UserModel user) async {
+    print(user.toString());
     try {
       var headers = {
         'Content-Type': 'multipart/form-data',
@@ -316,7 +317,7 @@ class LaravelApiClient extends GetxService {
       );
       if (response.statusCode == 200) {
         if (response.data['status'] == true) {
-          if(response.data['data']['verified'].toString() == 'false'){
+          if(response.data['data']['verified'].toString() == 'false' && response.data['data']['type'].toString() == 'COUNCIL' ){
             Get.offAllNamed(Routes.WELCOME_INSTITUTIONAL_USER);
 
           }else{

@@ -18,6 +18,8 @@ import 'package:mapnrank/app/repositories/zone_repository.dart';
 import 'package:mapnrank/app/routes/app_routes.dart';
 import 'package:mapnrank/app/services/auth_service.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../color_constants.dart';
 import 'package:image/image.dart' as Im;
 import 'dart:math' as Math;
@@ -501,6 +503,7 @@ class AuthController extends GetxController {
 
     try {
       loading.value = true;
+      currentUser.value.language = box.read('language');
       currentUser.value = await userRepository.register(currentUser.value);
       Get.find<AuthService>().user.value = currentUser.value;
       box.write("authToken",Get.find<AuthService>().user.value.authToken );
@@ -603,8 +606,8 @@ class AuthController extends GetxController {
     try {
       var user = await userRepository.getUser();
       currentUser.value= user;
-      currentUser.value.myPosts = user.myPosts;
-      currentUser.value.myEvents = user.myEvents;
+      currentUser.value.myPosts = user.myPosts??[];
+      currentUser.value.myEvents = user.myEvents??[];
       currentUser.value.followerCount = user.followerCount;
       currentUser.value.followingCount = user.followingCount;
       currentUser.value.authToken = box.read("authToken");
@@ -613,6 +616,7 @@ class AuthController extends GetxController {
       box.write("current_user", Get.find<AuthService>().user.value.toJson());
       print(user.toJson()['my_posts']);
       print('my podt : ${currentUser.value.myPosts}');
+      print('my events : ${currentUser.value.myEvents}');
       //await Get.find<RootController>().changePage(0);
       //Get.showSnackbar(Ui.SuccessSnackBar(message: AppLocalizations.of(Get.context!).profile_info_successful ));
     }
@@ -694,6 +698,21 @@ class AuthController extends GetxController {
   getAllSectors() async{
     return sectorRepository.getAllSectors();
   }
+
+  // coverage:ignore-start
+  void launchPrivacyPolicy() async {
+    String url() {
+      if (Platform.isAndroid) {
+        return "https://www.residat.com/Privacy-Policy"; // new line
+      } else {
+        // add the [https]
+        return "https://www.residat.com/Privacy-Policy"; // new line
+      }
+    }
+    launchUrl(Uri.parse(url()));
+
+  }
+// coverage:ignore-end
 
 
 

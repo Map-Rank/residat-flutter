@@ -80,6 +80,7 @@ class RootController extends GetxController {
     switch (_index) {
       case 0:
         {
+          Get.lazyPut(()=>AuthController());
           await Get.find<AuthController>().getUser();
           if(Get.find<AuthService>().user.value.email != null){
             await Get.find<CommunityController>().refreshCommunity();

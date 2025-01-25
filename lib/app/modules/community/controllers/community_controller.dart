@@ -285,6 +285,7 @@ class CommunityController extends GetxController {
 
   }
 
+
  // coverage:ignore-start
   @override
   void dispose() {
@@ -298,6 +299,7 @@ class CommunityController extends GetxController {
     listAllPosts.clear();
     allPosts.clear();
     loadingPosts.value = true;
+    //scrollbarController = ScrollController()..addListener(scrollListener);
     if(! Platform.environment.containsKey('FLUTTER_TEST')){
       listAllPosts = await getAllPosts(0);
     }
@@ -311,7 +313,7 @@ class CommunityController extends GetxController {
 
   // coverage:ignore-start
   void _scrollListener() async{
-    print('extent is ${scrollbarController.position.extentAfter}');
+    print('extent is ${scrollbarController.position.extentAfter.toString()}');
     if (scrollbarController.position.extentAfter < 10) {
       var posts = await getAllPosts(++page);
         allPosts.addAll(posts);
@@ -869,7 +871,7 @@ class CommunityController extends GetxController {
 
       );
       loadingAPost.value = true;
-      initializePostDetails(postModel);
+      return postModel;
 
     }
     catch (e) {

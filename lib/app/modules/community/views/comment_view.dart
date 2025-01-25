@@ -60,6 +60,7 @@ class CommentView extends GetView<CommunityController> {
                                     controller.commentCount!.value =  controller.commentCount!.value +1;
                                     controller.commentController.clear();
                                     controller.commentList.value = result.commentList;
+                                    controller.postDetails.value.commentCount?.value = controller.commentList.length;
                                   },
                                   child: FaIcon(FontAwesomeIcons.paperPlane,color: Colors.grey, )
 
@@ -158,39 +159,26 @@ class CommentView extends GetView<CommunityController> {
                       ,),
                     onLikeTapped: (){
 
-                      if(controller.postDetails!.value.likeTapped!.value){
+                      if( controller.postDetails.value.likeTapped!.value){
                         controller.postDetails.value.likeTapped!.value = false;
                         controller.postDetails.value.likeCount = controller.postDetails.value.likeCount!-1;
-
-                        controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeTapped.value
-                        = !controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeTapped.value;
-
-                        controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeCount.value
-                        = controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeCount.value -1;
-                        controller.likeUnlikePost(controller.postDetails!.value.postId!,  controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0]));
 
                       }
                       else{
                         controller.postDetails.value.likeTapped!.value = true;
                         controller.postDetails.value.likeCount = controller.postDetails.value.likeCount!+1;
-                        // controller.postDetails!.value.likeTapped!.value = !controller.postDetails!.value.likeTapped!.value;
-                        controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeTapped.value
-                        = !controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeTapped.value;
 
-                        controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeCount.value
-                        = controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeCount.value +1;
-                        controller.likeUnlikePost(controller.postDetails!.value.postId!, controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0]));
                       }
+                      // controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].likeTapped.value
+                      // = !controller.postDetails.value.likeTapped!.value;
+                      controller.likeUnlikePost(controller.postDetails.value.postId!,  controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0]));
 
 
                     },
 
                   onSharedTapped: () async {
-
-                    controller.postDetails.value.shareCount = controller.postDetails.value.shareCount!+1;
-                    controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].shareCount.value
-                    = controller.allPosts[controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0])].shareCount.value +1;
-                    await controller.sharePost(post!.postId!, controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0]));
+                    controller.postDetails.value.shareCount!.value = controller.postDetails.value.shareCount!.value+1;
+                    await controller.sharePost(controller.postDetails.value.postId!, controller.allPosts.indexOf(controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0]) );
 
                   },
                   liked: controller.postDetails!.value.liked,

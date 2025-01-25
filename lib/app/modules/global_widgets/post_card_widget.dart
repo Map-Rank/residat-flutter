@@ -197,8 +197,8 @@ class PostCardWidget extends StatelessWidget {
                     child: ClipRect(
                         child: FadeInImage(
                           width: Get.width,
-                          height: 375,
-                          fit: BoxFit.cover,
+                          //height: 375,
+                          fit: BoxFit.fitWidth,
                           image:  NetworkImage(
                               '${images![0]['url']}',
                               headers: GlobalService.getTokenHeaders()

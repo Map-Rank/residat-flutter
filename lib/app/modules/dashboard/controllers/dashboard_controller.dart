@@ -117,14 +117,20 @@ class DashboardController extends GetxController {
     listAllZones = listZones.cast<Map<String, dynamic>>()??[];
     zones = listAllZones;
 
-    var zone = await getSpecificZoneByName("Cameroun");
-    var listPosts = await getPostsByZone(zone)??[];
+    var listPosts = await getPostsByZone("cameroon")??[];
 
-    loadingCameroonCheckBox.value = true;
+
+
+    await getDisastersMarkers().then((_){
+        loadingDisastersMarkers.value = true;
+    });
+    loadingDisastersCheckBox.value = true;
+
     await getCameroonGeoJson().then((_) {
         processData();
         loadingCameroonGeoJson.value = true;
       });
+    loadingCameroonCheckBox.value = true;
 
     listPostsZoneStatistics = listPosts.cast<Map<String, dynamic>>()??[];
     postsZoneStatistics.value = listPostsZoneStatistics;
@@ -150,8 +156,15 @@ class DashboardController extends GetxController {
   }
 
   getPostsByZone(var zone) async {
+    var result;
     try {
-      var result = await communityRepository.getPostsByZone(zone[0]['id']);
+      if(zone == 'cameroon'){
+         result = await communityRepository.getPostsByZone(1);
+      }
+      else{
+        result = await communityRepository.getPostsByZone(zone[0]['id']);
+      }
+
       return result;
     }
     catch (e) {
@@ -186,7 +199,7 @@ class DashboardController extends GetxController {
       var result = await zoneRepository.getDisastersMarkers();
       for(var disaster in result){
         if(disaster["type"].toUpperCase()  == "FLOOD"){
-          markers.add(Marker(point: LatLng(disaster["latitude"], disaster["longitude"]), child: Icon(Icons.notifications, color: Colors.red,)));
+          markers.add(Marker(point: LatLng(disaster["latitude"], disaster["longitude"]), child: Icon(Icons.notifications, color: Color(0xff0004fd),)));
         }
 
       }

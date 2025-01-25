@@ -11,6 +11,7 @@ import 'package:mapnrank/app/modules/community/widgets/buildSelectZone.dart';
 import 'package:mapnrank/app/modules/global_widgets/location_widget.dart';
 import 'package:mapnrank/app/modules/global_widgets/text_field_widget.dart';
 import 'package:mapnrank/app/services/global_services.dart';
+import 'package:mapnrank/app/services/permission_service.dart';
 import '../../../../color_constants.dart';
 import '../../../../common/ui.dart';
 import '../../global_widgets/sector_item_widget.dart';
@@ -166,8 +167,11 @@ class CreatePostView extends GetView<CommunityController> {
                                           children: [
                                             ListTile(
                                               onTap: ()async{
-                                                await controller.pickImage(ImageSource.camera);
-                                                Navigator.pop(Get.context!);
+                                                final bool cameraStatus = await GetPermissions.getCameraPermission();
+                                                if(cameraStatus){
+                                                  await controller.pickImage(ImageSource.camera);
+                                                  Navigator.pop(Get.context!);
+                                                }
                                               },
                                               leading: const Icon(FontAwesomeIcons.camera),
                                               title: Text(
@@ -175,8 +179,11 @@ class CreatePostView extends GetView<CommunityController> {
                                             ),
                                             ListTile(
                                               onTap: ()async{
-                                                await controller.pickImage(ImageSource.gallery);
-                                                Navigator.pop(Get.context!);
+                                                final bool cameraStatus = await GetPermissions.getStoragePermission();
+                                                if(cameraStatus){
+                                                  await controller.pickImage(ImageSource.gallery);
+                                                  Navigator.pop(Get.context!);
+                                                }
                                               },
                                               leading: const Icon(FontAwesomeIcons.image),
                                               title: Text(AppLocalizations.of(context).upload_image, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),
@@ -948,16 +955,24 @@ class CreatePostView extends GetView<CommunityController> {
                             children: [
                               ListTile(
                                 onTap: ()async{
-                                  await controller.pickImage(ImageSource.camera);
-                                  Navigator.pop(Get.context!);
+                                  final bool cameraStatus = await GetPermissions.getCameraPermission();
+                                  if(cameraStatus){
+                                    await controller.pickImage(ImageSource.camera);
+                                    Navigator.pop(Get.context!);
+                                  }
+
                                 },
                                 leading: const Icon(FontAwesomeIcons.camera),
                                 title: Text(AppLocalizations.of(context).take_picture, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),
                               ),
                               ListTile(
                                 onTap: ()async{
-                                  await controller.pickImage(ImageSource.gallery);
-                                  Navigator.pop(Get.context!);
+                                  final bool cameraStatus = await GetPermissions.getStoragePermission();
+                                  if(cameraStatus){
+                                    await controller.pickImage(ImageSource.gallery);
+                                    Navigator.pop(Get.context!);
+                                  }
+
                                 },
                                 leading: const Icon(FontAwesomeIcons.image),
                                 title: Text(AppLocalizations.of(context).upload_image, style: Get.textTheme.headlineMedium!.merge(const TextStyle(fontSize: 15))),

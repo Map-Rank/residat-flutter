@@ -7,6 +7,7 @@ import 'package:mapnrank/common/helper.dart';
 import '../../../../color_constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../common/ui.dart';
+import '../../../services/permission_service.dart';
 import '../../global_widgets/block_button_widget.dart';
 
 class ContactUsView extends GetView<ProfileController> {
@@ -223,7 +224,11 @@ class ContactUsView extends GetView<ProfileController> {
                   children: [
                     ListTile(
                       onTap: ()async{
-                        await controller.feedbackImagePicker('camera');
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.feedbackImagePicker('camera');
+                        }
+
                         //Navigator.pop(Get.context);
 
 
@@ -233,7 +238,11 @@ class ContactUsView extends GetView<ProfileController> {
                     ),
                     ListTile(
                       onTap: ()async{
-                        await controller.feedbackImagePicker('gallery');
+                        final bool cameraStatus = await GetPermissions.getStoragePermission();
+                        if(cameraStatus){
+                          await controller.feedbackImagePicker('gallery');
+                        }
+
                         //Navigator.pop(Get.context);
 
                       },

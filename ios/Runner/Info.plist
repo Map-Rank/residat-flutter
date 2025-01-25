@@ -29,13 +29,11 @@
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
 		<key>NSCameraUsageDescription</key>
-        <string>Allow access to the camera to take photos</string>
-
-        <key>NSPhotoLibraryUsageDescription</key>
-        <string>Allow access to the photo library to select photos</string>
-
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Allow access to location while using the app</string>
+		<string>Allow access to the camera to take photos</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Allow access to the photo library to select photos</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>Allow access to location while using the app</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
@@ -50,10 +48,10 @@
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
 		<key>LSApplicationQueriesSchemes</key>
-        <array>
-          <string>sms</string>
-          <string>tel</string>
-        </array>
+		<array>
+			<string>sms</string>
+			<string>tel</string>
+		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>CADisableMinimumFrameDurationOnPhone</key>

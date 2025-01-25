@@ -56,8 +56,11 @@ class DashboardView extends GetView<DashboardController> {
                   child: Image.asset(
                       "assets/images/logo.png",
                       width: Get.width/6,
-                      height: Get.width/6,
-                      fit: BoxFit.fitWidth),
+                      height:
+                      MediaQuery
+                          .sizeOf(context)
+                          .width <600? Get.width/6 : 80,
+                      fit: BoxFit.fitHeight),
                 ).marginOnly(left: 10),
                 Container(
                   height: 40,
@@ -452,7 +455,7 @@ class DashboardView extends GetView<DashboardController> {
                                     Positioned(
                                         bottom: 20,
                                         left: 10,
-                                        child: Text(controller.postsZoneStatistics[0]['zone']['name'], style: TextStyle(fontSize: 16),)
+                                        child: Text(controller.postsZoneStatistics[0]['zone']['name'], style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w900),)
                                     )
                                   ],
                                 ),
@@ -472,7 +475,8 @@ class DashboardView extends GetView<DashboardController> {
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(10)
                                           ),
-                                          child: Stack(
+                                          child:controller.postsZoneStatistics[index]['images'].isNotEmpty?
+                                          Stack(
                                             children: [
                                               FadeInImage(
                                                 width: Get.width,
@@ -494,6 +498,80 @@ class DashboardView extends GetView<DashboardController> {
                                               ),
                                               Positioned(
                                                   top: Get.height/6,
+                                                  child: Container(
+                                                    width: Get.width,
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            ClipOval(
+                                                                child: FadeInImage(
+                                                                  width: 40,
+                                                                  height: 40,
+                                                                  fit: BoxFit.cover,
+                                                                  image:  NetworkImage(controller.postsZoneStatistics[index]['creator'][0]['avatar'], headers: GlobalService.getTokenHeaders()),
+                                                                  placeholder: const AssetImage(
+                                                                      "assets/images/loading.gif"),
+                                                                  imageErrorBuilder:
+                                                                      (context, error, stackTrace) {
+                                                                    return Image.asset(
+                                                                        "assets/images/loading.gif",
+                                                                        width: 40,
+                                                                        height: 40,
+                                                                        fit: BoxFit.cover);
+                                                                  },
+                                                                )
+                                                            ),
+                                                            const SizedBox(width: 5,),
+                                                            Column(
+                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                              children: [
+                                                                Text('${controller.postsZoneStatistics[index]['creator'][0]['first_name'][0].toUpperCase()}${controller.postsZoneStatistics[index]['creator'][0]['first_name'].substring(1).toLowerCase()} ${controller.postsZoneStatistics[index]['creator'][0]['last_name'][0].toUpperCase()}${controller.postsZoneStatistics[index]['creator'][0]['last_name'].substring(1).toLowerCase()}',
+                                                                    //overflow:TextOverflow.ellipsis ,
+                                                                    style: Get.textTheme.titleSmall),
+                                                                Container(
+                                                                    padding: EdgeInsets.all(5),
+                                                                    decoration: BoxDecoration(
+                                                                        color: secondaryColor,
+                                                                        borderRadius: BorderRadius.circular(10)
+                                                                    ),
+                                                                    child: Text('RECENT', style: TextStyle(color: Colors.white),)
+
+                                                                )
+                                                              ],
+                                                            )
+
+
+                                                          ],
+
+
+                                                        ).marginOnly(bottom: 10),
+
+                                                        Text(controller.postsZoneStatistics[index]['content'].replaceAllMapped(RegExp(r'<p>|<\/p>'), (match) {
+                                                          return match.group(0) == '</p>' ? '\n' : ''; // Replace </p> with \n and remove <p>
+                                                        })
+                                                            .replaceAll(RegExp(r'^\s*\n', multiLine: false), ''), overflow: TextOverflow.ellipsis,),
+
+                                                      ],
+                                                    ),
+
+                                                  ))
+                                            ],
+                                          )
+                                              :Stack(
+                                            children: [
+                                              Positioned(
+                                                  //top: Get.height/6,
                                                   child: Container(
                                                     width: Get.width,
                                                     padding: EdgeInsets.all(10),
