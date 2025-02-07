@@ -368,14 +368,14 @@ class CommunityView extends GetView<CommunityController> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            await controller.refreshCommunity(showMessage: true);
+            //await controller.refreshCommunity();
             controller.onInit();
           },
           child:  Container(
             color: backgroundColor,
             height: Get.height,
             child: Obx(() => CustomScrollView(
-              controller: controller.scrollbarController,
+              controller: controller.scrollbarController?.value,
               //primary: true,
               shrinkWrap: false,
               slivers: <Widget>[
@@ -488,7 +488,7 @@ class CommunityView extends GetView<CommunityController> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: backgroundColor,
+                          color: backgroundColor,
                           //border: Border(bottom: BorderSide(color: interfaceColor))
                         ),
                         child: Column(children: [
@@ -557,25 +557,25 @@ class CommunityView extends GetView<CommunityController> {
 
 
                             ],),
-                         Obx(() => Visibility(
-                           visible: controller.filterByLocation.value,
-                           child: Container(
-                             width: Get.width,
-                           padding: EdgeInsets.all(20),
-                           decoration: BoxDecoration(
-                               color: interfaceColor,
-                               borderRadius: BorderRadius.circular(10)
-                           ),
-                           child: Text(AppLocalizations.of(context).select_location_title,
-                             style: Get.textTheme.bodyMedium?.merge(const TextStyle(color: Colors.white, fontSize: 16)),
-                             textAlign: TextAlign.start,),
-                         ).marginOnly(bottom: 20, left: 5, right: 5),),),
-                         Obx(() =>  Visibility(
-                             visible: controller.filterByLocation.value,
-                             child: Container(
-                               color: Colors.white,
-                               height: Get.height/2.9,
-                                 child: BuildSelectZone()).marginOnly(bottom: 10)),),
+                          Obx(() => Visibility(
+                            visible: controller.filterByLocation.value,
+                            child: Container(
+                              width: Get.width,
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  color: interfaceColor,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Text(AppLocalizations.of(context).select_location_title,
+                                style: Get.textTheme.bodyMedium?.merge(const TextStyle(color: Colors.white, fontSize: 16)),
+                                textAlign: TextAlign.start,),
+                            ).marginOnly(bottom: 20, left: 5, right: 5),),),
+                          Obx(() =>  Visibility(
+                              visible: controller.filterByLocation.value,
+                              child: Container(
+                                  color: Colors.white,
+                                  height: Get.height/2.9,
+                                  child: BuildSelectZone()).marginOnly(bottom: 10)),),
 
                           Obx(() => Visibility(
                             visible: controller.filterBySector.value,
@@ -597,16 +597,17 @@ class CommunityView extends GetView<CommunityController> {
                                   height: Get.height/2.5,
                                   child: BuildSelectSector()).marginOnly(bottom: 10)),)
                         ],)
-                       ,
+                        ,
                       ),
                     ],
                   ),
 
                 ),
 
-
                 Obx(() => SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
+                    delegate: SliverChildBuilderDelegate(
+                      //addAutomaticKeepAlives: false,
+                            (context, index,) {
                       return controller.loadingPosts.value?
                       const LoadingCardWidget()
                           :controller.allPosts.isNotEmpty?
@@ -728,24 +729,24 @@ class CommunityView extends GetView<CommunityController> {
 
                 SliverList(
                     delegate: SliverChildListDelegate([
-                       !controller.loadingPosts.value?
-                       controller.allPosts.isEmpty?
-                    Center(
-                    child: SizedBox(
-                    //height: Get.height/2,
-                    child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children:  [
-                      SizedBox(height: Get.height/4),
-                    FaIcon(FontAwesomeIcons.folderOpen, size: 30,),
-                  Text(AppLocalizations.of(context).no_posts_found)
-                  ],
-                ),
-            ),
+                      !controller.loadingPosts.value?
+                      controller.allPosts.isEmpty?
+                      Center(
+                        child: SizedBox(
+                          //height: Get.height/2,
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:  [
+                              SizedBox(height: Get.height/4),
+                              FaIcon(FontAwesomeIcons.folderOpen, size: 30,),
+                              Text(AppLocalizations.of(context).no_posts_found)
+                            ],
+                          ),
+                        ),
 
-          ):controller.page >0?
-                       Center(
+                      ):controller.isLoadingMore.value?
+                      Center(
                         child: CircularProgressIndicator(color: interfaceColor, ),
                       ):SizedBox(): LoadingCardWidget()
 

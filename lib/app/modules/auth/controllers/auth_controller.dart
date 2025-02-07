@@ -510,7 +510,7 @@ class AuthController extends GetxController {
       box.write("current_user", Get.find<AuthService>().user.value.toJson()
       );
      if(! Platform.environment.containsKey('FLUTTER_TEST')){
-       await Get.find<RootController>().changePage(0);
+       await Get.toNamed(Routes.ROOT);
        Get.showSnackbar(Ui.SuccessSnackBar(message: AppLocalizations.of(Get.context!).account_created_successfully ));
      }
 
@@ -578,7 +578,7 @@ class AuthController extends GetxController {
           if(! Platform.environment.containsKey('FLUTTER_TEST')){
             print("Emaillllllllllllllllllll: ${Get.find<AuthService>().user.value.email}");
             Get.showSnackbar(Ui.SuccessSnackBar(message: AppLocalizations.of(Get.context!).login_successful ));
-            await Get.find<RootController>().changePage(0);
+            await Get.toNamed(Routes.ROOT);
           }
         }
 

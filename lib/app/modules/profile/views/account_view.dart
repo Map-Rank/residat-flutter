@@ -67,11 +67,13 @@ class AccountView extends GetView<ProfileController> {
                         CircleAvatar(
                           radius: 65,
                           backgroundColor:  background,
-                          child: Image.file(
-                            controller.profileImage.value,
-                            fit: BoxFit.cover,
-                            width: 130,
-                            height: 130,
+                          child: ClipOval(
+                            child: Image.file(
+                              controller.profileImage.value,
+                              fit: BoxFit.cover,
+                              width: 130,
+                              height: 130,
+                            ),
                           ),
                         )
                       ,),

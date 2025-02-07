@@ -872,7 +872,6 @@ Future getDisasterMarkers() async{
   // Handling Posts
 Future getAllPosts(int page) async {
     try {
-      print("Page is: ${page}");
       var headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

@@ -3,12 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mapnrank/app/models/user_model.dart';
 import 'package:mapnrank/app/modules/global_widgets/read_more_text.dart';
-import 'package:mapnrank/app/modules/other_user_profile/controllers/other_user_profile_controller.dart';
 import 'package:mapnrank/app/services/global_services.dart';
 import '../../../color_constants.dart';
 import '../../routes/app_routes.dart';
-import '../community/controllers/community_controller.dart';
-import '../community/widgets/comment_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PostCardWidget extends StatelessWidget {

@@ -27,14 +27,14 @@ class GetPermissions {
   static Future<bool> getStoragePermission() async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     AndroidDeviceInfo androidDeviceInfo = await deviceInfoPlugin.androidInfo;
-    PermissionStatus permissionStatus = await Permission.photos.status;
+    PermissionStatus permissionStatus = await Permission.storage.status;
     print(permissionStatus.toString());
     print(androidDeviceInfo.version.sdkInt);
     if(androidDeviceInfo.version.sdkInt < 33){
       if (permissionStatus.isGranted) {
         return true;
       } else if (permissionStatus.isDenied) {
-        PermissionStatus status = await Permission.photos.status;
+        PermissionStatus status = await Permission.storage.status;
         if (status.isGranted) {
           return true;
         } else {

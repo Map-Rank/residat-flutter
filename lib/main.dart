@@ -22,6 +22,7 @@ import 'package:mapnrank/app/routes/theme_app_pages.dart';
 import 'package:mapnrank/app/services/auth_service.dart';
 import 'package:mapnrank/app/services/global_services.dart';
 import 'package:mapnrank/app/services/settings_services.dart';
+import 'app/routes/app_routes.dart';
 import 'app/services/firebase_messaging_service.dart';
 import 'firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -152,7 +153,6 @@ class MyApp extends StatelessWidget {
       theme: Get.find<SettingsService>().getLightTheme(),
       darkTheme: Get.find<SettingsService>().getDarkTheme(),
       home:  GlobalService.isAuthTokenValid?RootView():LoginView(),
-
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -15,6 +15,8 @@ import '../../auth/controllers/auth_controller.dart';
 import '../../notifications/controllers/notification_controller.dart';
 
 
+
+
 class RootController extends GetxController {
   final currentIndex = 0.obs;
   final notificationsCount = 0.obs;
@@ -43,6 +45,7 @@ class RootController extends GetxController {
   Widget get currentPage => pages[currentIndex.value];
 
   Future<void> changePageInRoot(int _index) async {
+    print('Hellooooooooooooooooooo');
     if (Get.find<AuthService>().user.value.email == null && _index > 0) {
       await Get.offNamed(Routes.LOGIN);
     } else {
@@ -54,21 +57,23 @@ class RootController extends GetxController {
   }
 
   Future<void> changePageOutRoot(int _index) async {
+    print('Hiiiiiiiiiiiiiiiiiiiiii');
     if (Get.find<AuthService>().user.value.email == null && _index > 0) {
       await Get.toNamed(Routes.LOGIN);
     }else{
       currentIndex.value = _index;
       await refreshPage(_index);
-      await Get.offNamedUntil(Routes.ROOT, (Route route) {
-        if (route.settings.name == Routes.ROOT) {
-          return true;
-        }
-        return true;
-      }, arguments: _index);
+      //  await Get.offNamedUntil(Routes.ROOT, (Route route) {
+      //   if (route.settings.name == Routes.ROOT) {
+      //     return true;
+      //   }
+      //   return true;
+      // }, arguments: _index);
     }
   }
 
   Future<void> changePage(int _index) async {
+
     if (Get.currentRoute == Routes.ROOT) {
       await changePageInRoot(_index);
     } else {

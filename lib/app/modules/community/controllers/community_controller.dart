@@ -91,6 +91,7 @@ class CommunityController extends GetxController {
   var page = 0;
 
   RxBool registerNextStep1 = false.obs;
+  RxBool isLoadingMore = false.obs;
 
   late UserRepository userRepository ;
   late ZoneRepository zoneRepository ;
@@ -98,7 +99,7 @@ class CommunityController extends GetxController {
 
   late Post postModel;
 
-  late ScrollController scrollbarController;
+  Rx<ScrollController>? scrollbarController;
 
   var imageFiles = [].obs;
 
@@ -162,18 +163,13 @@ class CommunityController extends GetxController {
 
     super.onInit();
 
-    post = Post();
-    print('Post from init: ${post.content}' );
-
-    scrollbarController = ScrollController()..addListener(_scrollListener);
     communityRepository = CommunityRepository();
     userRepository = UserRepository();
     zoneRepository = ZoneRepository();
     sectorRepository = SectorRepository();
 
-
-
     await refreshCommunity();
+
     if(! Platform.environment.containsKey('FLUTTER_TEST')){
       // coverage:ignore-start
       var box = GetStorage();
@@ -286,41 +282,90 @@ class CommunityController extends GetxController {
   }
 
 
+
+
  // coverage:ignore-start
   @override
   void dispose() {
-    scrollbarController.removeListener(_scrollListener);
+    scrollbarController?.value.removeListener(_scrollListener);
     super.dispose();
   }
   // coverage:ignore-end
 
-  refreshCommunity({bool showMessage = false}) async {
+
+  refreshCommunity() async {
+    page = 0;
     selectedPost.clear();
     listAllPosts.clear();
     allPosts.clear();
     loadingPosts.value = true;
-    //scrollbarController = ScrollController()..addListener(scrollListener);
-    if(! Platform.environment.containsKey('FLUTTER_TEST')){
-      listAllPosts = await getAllPosts(0);
+    if (page == 0){
+      listAllPosts = await getAllPosts(page);
+      allPosts.value = listAllPosts;
     }
-    else{
-      listAllPosts = [];
-    }
+    initializeScrollController();
 
-    allPosts.value= listAllPosts;
+
     emptyArrays();
   }
 
-  // coverage:ignore-start
-  void _scrollListener() async{
-    print('extent is ${scrollbarController.position.extentAfter.toString()}');
-    if (scrollbarController.position.extentAfter < 10) {
-      var posts = await getAllPosts(++page);
-        allPosts.addAll(posts);
-      listAllPosts.addAll(posts);
+  void initializeScrollController() {
+    // Dispose existing controller before creating a new one
+    disposeController();
+    scrollbarController = ScrollController().obs;
+    scrollbarController?.value.addListener(_scrollListener);
+  }
+
+  void disposeController() {
+    if (scrollbarController != null) {
+      // First check if controller has clients
+      if (scrollbarController!.value.hasClients) {
+        // Remove listener before disposing
+        scrollbarController?.value.removeListener(_scrollListener);
+      }
+      // Then dispose
+      scrollbarController?.value.dispose();
+      scrollbarController = null;
     }
   }
+
+  // coverage:ignore-start
+  void _scrollListener() async {
+    print('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP: ${scrollbarController?.value.position.toString()}');
+    // Prevent multiple simultaneous loading calls
+
+      if (scrollbarController?.value.hasClients == true &&
+          scrollbarController!.value.position.extentAfter <
+              10 && !loadingPosts.value) { // Pre-load threshold
+        try {
+          isLoadingMore.value = true;
+          var posts = await getAllPosts(++page);
+          if (posts.isNotEmpty) {
+            allPosts.addAll(posts);
+            listAllPosts.addAll(posts);
+          }
+          isLoadingMore.value = false;
+        } finally {
+          loadingPosts.value = false;
+        }
+      }
+
+
+  }
   // coverage:ignore-end
+
+  @override
+  void onClose() {
+    disposeController();
+    super.onClose();
+  }
+
+  void resetScroll() {
+    if (scrollbarController!.value.hasClients) {
+      scrollbarController!.value.jumpTo(0);
+    }
+  }
+
 
   getAllPosts(int page)async{
     print('page is :${page}');
@@ -329,7 +374,6 @@ class CommunityController extends GetxController {
 
     try{
       var list = await communityRepository.getAllPosts(page);
-      print(list);
       for( var i = 0; i< list.length; i++){
         UserModel user = UserModel(
             userId: list[i]['creator'][0]['id'],
@@ -355,7 +399,6 @@ class CommunityController extends GetxController {
 
         );
 
-        print(list[i]['liked']);
         postList.add(post);
       }
       loadingPosts.value = false;
