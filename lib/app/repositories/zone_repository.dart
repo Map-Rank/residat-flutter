@@ -52,4 +52,9 @@ class ZoneRepository {
     return _laravelApiClient.getDisasterMarkers();
   }
 
+  Future getADisasterMarker(int id){
+    _laravelApiClient = Get.find<LaravelApiClient>();
+    return _laravelApiClient.getADisasterMarker(id);
+  }
+
 }

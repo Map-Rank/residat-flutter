@@ -1,27 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:mapnrank/app/modules/dashboard/controllers/dashboard_controller.dart';
-import 'package:mapnrank/app/modules/global_widgets/block_button_widget.dart';
 import 'package:mapnrank/app/modules/global_widgets/tool_tip_widget.dart';
-import 'package:mapnrank/app/services/auth_service.dart';
 import 'package:mapnrank/app/services/global_services.dart';
-import 'package:super_tooltip/super_tooltip.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../color_constants.dart';
 import '../../profile/controllers/profile_controller.dart';
 import '../../profile/views/profile_view.dart';
-import '../../root/controllers/root_controller.dart';
 
 import 'package:latlong2/latlong.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
@@ -374,15 +369,7 @@ class DashboardView extends GetView<DashboardController> {
                   : MouseRegion(
                 hitTestBehavior: HitTestBehavior.deferToChild,
                 cursor: SystemMouseCursors.click, // Use a special cursor to indicate interactivity
-                child: GestureDetector(
-                    onTap: () async {
-                      //Nothing to add concerning disasters markers yet
-
-                    },
-                    // And/or any other gesture callback
-                    child: MarkerLayer(markers: controller.markers )
-
-                ),
+                child: MarkerLayer(markers: controller.markers, ),
               ),),
 
 

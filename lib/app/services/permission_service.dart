@@ -30,25 +30,25 @@ class GetPermissions {
     PermissionStatus permissionStatus = await Permission.storage.status;
     print(permissionStatus.toString());
     print(androidDeviceInfo.version.sdkInt);
-    if(androidDeviceInfo.version.sdkInt < 33){
-      if (permissionStatus.isGranted) {
-        return true;
-      } else if (permissionStatus.isDenied) {
-        PermissionStatus status = await Permission.storage.status;
-        if (status.isGranted) {
-          return true;
-        } else {
-          Get.showSnackbar(Ui.warningSnackBar(message: "Gallery access is required"));
-          return false;
-        }
-    }
+    // if(androidDeviceInfo.version.sdkInt < 33){
+    //   if (permissionStatus.isGranted) {
+    //     return true;
+    //   } else if (permissionStatus.isDenied) {
+    //     PermissionStatus status = await Permission.storage.status;
+    //     if (status.isGranted) {
+    //       return true;
+    //     } else {
+    //       Get.showSnackbar(Ui.warningSnackBar(message: "Gallery access is required"));
+    //       return false;
+    //     }
+    // }
+    //
+    // }
+    // else{
+    //   return true;
+    // }
 
-    }
-    else{
-      return true;
-    }
-
-    return false;
+    return true;
   }
 
   static Future<void> requestNotificationPermission() async {

@@ -837,6 +837,41 @@ Future getDisasterMarkers() async{
   }
 }
 
+
+  Future getADisasterMarker(int id) async{
+    try {
+      var headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${Get
+            .find<AuthService>()
+            .user
+            .value
+            .authToken}'
+      };
+      var response = await httpClient.get(
+        '${GlobalService().baseUrl}api/disasters/$id',
+        options: Options(
+          method: 'GET',
+          headers: headers,
+        ),
+      );
+      if (response.statusCode == 200) {
+        if (response.data['status'] == true) {
+          return response.data['data'];
+        } else {
+          throw Exception(response.data['message']);
+        }
+      }
+    }on SocketException catch (e) {
+      throw SocketException(e.toString());
+    } on FormatException catch (_) {
+      throw const FormatException("Unable to process the data");
+    } catch (e) {
+      throw NetworkExceptions.getDioException(e);
+    }
+  }
+
   Future getAllSectors() async {
     try {
       var headers = {
