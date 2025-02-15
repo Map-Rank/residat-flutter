@@ -7,7 +7,7 @@ import 'dart:async' as _i13;
 import 'dart:io' as _i10;
 import 'dart:ui' as _i15;
 
-import 'package:flutter/material.dart' as _i8;
+import 'package:flutter/cupertino.dart' as _i8;
 import 'package:get/get.dart' as _i2;
 import 'package:get/get_state_manager/src/simple/list_notifier.dart' as _i14;
 import 'package:image_picker/image_picker.dart' as _i9;
@@ -370,28 +370,6 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i2.RxBool get createUpdatePosts => (super.noSuchMethod(
-        Invocation.getter(#createUpdatePosts),
-        returnValue: _FakeRxBool_1(
-          this,
-          Invocation.getter(#createUpdatePosts),
-        ),
-        returnValueForMissingStub: _FakeRxBool_1(
-          this,
-          Invocation.getter(#createUpdatePosts),
-        ),
-      ) as _i2.RxBool);
-
-  @override
-  set createUpdatePosts(_i2.RxBool? _createUpdatePosts) => super.noSuchMethod(
-        Invocation.setter(
-          #createUpdatePosts,
-          _createUpdatePosts,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i2.RxBool get updatePosts => (super.noSuchMethod(
         Invocation.getter(#updatePosts),
         returnValue: _FakeRxBool_1(
@@ -409,6 +387,28 @@ class MockCommunityController extends _i1.Mock
         Invocation.setter(
           #updatePosts,
           _updatePosts,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get createUpdatePosts => (super.noSuchMethod(
+        Invocation.getter(#createUpdatePosts),
+        returnValue: _FakeRxBool_1(
+          this,
+          Invocation.getter(#createUpdatePosts),
+        ),
+        returnValueForMissingStub: _FakeRxBool_1(
+          this,
+          Invocation.getter(#createUpdatePosts),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set createUpdatePosts(_i2.RxBool? _createUpdatePosts) => super.noSuchMethod(
+        Invocation.setter(
+          #createUpdatePosts,
+          _createUpdatePosts,
         ),
         returnValueForMissingStub: null,
       );
@@ -519,6 +519,39 @@ class MockCommunityController extends _i1.Mock
         Invocation.setter(
           #postDetails,
           _postDetails,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Map<String, dynamic>> get zones => (super.noSuchMethod(
+        Invocation.getter(#zones),
+        returnValue: <Map<String, dynamic>>[],
+        returnValueForMissingStub: <Map<String, dynamic>>[],
+      ) as List<Map<String, dynamic>>);
+
+  @override
+  set zones(List<Map<String, dynamic>>? _zones) => super.noSuchMethod(
+        Invocation.setter(
+          #zones,
+          _zones,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Map<String, dynamic>> get listAllZones => (super.noSuchMethod(
+        Invocation.getter(#listAllZones),
+        returnValue: <Map<String, dynamic>>[],
+        returnValueForMissingStub: <Map<String, dynamic>>[],
+      ) as List<Map<String, dynamic>>);
+
+  @override
+  set listAllZones(List<Map<String, dynamic>>? _listAllZones) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #listAllZones,
+          _listAllZones,
         ),
         returnValueForMissingStub: null,
       );
@@ -669,6 +702,29 @@ class MockCommunityController extends _i1.Mock
         Invocation.setter(
           #regionSelectedValue,
           _regionSelectedValue,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get cancelSearchSubDivision => (super.noSuchMethod(
+        Invocation.getter(#cancelSearchSubDivision),
+        returnValue: _FakeRxBool_1(
+          this,
+          Invocation.getter(#cancelSearchSubDivision),
+        ),
+        returnValueForMissingStub: _FakeRxBool_1(
+          this,
+          Invocation.getter(#cancelSearchSubDivision),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set cancelSearchSubDivision(_i2.RxBool? _cancelSearchSubDivision) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #cancelSearchSubDivision,
+          _cancelSearchSubDivision,
         ),
         returnValueForMissingStub: null,
       );
@@ -1559,6 +1615,50 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
+  _i2.RxBool get likeMyPost => (super.noSuchMethod(
+        Invocation.getter(#likeMyPost),
+        returnValue: _FakeRxBool_1(
+          this,
+          Invocation.getter(#likeMyPost),
+        ),
+        returnValueForMissingStub: _FakeRxBool_1(
+          this,
+          Invocation.getter(#likeMyPost),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set likeMyPost(_i2.RxBool? _likeMyPost) => super.noSuchMethod(
+        Invocation.setter(
+          #likeMyPost,
+          _likeMyPost,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get shareMyPost => (super.noSuchMethod(
+        Invocation.getter(#shareMyPost),
+        returnValue: _FakeRxBool_1(
+          this,
+          Invocation.getter(#shareMyPost),
+        ),
+        returnValueForMissingStub: _FakeRxBool_1(
+          this,
+          Invocation.getter(#shareMyPost),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set shareMyPost(_i2.RxBool? _shareMyPost) => super.noSuchMethod(
+        Invocation.setter(
+          #shareMyPost,
+          _shareMyPost,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i8.TextEditingController get commentController => (super.noSuchMethod(
         Invocation.getter(#commentController),
         returnValue: _FakeTextEditingController_12(
@@ -1788,45 +1888,45 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i2.RxBool get inputSector => (super.noSuchMethod(
-        Invocation.getter(#inputSector),
+  _i2.RxBool get filterBySector => (super.noSuchMethod(
+        Invocation.getter(#filterBySector),
         returnValue: _FakeRxBool_1(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
         returnValueForMissingStub: _FakeRxBool_1(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputSector(_i2.RxBool? _inputSector) => super.noSuchMethod(
+  set filterBySector(_i2.RxBool? _filterBySector) => super.noSuchMethod(
         Invocation.setter(
-          #inputSector,
-          _inputSector,
+          #filterBySector,
+          _filterBySector,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i2.RxBool get inputZone => (super.noSuchMethod(
-        Invocation.getter(#inputZone),
+  _i2.RxBool get filterByLocation => (super.noSuchMethod(
+        Invocation.getter(#filterByLocation),
         returnValue: _FakeRxBool_1(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
         returnValueForMissingStub: _FakeRxBool_1(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputZone(_i2.RxBool? _inputZone) => super.noSuchMethod(
+  set filterByLocation(_i2.RxBool? _filterByLocation) => super.noSuchMethod(
         Invocation.setter(
-          #inputZone,
-          _inputZone,
+          #filterByLocation,
+          _filterByLocation,
         ),
         returnValueForMissingStub: null,
       );
@@ -2131,10 +2231,17 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  dynamic sharePost(int? postId) => super.noSuchMethod(
+  dynamic sharePost(
+    int? postId,
+    int? index,
+  ) =>
+      super.noSuchMethod(
         Invocation.method(
           #sharePost,
-          [postId],
+          [
+            postId,
+            index,
+          ],
         ),
         returnValueForMissingStub: null,
       );

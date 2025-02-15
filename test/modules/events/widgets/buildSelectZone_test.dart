@@ -1,9 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mapnrank/app/modules/events/widgets/buildSelectZone.dart';
+import 'package:mapnrank/app/providers/laravel_provider.dart';
+import 'package:mapnrank/app/services/auth_service.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mapnrank/app/modules/events/controllers/events_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -57,13 +60,13 @@ class MockEventsController extends GetxController with Mock implements EventsCon
   var subdivisions = [].obs;
 
   @override
-  var regionSelectedValue = [].obs;
+  var regionSelectedValue = [{'name': 'Region'}].obs;
 
   @override
-  var divisionSelectedValue = [].obs;
+  var divisionSelectedValue = [{'name': 'Division'}].obs;
 
   @override
-  var subdivisionSelectedValue = [].obs;
+  var subdivisionSelectedValue = [{'name': 'SubDivision'}].obs;
 }
 
 void main() {
@@ -203,4 +206,131 @@ void main() {
     // Verify the controller state change for subdivision selection
     //expect(mockEventsController.subdivisionSelected.value, false);
   });
+
+  testWidgets('BuildSelectZone renders correctly and handles interactions', (WidgetTester tester) async {
+
+    mockEventsController.loadingRegions.value = true;
+
+    await tester.pumpWidget(
+      GetMaterialApp(
+        home: Scaffold(
+          body: Localizations(
+            delegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            locale: Locale('en'),
+
+            child: Builder(
+                builder: (BuildContext context) {
+                  return BuildSelectZone();
+                }
+
+            ),),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+
+    await tester.pumpAndSettle();
+
+    await tester.pumpAndSettle();
+
+  });
+
+  testWidgets('choose region button shows dialog when tapped',
+          (WidgetTester tester) async {
+        // Arrange
+        // Initialize Get and the mock controller
+        Get.lazyPut(()=>EventsController());
+        Get.lazyPut(()=>AuthService());
+        Get.lazyPut(()=>LaravelApiClient(dio: Dio()));
+        final mockController = MockEventsController();
+        Get.lazyPut(()=>MockEventsController());
+        // Arrange
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: BuildSelectZone(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              // ... other localization delegates
+            ],
+            locale: const Locale('en'), // S
+          ),
+        );
+
+        // Act
+        await tester.tap(find.byKey(Key('chooseRegion')));
+        await tester.pumpAndSettle();
+
+        // Assert
+        expect(find.byKey(Key('regionDialog')), findsOneWidget);
+      });
+
+
+  testWidgets('choose division button shows dialog when tapped',
+          (WidgetTester tester) async {
+        // Arrange
+        // Initialize Get and the mock controller
+        // CommunityController().regionSelectedValue.value = [{'zone':2}];
+
+            Get.lazyPut(()=>EventsController());
+            Get.lazyPut(()=>AuthService());
+            Get.lazyPut(()=>LaravelApiClient(dio: Dio()));
+            final mockController = MockEventsController();
+            Get.lazyPut(()=>MockEventsController());
+        // Arrange
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: BuildSelectZone(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              // ... other localization delegates
+            ],
+            locale: const Locale('en'), // S
+          ),
+        );
+
+        // Act
+        await tester.tap(find.byKey(Key('chooseDivision')));
+        await tester.pumpAndSettle();
+
+        // Assert
+        //expect(find.byKey(Key('divisionDialog')), findsOneWidget);
+      });
+
+  testWidgets('choose subdivision button shows dialog when tapped',
+          (WidgetTester tester) async {
+        // Arrange
+        // Initialize Get and the mock controller
+            Get.lazyPut(()=>EventsController());
+            Get.lazyPut(()=>AuthService());
+            Get.lazyPut(()=>LaravelApiClient(dio: Dio()));
+            final mockController = MockEventsController();
+            Get.lazyPut(()=>MockEventsController());
+
+        EventsController().regionSelectedValue = [{'zone': 1}].obs;
+            EventsController().subdivisions = [{'zone': 1}].obs;
+        // Arrange
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: BuildSelectZone(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              // ... other localization delegates
+            ],
+            locale: const Locale('en'), // S
+          ),
+        );
+
+        // Act
+        await tester.tap(find.byKey(Key('chooseSubdivision')));
+        await tester.pumpAndSettle();
+
+        // Assert
+        // expect(find.byKey(Key('subdivisionDialog')), findsOneWidget);
+      });
 }

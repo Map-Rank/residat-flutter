@@ -1276,45 +1276,45 @@ class MockEventsController extends _i1.Mock implements _i9.EventsController {
       );
 
   @override
-  _i2.RxBool get inputSector => (super.noSuchMethod(
-        Invocation.getter(#inputSector),
+  _i2.RxBool get filterBySector => (super.noSuchMethod(
+        Invocation.getter(#filterBySector),
         returnValue: _FakeRxBool_4(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
         returnValueForMissingStub: _FakeRxBool_4(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputSector(_i2.RxBool? _inputSector) => super.noSuchMethod(
+  set filterBySector(_i2.RxBool? _filterBySector) => super.noSuchMethod(
         Invocation.setter(
-          #inputSector,
-          _inputSector,
+          #filterBySector,
+          _filterBySector,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i2.RxBool get inputZone => (super.noSuchMethod(
-        Invocation.getter(#inputZone),
+  _i2.RxBool get filterByLocation => (super.noSuchMethod(
+        Invocation.getter(#filterByLocation),
         returnValue: _FakeRxBool_4(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
         returnValueForMissingStub: _FakeRxBool_4(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputZone(_i2.RxBool? _inputZone) => super.noSuchMethod(
+  set filterByLocation(_i2.RxBool? _filterByLocation) => super.noSuchMethod(
         Invocation.setter(
-          #inputZone,
-          _inputZone,
+          #filterByLocation,
+          _filterByLocation,
         ),
         returnValueForMissingStub: null,
       );

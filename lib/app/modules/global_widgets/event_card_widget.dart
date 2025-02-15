@@ -125,7 +125,7 @@ class EventCardWidget extends StatelessWidget {
                     Wrap(
                       children: [
                         SizedBox(
-                            child: Text(title!, style: Get.textTheme.headlineLarge),
+                            child: Text(title??'', style: Get.textTheme.headlineLarge),
                           width: !isAllEventsPage? Get.width/1.8:Get.width
                         ),
                         if(!isAllEventsPage)...[
@@ -167,16 +167,13 @@ class EventCardWidget extends StatelessWidget {
                     //   TextSpan(text: eventOrganizer, style: TextStyle(color: Colors.black))
                     // ])).marginOnly(bottom: 10),
 
-                    Text(content!.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ''), maxLines: 3, style: Get.textTheme.displayMedium?.merge(TextStyle(overflow: TextOverflow.ellipsis,) )),
+                    Text(content??''.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ''), maxLines: 3, style: Get.textTheme.displayMedium?.merge(TextStyle(overflow: TextOverflow.ellipsis,) )),
 
 
 
                   ],
                 ),
               ),
-
-
-
 
 
             ]

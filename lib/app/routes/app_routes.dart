@@ -5,6 +5,7 @@ class Routes {
   static const INSTITUTIONAL_USER = '/institutional_user';
   static const WELCOME_INSTITUTIONAL_USER = '/welcome_institutional_user';
   static const VERIFICATION = '/verification_view';
+  static const INSTITUTION_CREATE_MESSAGE = '/institutional_create_message';
 
   static const ROOT = '/root';
   static const CREATE_POST = '/community/community_view';

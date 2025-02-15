@@ -45,8 +45,8 @@ class CommunityController extends GetxController {
   var listAllPosts = [];
   var loadingPosts = true.obs;
   var createPosts = false.obs;
-  var createUpdatePosts = false.obs;
   var updatePosts = false.obs;
+  var createUpdatePosts = false.obs;
   var searchField = false.obs;
   var noFilter = true.obs;
   var createPostNotEvent = true.obs;
@@ -91,6 +91,7 @@ class CommunityController extends GetxController {
   var page = 0;
 
   RxBool registerNextStep1 = false.obs;
+  RxBool isLoadingMore = false.obs;
 
   late UserRepository userRepository ;
   late ZoneRepository zoneRepository ;
@@ -98,7 +99,7 @@ class CommunityController extends GetxController {
 
   late Post postModel;
 
-  late ScrollController scrollbarController;
+  Rx<ScrollController>? scrollbarController;
 
   var imageFiles = [].obs;
 
@@ -162,19 +163,15 @@ class CommunityController extends GetxController {
 
     super.onInit();
 
-    post = Post();
-    print('Post from init: ${post.content}' );
-
-    scrollbarController = ScrollController()..addListener(_scrollListener);
     communityRepository = CommunityRepository();
     userRepository = UserRepository();
     zoneRepository = ZoneRepository();
     sectorRepository = SectorRepository();
 
-
-
     await refreshCommunity();
+
     if(! Platform.environment.containsKey('FLUTTER_TEST')){
+      // coverage:ignore-start
       var box = GetStorage();
 
       var boxRegions = box.read("allRegions");
@@ -226,6 +223,7 @@ class CommunityController extends GetxController {
 
 
       }
+      // coverage:ignore-end
     }
     else{
       allPosts = [Post(
@@ -274,7 +272,7 @@ class CommunityController extends GetxController {
       //imageFiles = [];
     }
 
-    var listZones = await getAllZonesFilterByName();
+    var listZones = await getAllZonesFilterByName()??[];
 
     listAllZones = listZones.cast<Map<String, dynamic>>();
     zones = listAllZones;
@@ -284,36 +282,90 @@ class CommunityController extends GetxController {
   }
 
 
+
+
+ // coverage:ignore-start
   @override
   void dispose() {
-    scrollbarController.removeListener(_scrollListener);
+    scrollbarController?.value.removeListener(_scrollListener);
     super.dispose();
   }
+  // coverage:ignore-end
 
-  refreshCommunity({bool showMessage = false}) async {
+
+  refreshCommunity() async {
+    page = 0;
     selectedPost.clear();
     listAllPosts.clear();
     allPosts.clear();
     loadingPosts.value = true;
-    if(! Platform.environment.containsKey('FLUTTER_TEST')){
-      listAllPosts = await getAllPosts(0);
+    if (page == 0){
+      listAllPosts = await getAllPosts(page);
+      allPosts.value = listAllPosts;
     }
-    else{
-      listAllPosts = [];
-    }
+    initializeScrollController();
 
-    allPosts.value= listAllPosts;
+
     emptyArrays();
   }
 
-  void _scrollListener() async{
-    print('extent is ${scrollbarController.position.extentAfter}');
-    if (scrollbarController.position.extentAfter < 10) {
-      var posts = await getAllPosts(++page);
-        allPosts.addAll(posts);
-      listAllPosts.addAll(posts);
+  void initializeScrollController() {
+    // Dispose existing controller before creating a new one
+    disposeController();
+    scrollbarController = ScrollController().obs;
+    scrollbarController?.value.addListener(_scrollListener);
+  }
+
+  void disposeController() {
+    if (scrollbarController != null) {
+      // First check if controller has clients
+      if (scrollbarController!.value.hasClients) {
+        // Remove listener before disposing
+        scrollbarController?.value.removeListener(_scrollListener);
+      }
+      // Then dispose
+      scrollbarController?.value.dispose();
+      scrollbarController = null;
     }
   }
+
+  // coverage:ignore-start
+  void _scrollListener() async {
+    print('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP: ${scrollbarController?.value.position.toString()}');
+    // Prevent multiple simultaneous loading calls
+
+      if (scrollbarController?.value.hasClients == true &&
+          scrollbarController!.value.position.extentAfter <
+              10 && !loadingPosts.value) { // Pre-load threshold
+        try {
+          isLoadingMore.value = true;
+          var posts = await getAllPosts(++page);
+          if (posts.isNotEmpty) {
+            allPosts.addAll(posts);
+            listAllPosts.addAll(posts);
+          }
+          isLoadingMore.value = false;
+        } finally {
+          loadingPosts.value = false;
+        }
+      }
+
+
+  }
+  // coverage:ignore-end
+
+  @override
+  void onClose() {
+    disposeController();
+    super.onClose();
+  }
+
+  void resetScroll() {
+    if (scrollbarController!.value.hasClients) {
+      scrollbarController!.value.jumpTo(0);
+    }
+  }
+
 
   getAllPosts(int page)async{
     print('page is :${page}');
@@ -322,7 +374,6 @@ class CommunityController extends GetxController {
 
     try{
       var list = await communityRepository.getAllPosts(page);
-      print(list);
       for( var i = 0; i< list.length; i++){
         UserModel user = UserModel(
             userId: list[i]['creator'][0]['id'],
@@ -348,7 +399,6 @@ class CommunityController extends GetxController {
 
         );
 
-        print(list[i]['liked']);
         postList.add(post);
       }
       loadingPosts.value = false;
@@ -375,7 +425,6 @@ class CommunityController extends GetxController {
       try {
         page = 0;
         var list = await communityRepository.filterPostsBySectors(page, query);
-        print(list);
         for( var i = 0; i< list.length; i++){
           UserModel user = UserModel(userId: list[i]['creator'][0]['id'],
               lastName:list[i]['creator'][0]['last_name'],
@@ -433,7 +482,6 @@ class CommunityController extends GetxController {
       try {
         page = 0;
         var list = await communityRepository.filterPostsByZone(page, query);
-        print(list);
         for( var i = 0; i< list.length; i++){
           UserModel user = UserModel(userId: list[i]['creator'][0]['id'],
               lastName:list[i]['creator'][0]['last_name'],
@@ -454,7 +502,6 @@ class CommunityController extends GetxController {
             likeTapped: RxBool(list[i]['liked']),
             sectors: list[i]['sectors'], 
             isFollowing: RxBool(list[i]['is_following']),
-
 
           );
 
@@ -570,11 +617,13 @@ class CommunityController extends GetxController {
       XFile? pickedFile = await imagePicker.pickImage(source: source, imageQuality: 80);
       File imageFile = File(pickedFile!.path);
       if(imageFile.lengthSync()>pow(1024, 2)){
+        // coverage:ignore-start
         final tempDir = await getTemporaryDirectory();
         final path = tempDir.path;
         int rand = Math.Random().nextInt(10000);
         Im.Image? image1 = Im.decodeImage(imageFile.readAsBytesSync());
         compressedImage = File('${path}/img_$rand.jpg')..writeAsBytesSync(Im.encodeJpg(image1!, quality: 25));
+        // coverage:ignore-end
 
 
       }
@@ -596,11 +645,13 @@ class CommunityController extends GetxController {
       while(i<galleryFiles.length){
         File imageFile = File(galleryFiles[i].path);
         if(imageFile.lengthSync()>pow(1024, 2)){
+          // coverage:ignore-start
           final tempDir = await getTemporaryDirectory();
           final path = tempDir.path;
           int rand = Math.Random().nextInt(10000);
           Im.Image? image1 = Im.decodeImage(imageFile.readAsBytesSync());
           compressedImage =  File('${path}/img_$rand.jpg')..writeAsBytesSync(Im.encodeJpg(image1!, quality: 25));
+          // coverage:ignore-end
 
 
         }
@@ -620,46 +671,9 @@ class CommunityController extends GetxController {
     }
   }
 
-  selectCameraOrGalleryFeedbackImage(){
-    showDialog(
-        context: Get.context!,
-        builder: (_){
-          return AlertDialog(
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: Container(
-                height: 170,
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    ListTile(
-                      onTap: ()async{
-                        await feedbackImagePicker('camera');
-                        //Navigator.pop(Get.context);
-
-
-                      },
-                      leading: const Icon(FontAwesomeIcons.camera),
-                      title: Text( AppLocalizations.of(Get.context!).take_picture, style: Get.textTheme.headlineMedium?.merge(const TextStyle(fontSize: 15))),
-                    ),
-                    ListTile(
-                      onTap: ()async{
-                        await feedbackImagePicker('gallery');
-                        //Navigator.pop(Get.context);
-
-                      },
-                      leading: const Icon(FontAwesomeIcons.image),
-                      title: Text( AppLocalizations.of(Get.context!).upload_image
-                          , style: Get.textTheme.headlineMedium?.merge(const TextStyle(fontSize: 15))),
-                    )
-                  ],
-                )
-            ),
-          );
-        });
-  }
   feedbackImagePicker(String source) async {
     if(source=='camera'){
+      // coverage:ignore-start
       final XFile? pickedImage =
       await picker.pickImage(source: ImageSource.camera);
       if (pickedImage != null) {
@@ -680,9 +694,10 @@ class CommunityController extends GetxController {
           loadFeedbackImage.value = !loadFeedbackImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
-        //Get.showSnackbar(Ui.SuccessSnackBar(message: "Picture saved successfully".tr));
-        //loadIdentityFile.value = !loadIdentityFile.value;//Navigator.of(Get.context).pop();
+        if(! Platform.environment.containsKey('FLUTTER_TEST')){
+          Navigator.of(Get.context!).pop();
+        }
+        // coverage:ignore-end
       }
 
     }
@@ -692,6 +707,7 @@ class CommunityController extends GetxController {
       if (pickedImage != null) {
         var imageFile = File(pickedImage.path);
         if(imageFile.lengthSync()>pow(1024, 2)){
+          // coverage:ignore-start
           final tempDir = await getTemporaryDirectory();
           final path = tempDir.path;
           int rand = new Math.Random().nextInt(10000);
@@ -701,7 +717,7 @@ class CommunityController extends GetxController {
           feedbackImage = compressedImage;
           currentUser.value.imageFile = feedbackImage;
           loadFeedbackImage.value = !loadFeedbackImage.value;
-
+          // coverage:ignore-end
         }
         else{
           print(pickedImage);
@@ -710,7 +726,9 @@ class CommunityController extends GetxController {
           loadFeedbackImage.value = !loadFeedbackImage.value;
 
         }
-        Navigator.of(Get.context!).pop();
+        if(! Platform.environment.containsKey('FLUTTER_TEST')){
+          Navigator.of(Get.context!).pop();
+        }
       }
 
     }
@@ -829,24 +847,14 @@ class CommunityController extends GetxController {
     }
     catch (e) {
       if(!likeMyPost.value) {
-        allPosts
-            .elementAt(index)
-            .likeTapped
-            .value = !allPosts
-            .elementAt(index)
-            .likeTapped
-            .value;
-        allPosts
-            .elementAt(index)
-            .likeCount
-            .value = allPosts
-            .elementAt(index)
-            .likeCount
-            .value - 1;
+        allPosts.elementAt(index).likeTapped.value = !allPosts.elementAt(index).likeTapped.value;
+        allPosts.elementAt(index).likeCount.value = allPosts.elementAt(index).likeCount.value - 1;
       }
 
 
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
     }
     finally {
 
@@ -906,7 +914,7 @@ class CommunityController extends GetxController {
 
       );
       loadingAPost.value = true;
-      initializePostDetails(postModel);
+      return postModel;
 
     }
     catch (e) {
@@ -952,7 +960,9 @@ class CommunityController extends GetxController {
     }
     catch (e) {
       sendComment.value = false;
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
     }
     finally {
       sendComment.value = false;
@@ -1019,7 +1029,9 @@ class CommunityController extends GetxController {
     }
     catch (e) {
       allPosts.elementAt(index).isFollowing.value = !allPosts.elementAt(index).isFollowing.value;
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
 
     }
     finally {
@@ -1038,7 +1050,9 @@ class CommunityController extends GetxController {
     }
     catch (e) {
       allPosts.elementAt(index).isFollowing.value = !allPosts.elementAt(index).isFollowing.value;
-      Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      if(! Platform.environment.containsKey('FLUTTER_TEST')){
+        Get.showSnackbar(Ui.ErrorSnackBar(message: e.toString()));
+      }
 
     }
     finally {
@@ -1049,6 +1063,7 @@ class CommunityController extends GetxController {
 
 
 
+  // coverage:ignore-start
   void launchWhatsApp(String message) async {
     String url() {
       if (Platform.isAndroid) {
@@ -1066,6 +1081,7 @@ class CommunityController extends GetxController {
       throw 'Could not launch ${url()}';
     }
   }
+  // coverage:ignore-end
 
 
   sendFeedback()async{

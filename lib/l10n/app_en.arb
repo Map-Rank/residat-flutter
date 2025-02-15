@@ -246,7 +246,14 @@
   
   "no_notification":"You have no notification",
   "no_alert":"You have no alert",
-  "notification":"Notification",
+  "notification":"Inbox",
+  "create_mass_message":"Create mass message",
+  "notification_title":"Notification title",
+  "enter_notification_title":"Enter notification title",
+  "notification_content":"Notification content",
+  "enter_notification_content":"Enter notification content",
+  "select_notification_location_description":"Select the location you would like this message to reach",
+  "notification_created_successfully":"Notification created successfully",
   "your_events": "Your Created Events",
   "forgot_password": "Forgot password",
   "forgot_password_description": "Enter your email to get your verification email",
@@ -311,6 +318,10 @@
   "edit": "Edit",
   "update": "Update",
   "ok": "Ok",
+  "created": "Created",
+  "on": "on",
+  "at": "at",
+  "by": "By",
   "or": "or"
 
 }

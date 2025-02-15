@@ -11,7 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MockEventsController extends GetxController with Mock implements EventsController {
   @override
-  var sectors = <Map<String, dynamic>>[].obs;
+  var sectors = <Map<String, dynamic>>[{"name":"sector", "id":1}].obs;
 
   @override
   var loadingSectors = false.obs;
@@ -21,6 +21,9 @@ class MockEventsController extends GetxController with Mock implements EventsCon
 
   @override
   var sectorsSelected = <Map<String, dynamic>>[].obs;
+
+  @override
+  var filterBySector = false.obs;
 
   @override
   var noFilter = false.obs;
@@ -115,5 +118,31 @@ void main() {
     // Verify the sector is removed from selected sectors
     expect(mockEventsController.selectedIndex.value, 0);
     expect(mockEventsController.sectorsSelected.isEmpty, true);
+  });
+
+  testWidgets('BuildSelectSector renders a loading gif while sectors are loading', (WidgetTester tester) async {
+    mockEventsController.loadingSectors.value = true;
+    await tester.pumpWidget(
+      GetMaterialApp(
+        home: Scaffold(
+          body: Localizations(
+            delegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            locale: Locale('en'),
+
+            child: Builder(
+                builder: (BuildContext context) {
+                  return BuildSelectSector();
+                }
+
+            ),),
+        ),
+      ),
+    );
+
   });
 }

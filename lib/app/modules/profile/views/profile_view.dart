@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mapnrank/app/modules/profile/controllers/profile_controller.dart';
 import 'package:mapnrank/app/routes/app_routes.dart';
+import 'package:mapnrank/app/services/permission_service.dart';
 import 'package:mapnrank/color_constants.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../../../common/helper.dart';
 import '../../../services/global_services.dart';
 import '../../auth/controllers/auth_controller.dart';
@@ -26,6 +28,7 @@ class ProfileView extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+
     return WillPopScope(
       onWillPop: Helper().onWillPop,
       child: Scaffold(
@@ -38,10 +41,12 @@ class ProfileView extends GetView<ProfileController> {
             icon: const Icon(Icons.arrow_back_ios, color: interfaceColor),
             key: Key('back_button'),
             onPressed: () async => {
-
-              Get.find<CommunityController>().refreshCommunity(),
+            Get.lazyPut(()=>CommunityController()),
+              Get.find<CommunityController>().onInit(),
               Get.find<EventsController>().refreshEvents(),
-              Get.toNamed(Routes.ROOT),
+              //Get.delete<ProfileController>(),
+              Navigator.of(context).pop(),
+              //Get.toNamed(Routes.ROOT),
             },
           ),
         title: Text(
@@ -82,11 +87,13 @@ class ProfileView extends GetView<ProfileController> {
                       CircleAvatar(
                         radius: 65,
                         backgroundColor:  background,
-                        child: Image.file(
-                          controller.profileImage.value,
-                          fit: BoxFit.cover,
-                          width: 130,
-                          height: 130,
+                        child: ClipOval(
+                          child: Image.file(
+                            controller.profileImage.value,
+                            fit: BoxFit.cover,
+                            width: 130,
+                            height: 130,
+                          ),
                         ),
                       )
                         ,),
@@ -189,7 +196,7 @@ class ProfileView extends GetView<ProfileController> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      '0',
+                                      "${controller.currentUser.value.followerCount??0} / ${controller.currentUser.value.followingCount??0} ",
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16.0),
@@ -197,7 +204,7 @@ class ProfileView extends GetView<ProfileController> {
                                     Padding(
                                       padding: EdgeInsets.only(top: 8.0),
                                       child: Text(
-                                        AppLocalizations.of(context).followers_count,
+                                        "${AppLocalizations.of(context).followers_count} / ${AppLocalizations.of(context).following}",
                                         style: TextStyle(
                                             color: Colors.grey,
                                             fontSize: 14.0),
@@ -325,7 +332,7 @@ class ProfileView extends GetView<ProfileController> {
                           shape: BoxShape.circle,
                           color: Colors.black.withOpacity(.05)),
                       child: const Icon(
-                        Icons.call,
+                        Icons.language,
                         size: 26,
                         color: Colors.black,
                       ),
@@ -353,8 +360,61 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
               ),
+
+              const SizedBox(
+                height: 16,
+              ),
               GestureDetector(
-                key: Key('signoutkey'),
+                onTap: (() {
+                  openAppSettings();
+                  GetPermissions.requestNotificationPermission();
+                }),
+                child: Container(
+                  key: Key('allowKey'),
+                  decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(.03),
+                      borderRadius: BorderRadius.circular(14.0)),
+                  child: ListTile(
+                    leading: Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black.withOpacity(.05)),
+                      child: const Icon(
+                        Icons.message_outlined,
+                        size: 27,
+                        color: Colors.black,
+                      ),
+                    ),
+                    title: Padding(
+                      padding: EdgeInsets.only(bottom: 6.0),
+                      child: Text(
+                        'Receive Messages',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
+                    subtitle: Text(
+                      GlobalService.notificationPermission?'allowed':"Not allowed",
+                      style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                    ),
+                    trailing: const Icon(
+                      Icons.navigate_next_rounded,
+                      size: 24,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 16,
+              ),
+              GestureDetector(
                 onTap: (() {
                   Get.lazyPut(()=>AuthController());
                   if(! Platform.environment.containsKey('FLUTTER_TEST')){
@@ -384,6 +444,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),);
                 }),
                 child: Container(
+                  key: Key('logOutKey'),
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(.03),
                       borderRadius: BorderRadius.circular(14.0)),
@@ -423,6 +484,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
               ),
+
               const SizedBox(
                 height: 16,
               ),
@@ -431,6 +493,7 @@ class ProfileView extends GetView<ProfileController> {
                   Get.find<AuthController>().loading.value = false;
                   showDialog(context: context,
                     builder: (context) => AlertDialog(
+                      key: Key('deleteAccountDialog'),
                       insetPadding: EdgeInsets.all(20),
                       icon: Icon(FontAwesomeIcons.warning, color: Colors.orange,),
                       title:  Text(AppLocalizations.of(context).delete_account),
@@ -452,6 +515,7 @@ class ProfileView extends GetView<ProfileController> {
                     ),);
                 }),
                 child: Container(
+                  key: Key('deleteAccountKey'),
                   decoration: BoxDecoration(
                       color: Colors.black.withOpacity(.03),
                       borderRadius: BorderRadius.circular(14.0)),
@@ -497,11 +561,11 @@ class ProfileView extends GetView<ProfileController> {
               const SizedBox(
                 height: 60,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Version 0.1-2024',
+                    'Version ${GlobalService.appVersion}',
                     style: TextStyle(color: Colors.grey, fontSize: 12.0),
                   ),
                 ],

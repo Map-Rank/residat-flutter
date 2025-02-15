@@ -76,7 +76,7 @@ class DetailsView extends GetView<CommunityController> {
         ),
         bottomSheet: Container(
           color: Colors.black,
-          height: 120,
+          height: 140,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -188,7 +188,7 @@ class DetailsView extends GetView<CommunityController> {
                             child: FadeInImage(
                               width: Get.width,
                               height: Get.height,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fitWidth,
                               image:  NetworkImage(
                                   '${controller.postDetails.value.imagesUrl![0]['url']}',
                                   headers: GlobalService.getTokenHeaders()
@@ -225,7 +225,7 @@ class DetailsView extends GetView<CommunityController> {
                                 child: FadeInImage(
                                   width: Get.width,
                                   height: Get.height*0.8,
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fitWidth,
                                   image:  NetworkImage(
                                       '${controller.postDetails.value.imagesUrl![index]['url']}',
                                       headers: GlobalService.getTokenHeaders()
@@ -287,8 +287,6 @@ class DetailsView extends GetView<CommunityController> {
 
                   ,
                 ],
-
-
 
 
 

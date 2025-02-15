@@ -15,6 +15,7 @@ import 'package:mapnrank/common/helper.dart';
 import 'package:mapnrank/common/ui.dart';
 import '../../../../color_constants.dart';
 import '../../../models/setting_model.dart';
+import '../../../services/permission_service.dart';
 import '../../global_widgets/sector_item_widget.dart';
 import '../../global_widgets/text_field_widget.dart';
 import '../controllers/auth_controller.dart';
@@ -674,7 +675,6 @@ class RegisterView extends GetView<AuthController> {
                                   ),
 
                                   child: ListView.builder(
-                                    //physics: AlwaysScrollableScrollPhysics(),
                                       itemCount:controller.sectors.length,
                                       shrinkWrap: true,
                                       primary: false,
@@ -1222,20 +1222,37 @@ class RegisterView extends GetView<AuthController> {
             const SizedBox(height: 20),
 
             Row(
+
               children: [
                 Obx(() => Checkbox(
-                  activeColor: interfaceColor,
+                    activeColor: interfaceColor,
                     value: controller.isConfidentialityChecked.value,
                     onChanged: (value)async{
                       controller.isConfidentialityChecked.value = !controller.isConfidentialityChecked.value;
                     }
                 )),
-                SizedBox(
-                    width: Get.width/1.3,
-                    child: Text(AppLocalizations.of(context).accept_terms_of_service,style: TextStyle(fontFamily: "poppins",fontSize: 15, color: Colors.grey.shade800))),
-                //Spacer(),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                        width: Get.width/1.3,
+                        child: Text(AppLocalizations.of(context).accept_terms_of_service,style: TextStyle(fontFamily: "poppins",fontSize: 15, color: Colors.grey.shade800))),
+
+
+                  InkWell(
+                    child: Text('Privacy policy', style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue, decorationColor: Colors.blue), ),
+                    onTap: (){
+                      controller.launchPrivacyPolicy();
+
+                    },
+                  ),
+                ],),
+
+
               ],
             ).paddingSymmetric(horizontal: 10),
+
 
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1330,9 +1347,15 @@ class RegisterView extends GetView<AuthController> {
     );
     if (pickedDate != null ) {
       //birthDate.value = DateFormat('dd/MM/yy').format(pickedDate);
-      controller.birthDateDisplay.text = DateFormat('dd-MM-yyyy').format(pickedDate);
-      controller.birthDate.value =DateFormat('yyyy-MM-dd').format(pickedDate);
-      controller.currentUser.value.birthdate = controller.birthDate.value;
+      if(DateTime.now().year - pickedDate.year >= 15){
+        controller.birthDateDisplay.text = DateFormat('dd-MM-yyyy').format(pickedDate);
+        controller.birthDate.value =DateFormat('yyyy-MM-dd').format(pickedDate);
+        controller.currentUser.value.birthdate = controller.birthDate.value;
+      }
+      else{
+        Get.showSnackbar(Ui.warningSnackBar(message: 'You should at least be 15 to use Map&rank'));
+      }
+
     }
   }
   selectCameraOrGalleryProfileImage(BuildContext context){
@@ -1349,7 +1372,11 @@ class RegisterView extends GetView<AuthController> {
                   children: [
                     ListTile(
                       onTap: ()async{
-                        await controller.profileImagePicker('camera');
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.profileImagePicker('camera');
+                        }
+
                         //Navigator.pop(Get.context);
 
 
@@ -1359,7 +1386,11 @@ class RegisterView extends GetView<AuthController> {
                     ),
                     ListTile(
                       onTap: ()async{
-                        await controller.profileImagePicker('gallery');
+                        final bool cameraStatus = await GetPermissions.getStoragePermission();
+                        if(cameraStatus){
+                          await controller.profileImagePicker('gallery');
+                        }
+
                         //Navigator.pop(Get.context);
 
                       },

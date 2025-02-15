@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mapnrank/app/models/post_model.dart';
 import 'package:mapnrank/app/models/user_model.dart';
@@ -140,9 +141,11 @@ void main() {
     when(mockCommunityController.loadingPosts).thenReturn(false.obs);
     CommunityController().allPosts.value = [mockPost];
     CommunityController().loadingPosts.value = false;
+    CommunityController().cancelSearchSubDivision.value = true;
 
     // Act: Build the widget
     await tester.pumpWidget(
+
       GetMaterialApp(
         home: CommunityView(),
         localizationsDelegates: [
@@ -155,23 +158,59 @@ void main() {
 
     await tester.pumpAndSettle();
 
-    // Assert: Ensure the posts are displayed correctly
-    //expect(find.byKey(Key('postCardWidget')), findsOneWidget);
-    //expect(find.text('Test post content'), findsOneWidget);
-    //expect(find.text('Test Zone'), findsOneWidget);
-
-    // Interact with the floating action button
-    //await tester.tap(find.byType(FloatingActionButton));
-    //await tester.pumpAndSettle();
-
-    // Verify modal bottom sheet is shown
-    //expect(find.text('Send via WhatsApp'), findsOneWidget); // Assuming this is a key text
-
-    // Interact with the refresh indicator
-    //await tester.fling(find.byType(RefreshIndicator), const Offset(0, 200), 1000);
-    //await tester.pumpAndSettle();
-
-    // Verify that the refresh function was called
-    //verify(mockCommunityController.refreshCommunity(showMessage: true)).called(1);
   });
+
+  testWidgets('selectCameraOrGalleryFeedbackImage shows dialog with camera and gallery options',
+          (WidgetTester tester) async {
+            // Arrange: Mock some post data
+            final mockPost = Post(
+              content: 'Test post content',
+              zone: {'name': 'Test Zone'},
+              publishedDate: DateTime.now().toString(),
+              postId: 1,
+              imagesUrl: [],
+              user: UserModel(
+                firstName: 'Test',
+                lastName: 'User',
+                avatarUrl: 'https://example.com/avatar.png',
+              ),
+              commentCount: RxInt(5),
+              shareCount: RxInt(10),
+              likeCount: RxInt(100),
+              likeTapped: false.obs,
+              isFollowing: false.obs,
+            );
+
+            // Set up mock controller behavior
+            // Mock the `allPosts` observable and other required fields
+            when(mockCommunityController.allPosts).thenReturn([mockPost].obs);
+            when(mockCommunityController.loadingPosts).thenReturn(false.obs);
+            CommunityController().allPosts.value = [mockPost];
+            CommunityController().loadingPosts.value = false;
+        // Build a MaterialApp with the CommunityView
+            // Act: Build the widget
+            await tester.pumpWidget(
+              GetMaterialApp(
+                home: CommunityView(),
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  // ... other localization delegates
+                ],
+                locale: const Locale('en'),
+              ),
+            );
+
+            // Act
+            // First, tap the FAB to open the feedback dialog
+            await tester.tap(find.byType(FloatingActionButton));
+            await tester.pumpAndSettle();
+
+
+            await tester.tap(find.byKey(Key('cameraContainer')));
+            await tester.pumpAndSettle();
+
+            // Assert
+            expect(find.byKey(Key('cameraDialog')), findsOneWidget);
+      });
+
 }

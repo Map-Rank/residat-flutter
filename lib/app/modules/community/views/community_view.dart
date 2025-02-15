@@ -20,6 +20,7 @@ import '../../../../color_constants.dart';
 import '../../../../common/helper.dart';
 import '../../../../common/ui.dart';
 import '../../../services/global_services.dart';
+import '../../../services/permission_service.dart';
 import '../../events/controllers/events_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -56,8 +57,10 @@ class CommunityView extends GetView<CommunityController> {
                     child: Image.asset(
                         "assets/images/logo.png",
                         width: Get.width/6,
-                        height: Get.width/6,
-                        fit: BoxFit.fitWidth),
+                        height: MediaQuery
+                            .sizeOf(context)
+                            .width <600? Get.width/6 : 80,
+                        fit: BoxFit.fitHeight),
                   ).marginOnly(left: 10),
                   Container(
                     height: 40,
@@ -261,11 +264,12 @@ class CommunityView extends GetView<CommunityController> {
                             GestureDetector(
                               onTap: () async {
 
-                                await controller.selectCameraOrGalleryFeedbackImage();
+                                await selectCameraOrGalleryFeedbackImage(context);
                                 controller.loadFeedbackImage.value = false;
 
                               },
                               child: Container(
+                                key: Key('cameraContainer'),
                                 width: 100,
                                 height: 100,
                                 alignment: Alignment.center,
@@ -364,14 +368,14 @@ class CommunityView extends GetView<CommunityController> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            await controller.refreshCommunity(showMessage: true);
+            //await controller.refreshCommunity();
             controller.onInit();
           },
           child:  Container(
             color: backgroundColor,
             height: Get.height,
             child: Obx(() => CustomScrollView(
-              controller: controller.scrollbarController,
+              controller: controller.scrollbarController?.value,
               //primary: true,
               shrinkWrap: false,
               slivers: <Widget>[
@@ -484,7 +488,7 @@ class CommunityView extends GetView<CommunityController> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: backgroundColor,
+                          color: backgroundColor,
                           //border: Border(bottom: BorderSide(color: interfaceColor))
                         ),
                         child: Column(children: [
@@ -506,8 +510,8 @@ class CommunityView extends GetView<CommunityController> {
                                   child: TextButton.icon(
                                     icon: Image.asset(
                                         "assets/images/filter.png",
-                                        width: 20,
-                                        height: 20,
+                                        width: 15,
+                                        height: 15,
                                         fit: BoxFit.fitWidth) ,
                                     label: Text(AppLocalizations.of(context).filter_by_location, style: TextStyle(color: Colors.black),),
                                     onPressed: () {
@@ -535,8 +539,8 @@ class CommunityView extends GetView<CommunityController> {
                                   child: TextButton.icon(
                                     icon: Image.asset(
                                         "assets/images/filter.png",
-                                        width: 20,
-                                        height: 20,
+                                        width: 15,
+                                        height: 15,
                                         fit: BoxFit.fitWidth) ,
                                     label: Text(AppLocalizations.of(context).filter_by_sector, style: TextStyle(color: Colors.black)),
                                     onPressed: () {
@@ -553,25 +557,25 @@ class CommunityView extends GetView<CommunityController> {
 
 
                             ],),
-                         Obx(() => Visibility(
-                           visible: controller.filterByLocation.value,
-                           child: Container(
-                             width: Get.width,
-                           padding: EdgeInsets.all(20),
-                           decoration: BoxDecoration(
-                               color: interfaceColor,
-                               borderRadius: BorderRadius.circular(10)
-                           ),
-                           child: Text(AppLocalizations.of(context).select_location_title,
-                             style: Get.textTheme.bodyMedium?.merge(const TextStyle(color: Colors.white, fontSize: 16)),
-                             textAlign: TextAlign.start,),
-                         ).marginOnly(bottom: 20, left: 5, right: 5),),),
-                         Obx(() =>  Visibility(
-                             visible: controller.filterByLocation.value,
-                             child: Container(
-                               color: Colors.white,
-                               height: Get.height/2.9,
-                                 child: BuildSelectZone()).marginOnly(bottom: 10)),),
+                          Obx(() => Visibility(
+                            visible: controller.filterByLocation.value,
+                            child: Container(
+                              width: Get.width,
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                  color: interfaceColor,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Text(AppLocalizations.of(context).select_location_title,
+                                style: Get.textTheme.bodyMedium?.merge(const TextStyle(color: Colors.white, fontSize: 16)),
+                                textAlign: TextAlign.start,),
+                            ).marginOnly(bottom: 20, left: 5, right: 5),),),
+                          Obx(() =>  Visibility(
+                              visible: controller.filterByLocation.value,
+                              child: Container(
+                                  color: Colors.white,
+                                  height: Get.height/2.9,
+                                  child: BuildSelectZone()).marginOnly(bottom: 10)),),
 
                           Obx(() => Visibility(
                             visible: controller.filterBySector.value,
@@ -593,16 +597,17 @@ class CommunityView extends GetView<CommunityController> {
                                   height: Get.height/2.5,
                                   child: BuildSelectSector()).marginOnly(bottom: 10)),)
                         ],)
-                       ,
+                        ,
                       ),
                     ],
                   ),
 
                 ),
 
-
                 Obx(() => SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
+                    delegate: SliverChildBuilderDelegate(
+                      //addAutomaticKeepAlives: false,
+                            (context, index,) {
                       return controller.loadingPosts.value?
                       const LoadingCardWidget()
                           :controller.allPosts.isNotEmpty?
@@ -652,11 +657,13 @@ class CommunityView extends GetView<CommunityController> {
 
                         },
                         onCommentTapped: () async{
-                          controller.likeTapped.value = false;
                           Get.toNamed(Routes.COMMENT_VIEW);
-                          await controller.getAPost(controller.allPosts[index].postId);
-                          controller.commentList.value = controller.postDetails.value.commentList!;
-                          controller.likeCount!.value = controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0].likeCount;
+                          var post = controller.allPosts[index];
+                          var postDetails = await controller.getAPost(controller.allPosts[index].postId);
+                          controller.commentList.value = postDetails.commentList!;
+                          await controller.initializePostDetails(post);
+
+                          //controller.likeCount!.value = controller.allPosts.where((element)=>element.postId == controller.postDetails.value.postId).toList()[0].likeCount;
 
 
                         },
@@ -722,24 +729,24 @@ class CommunityView extends GetView<CommunityController> {
 
                 SliverList(
                     delegate: SliverChildListDelegate([
-                       !controller.loadingPosts.value?
-                       controller.allPosts.isEmpty?
-                    Center(
-                    child: SizedBox(
-                    //height: Get.height/2,
-                    child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children:  [
-                      SizedBox(height: Get.height/4),
-                    FaIcon(FontAwesomeIcons.folderOpen, size: 30,),
-                  Text(AppLocalizations.of(context).no_posts_found)
-                  ],
-                ),
-            ),
+                      !controller.loadingPosts.value?
+                      controller.allPosts.isEmpty?
+                      Center(
+                        child: SizedBox(
+                          //height: Get.height/2,
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children:  [
+                              SizedBox(height: Get.height/4),
+                              FaIcon(FontAwesomeIcons.folderOpen, size: 30,),
+                              Text(AppLocalizations.of(context).no_posts_found)
+                            ],
+                          ),
+                        ),
 
-          ):controller.page >0?
-                       Center(
+                      ):controller.isLoadingMore.value?
+                      Center(
                         child: CircularProgressIndicator(color: interfaceColor, ),
                       ):SizedBox(): LoadingCardWidget()
 
@@ -773,6 +780,54 @@ class CommunityView extends GetView<CommunityController> {
             height: 100,
           ),
         ));
+  }
+
+  selectCameraOrGalleryFeedbackImage(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (_){
+          return AlertDialog(
+            key: Key('cameraDialog'),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: Container(
+                height: 170,
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: ()async{
+                        final bool cameraStatus = await GetPermissions.getCameraPermission();
+                        if(cameraStatus){
+                          await controller.feedbackImagePicker('camera');
+                        }
+
+                        //Navigator.pop(Get.context);
+
+
+                      },
+                      leading: const Icon(FontAwesomeIcons.camera),
+                      title: Text( AppLocalizations.of(Get.context!).take_picture, style: Get.textTheme.headlineMedium?.merge(const TextStyle(fontSize: 15))),
+                    ),
+                    ListTile(
+                      onTap: ()async{
+                        final bool cameraStatus = await GetPermissions.getStoragePermission();
+                        if(cameraStatus){
+                          await controller.feedbackImagePicker('gallery');
+                        }
+
+                        //Navigator.pop(Get.context);
+
+                      },
+                      leading: const Icon(FontAwesomeIcons.image),
+                      title: Text( AppLocalizations.of(Get.context!).upload_image
+                          , style: Get.textTheme.headlineMedium?.merge(const TextStyle(fontSize: 15))),
+                    )
+                  ],
+                )
+            ),
+          );
+        });
   }
 
 }

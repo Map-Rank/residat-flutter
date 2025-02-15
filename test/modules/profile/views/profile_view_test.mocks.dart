@@ -3,32 +3,33 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i15;
+import 'dart:async' as _i16;
 import 'dart:io' as _i8;
-import 'dart:ui' as _i17;
+import 'dart:ui' as _i18;
 
 import 'package:flutter/cupertino.dart' as _i3;
 import 'package:get/get.dart' as _i2;
-import 'package:get/get_state_manager/src/simple/list_notifier.dart' as _i16;
+import 'package:get/get_state_manager/src/simple/list_notifier.dart' as _i17;
+import 'package:get_storage/get_storage.dart' as _i9;
 import 'package:image_picker/image_picker.dart' as _i7;
-import 'package:mapnrank/app/models/event_model.dart' as _i12;
-import 'package:mapnrank/app/models/post_model.dart' as _i10;
-import 'package:mapnrank/app/models/user_model.dart' as _i14;
+import 'package:mapnrank/app/models/event_model.dart' as _i13;
+import 'package:mapnrank/app/models/post_model.dart' as _i11;
+import 'package:mapnrank/app/models/user_model.dart' as _i15;
 import 'package:mapnrank/app/modules/auth/controllers/auth_controller.dart'
-    as _i18;
+    as _i19;
 import 'package:mapnrank/app/modules/community/controllers/community_controller.dart'
-    as _i20;
-import 'package:mapnrank/app/modules/events/controllers/events_controller.dart'
     as _i21;
+import 'package:mapnrank/app/modules/events/controllers/events_controller.dart'
+    as _i22;
 import 'package:mapnrank/app/modules/profile/controllers/profile_controller.dart'
-    as _i13;
-import 'package:mapnrank/app/repositories/community_repository.dart' as _i9;
-import 'package:mapnrank/app/repositories/events_repository.dart' as _i11;
+    as _i14;
+import 'package:mapnrank/app/repositories/community_repository.dart' as _i10;
+import 'package:mapnrank/app/repositories/events_repository.dart' as _i12;
 import 'package:mapnrank/app/repositories/sector_repository.dart' as _i6;
 import 'package:mapnrank/app/repositories/user_repository.dart' as _i4;
 import 'package:mapnrank/app/repositories/zone_repository.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i19;
+import 'package:mockito/src/dummies.dart' as _i20;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -64,8 +65,8 @@ class _FakeTextEditingController_1 extends _i1.SmartFake
         );
 }
 
-class _FakeRxInt_2 extends _i1.SmartFake implements _i2.RxInt {
-  _FakeRxInt_2(
+class _FakeRxList_2<E> extends _i1.SmartFake implements _i2.RxList<E> {
+  _FakeRxList_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -74,9 +75,8 @@ class _FakeRxInt_2 extends _i1.SmartFake implements _i2.RxInt {
         );
 }
 
-class _FakeUserRepository_3 extends _i1.SmartFake
-    implements _i4.UserRepository {
-  _FakeUserRepository_3(
+class _FakeRxBool_3 extends _i1.SmartFake implements _i2.RxBool {
+  _FakeRxBool_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -85,9 +85,8 @@ class _FakeUserRepository_3 extends _i1.SmartFake
         );
 }
 
-class _FakeZoneRepository_4 extends _i1.SmartFake
-    implements _i5.ZoneRepository {
-  _FakeZoneRepository_4(
+class _FakeRxDouble_4 extends _i1.SmartFake implements _i2.RxDouble {
+  _FakeRxDouble_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -96,9 +95,8 @@ class _FakeZoneRepository_4 extends _i1.SmartFake
         );
 }
 
-class _FakeSectorRepository_5 extends _i1.SmartFake
-    implements _i6.SectorRepository {
-  _FakeSectorRepository_5(
+class _FakeRxInt_5 extends _i1.SmartFake implements _i2.RxInt {
+  _FakeRxInt_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -107,8 +105,8 @@ class _FakeSectorRepository_5 extends _i1.SmartFake
         );
 }
 
-class _FakeRxBool_6 extends _i1.SmartFake implements _i2.RxBool {
-  _FakeRxBool_6(
+class _FakeRxString_6 extends _i1.SmartFake implements _i2.RxString {
+  _FakeRxString_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -117,92 +115,9 @@ class _FakeRxBool_6 extends _i1.SmartFake implements _i2.RxBool {
         );
 }
 
-class _FakeImagePicker_7 extends _i1.SmartFake implements _i7.ImagePicker {
-  _FakeImagePicker_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeFile_8 extends _i1.SmartFake implements _i8.File {
-  _FakeFile_8(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeInternalFinalCallback_9<T> extends _i1.SmartFake
-    implements _i2.InternalFinalCallback<T> {
-  _FakeInternalFinalCallback_9(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeGlobalKey_10<T extends _i3.State<_i3.StatefulWidget>>
-    extends _i1.SmartFake implements _i3.GlobalKey<T> {
-  _FakeGlobalKey_10(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeRxString_11 extends _i1.SmartFake implements _i2.RxString {
-  _FakeRxString_11(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeRxList_12<E> extends _i1.SmartFake implements _i2.RxList<E> {
-  _FakeRxList_12(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeCommunityRepository_13 extends _i1.SmartFake
-    implements _i9.CommunityRepository {
-  _FakeCommunityRepository_13(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakePost_14 extends _i1.SmartFake implements _i10.Post {
-  _FakePost_14(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeScrollController_15 extends _i1.SmartFake
+class _FakeScrollController_7 extends _i1.SmartFake
     implements _i3.ScrollController {
-  _FakeScrollController_15(
+  _FakeScrollController_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -211,8 +126,9 @@ class _FakeScrollController_15 extends _i1.SmartFake
         );
 }
 
-class _FakeRxDouble_16 extends _i1.SmartFake implements _i2.RxDouble {
-  _FakeRxDouble_16(
+class _FakeUserRepository_8 extends _i1.SmartFake
+    implements _i4.UserRepository {
+  _FakeUserRepository_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -221,9 +137,9 @@ class _FakeRxDouble_16 extends _i1.SmartFake implements _i2.RxDouble {
         );
 }
 
-class _FakeEventsRepository_17 extends _i1.SmartFake
-    implements _i11.EventsRepository {
-  _FakeEventsRepository_17(
+class _FakeZoneRepository_9 extends _i1.SmartFake
+    implements _i5.ZoneRepository {
+  _FakeZoneRepository_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -232,8 +148,113 @@ class _FakeEventsRepository_17 extends _i1.SmartFake
         );
 }
 
-class _FakeEvent_18 extends _i1.SmartFake implements _i12.Event {
-  _FakeEvent_18(
+class _FakeSectorRepository_10 extends _i1.SmartFake
+    implements _i6.SectorRepository {
+  _FakeSectorRepository_10(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeImagePicker_11 extends _i1.SmartFake implements _i7.ImagePicker {
+  _FakeImagePicker_11(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeFile_12 extends _i1.SmartFake implements _i8.File {
+  _FakeFile_12(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeInternalFinalCallback_13<T> extends _i1.SmartFake
+    implements _i2.InternalFinalCallback<T> {
+  _FakeInternalFinalCallback_13(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGlobalKey_14<T extends _i3.State<_i3.StatefulWidget>>
+    extends _i1.SmartFake implements _i3.GlobalKey<T> {
+  _FakeGlobalKey_14(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetStorage_15 extends _i1.SmartFake implements _i9.GetStorage {
+  _FakeGetStorage_15(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeDuration_16 extends _i1.SmartFake implements Duration {
+  _FakeDuration_16(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeCommunityRepository_17 extends _i1.SmartFake
+    implements _i10.CommunityRepository {
+  _FakeCommunityRepository_17(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakePost_18 extends _i1.SmartFake implements _i11.Post {
+  _FakePost_18(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEventsRepository_19 extends _i1.SmartFake
+    implements _i12.EventsRepository {
+  _FakeEventsRepository_19(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeEvent_20 extends _i1.SmartFake implements _i13.Event {
+  _FakeEvent_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -245,22 +266,22 @@ class _FakeEvent_18 extends _i1.SmartFake implements _i12.Event {
 /// A class which mocks [ProfileController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockProfileController extends _i1.Mock implements _i13.ProfileController {
+class MockProfileController extends _i1.Mock implements _i14.ProfileController {
   @override
-  _i2.Rx<_i14.UserModel> get currentUser => (super.noSuchMethod(
+  _i2.Rx<_i15.UserModel> get currentUser => (super.noSuchMethod(
         Invocation.getter(#currentUser),
-        returnValue: _FakeRx_0<_i14.UserModel>(
+        returnValue: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-        returnValueForMissingStub: _FakeRx_0<_i14.UserModel>(
+        returnValueForMissingStub: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-      ) as _i2.Rx<_i14.UserModel>);
+      ) as _i2.Rx<_i15.UserModel>);
 
   @override
-  set currentUser(_i2.Rx<_i14.UserModel>? _currentUser) => super.noSuchMethod(
+  set currentUser(_i2.Rx<_i15.UserModel>? _currentUser) => super.noSuchMethod(
         Invocation.setter(
           #currentUser,
           _currentUser,
@@ -431,13 +452,403 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
       );
 
   @override
+  _i2.RxList<dynamic> get allPosts => (super.noSuchMethod(
+        Invocation.getter(#allPosts),
+        returnValue: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#allPosts),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#allPosts),
+        ),
+      ) as _i2.RxList<dynamic>);
+
+  @override
+  set allPosts(_i2.RxList<dynamic>? _allPosts) => super.noSuchMethod(
+        Invocation.setter(
+          #allPosts,
+          _allPosts,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<dynamic> get listAllPosts => (super.noSuchMethod(
+        Invocation.getter(#listAllPosts),
+        returnValue: <dynamic>[],
+        returnValueForMissingStub: <dynamic>[],
+      ) as List<dynamic>);
+
+  @override
+  set listAllPosts(List<dynamic>? _listAllPosts) => super.noSuchMethod(
+        Invocation.setter(
+          #listAllPosts,
+          _listAllPosts,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxList<dynamic> get allEvents => (super.noSuchMethod(
+        Invocation.getter(#allEvents),
+        returnValue: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#allEvents),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#allEvents),
+        ),
+      ) as _i2.RxList<dynamic>);
+
+  @override
+  set allEvents(_i2.RxList<dynamic>? _allEvents) => super.noSuchMethod(
+        Invocation.setter(
+          #allEvents,
+          _allEvents,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<dynamic> get listAllEvents => (super.noSuchMethod(
+        Invocation.getter(#listAllEvents),
+        returnValue: <dynamic>[],
+        returnValueForMissingStub: <dynamic>[],
+      ) as List<dynamic>);
+
+  @override
+  set listAllEvents(List<dynamic>? _listAllEvents) => super.noSuchMethod(
+        Invocation.setter(
+          #listAllEvents,
+          _listAllEvents,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get loadingPosts => (super.noSuchMethod(
+        Invocation.getter(#loadingPosts),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#loadingPosts),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#loadingPosts),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set loadingPosts(_i2.RxBool? _loadingPosts) => super.noSuchMethod(
+        Invocation.setter(
+          #loadingPosts,
+          _loadingPosts,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get likeTapped => (super.noSuchMethod(
+        Invocation.getter(#likeTapped),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#likeTapped),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#likeTapped),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set likeTapped(_i2.RxBool? _likeTapped) => super.noSuchMethod(
+        Invocation.setter(
+          #likeTapped,
+          _likeTapped,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxList<dynamic> get selectedPost => (super.noSuchMethod(
+        Invocation.getter(#selectedPost),
+        returnValue: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#selectedPost),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#selectedPost),
+        ),
+      ) as _i2.RxList<dynamic>);
+
+  @override
+  set selectedPost(_i2.RxList<dynamic>? _selectedPost) => super.noSuchMethod(
+        Invocation.setter(
+          #selectedPost,
+          _selectedPost,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxList<dynamic> get unlikedPost => (super.noSuchMethod(
+        Invocation.getter(#unlikedPost),
+        returnValue: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#unlikedPost),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#unlikedPost),
+        ),
+      ) as _i2.RxList<dynamic>);
+
+  @override
+  set unlikedPost(_i2.RxList<dynamic>? _unlikedPost) => super.noSuchMethod(
+        Invocation.setter(
+          #unlikedPost,
+          _unlikedPost,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxList<dynamic> get sharedPost => (super.noSuchMethod(
+        Invocation.getter(#sharedPost),
+        returnValue: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#sharedPost),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#sharedPost),
+        ),
+      ) as _i2.RxList<dynamic>);
+
+  @override
+  set sharedPost(_i2.RxList<dynamic>? _sharedPost) => super.noSuchMethod(
+        Invocation.setter(
+          #sharedPost,
+          _sharedPost,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxDouble get postSelectedIndex => (super.noSuchMethod(
+        Invocation.getter(#postSelectedIndex),
+        returnValue: _FakeRxDouble_4(
+          this,
+          Invocation.getter(#postSelectedIndex),
+        ),
+        returnValueForMissingStub: _FakeRxDouble_4(
+          this,
+          Invocation.getter(#postSelectedIndex),
+        ),
+      ) as _i2.RxDouble);
+
+  @override
+  set postSelectedIndex(_i2.RxDouble? _postSelectedIndex) => super.noSuchMethod(
+        Invocation.setter(
+          #postSelectedIndex,
+          _postSelectedIndex,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxInt get postFollowedIndex => (super.noSuchMethod(
+        Invocation.getter(#postFollowedIndex),
+        returnValue: _FakeRxInt_5(
+          this,
+          Invocation.getter(#postFollowedIndex),
+        ),
+        returnValueForMissingStub: _FakeRxInt_5(
+          this,
+          Invocation.getter(#postFollowedIndex),
+        ),
+      ) as _i2.RxInt);
+
+  @override
+  set postFollowedIndex(_i2.RxInt? _postFollowedIndex) => super.noSuchMethod(
+        Invocation.setter(
+          #postFollowedIndex,
+          _postFollowedIndex,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxInt get postSharedIndex => (super.noSuchMethod(
+        Invocation.getter(#postSharedIndex),
+        returnValue: _FakeRxInt_5(
+          this,
+          Invocation.getter(#postSharedIndex),
+        ),
+        returnValueForMissingStub: _FakeRxInt_5(
+          this,
+          Invocation.getter(#postSharedIndex),
+        ),
+      ) as _i2.RxInt);
+
+  @override
+  set postSharedIndex(_i2.RxInt? _postSharedIndex) => super.noSuchMethod(
+        Invocation.setter(
+          #postSharedIndex,
+          _postSharedIndex,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set likeCount(_i2.RxInt? _likeCount) => super.noSuchMethod(
+        Invocation.setter(
+          #likeCount,
+          _likeCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set shareCount(_i2.RxInt? _shareCount) => super.noSuchMethod(
+        Invocation.setter(
+          #shareCount,
+          _shareCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set commentCount(_i2.RxInt? _commentCount) => super.noSuchMethod(
+        Invocation.setter(
+          #commentCount,
+          _commentCount,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxString get comment => (super.noSuchMethod(
+        Invocation.getter(#comment),
+        returnValue: _FakeRxString_6(
+          this,
+          Invocation.getter(#comment),
+        ),
+        returnValueForMissingStub: _FakeRxString_6(
+          this,
+          Invocation.getter(#comment),
+        ),
+      ) as _i2.RxString);
+
+  @override
+  set comment(_i2.RxString? _comment) => super.noSuchMethod(
+        Invocation.setter(
+          #comment,
+          _comment,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get sendComment => (super.noSuchMethod(
+        Invocation.getter(#sendComment),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#sendComment),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#sendComment),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set sendComment(_i2.RxBool? _sendComment) => super.noSuchMethod(
+        Invocation.setter(
+          #sendComment,
+          _sendComment,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxList<dynamic> get commentList => (super.noSuchMethod(
+        Invocation.getter(#commentList),
+        returnValue: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#commentList),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
+          this,
+          Invocation.getter(#commentList),
+        ),
+      ) as _i2.RxList<dynamic>);
+
+  @override
+  set commentList(_i2.RxList<dynamic>? _commentList) => super.noSuchMethod(
+        Invocation.setter(
+          #commentList,
+          _commentList,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.Rx<_i11.Post> get postDetails => (super.noSuchMethod(
+        Invocation.getter(#postDetails),
+        returnValue: _FakeRx_0<_i11.Post>(
+          this,
+          Invocation.getter(#postDetails),
+        ),
+        returnValueForMissingStub: _FakeRx_0<_i11.Post>(
+          this,
+          Invocation.getter(#postDetails),
+        ),
+      ) as _i2.Rx<_i11.Post>);
+
+  @override
+  set postDetails(_i2.Rx<_i11.Post>? _postDetails) => super.noSuchMethod(
+        Invocation.setter(
+          #postDetails,
+          _postDetails,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.ScrollController get scrollbarController => (super.noSuchMethod(
+        Invocation.getter(#scrollbarController),
+        returnValue: _FakeScrollController_7(
+          this,
+          Invocation.getter(#scrollbarController),
+        ),
+        returnValueForMissingStub: _FakeScrollController_7(
+          this,
+          Invocation.getter(#scrollbarController),
+        ),
+      ) as _i3.ScrollController);
+
+  @override
+  set scrollbarController(_i3.ScrollController? _scrollbarController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #scrollbarController,
+          _scrollbarController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxInt get rating => (super.noSuchMethod(
         Invocation.getter(#rating),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#rating),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#rating),
         ),
@@ -455,11 +866,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i4.UserRepository get userRepository => (super.noSuchMethod(
         Invocation.getter(#userRepository),
-        returnValue: _FakeUserRepository_3(
+        returnValue: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
-        returnValueForMissingStub: _FakeUserRepository_3(
+        returnValueForMissingStub: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
@@ -477,11 +888,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i5.ZoneRepository get zoneRepository => (super.noSuchMethod(
         Invocation.getter(#zoneRepository),
-        returnValue: _FakeZoneRepository_4(
+        returnValue: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
-        returnValueForMissingStub: _FakeZoneRepository_4(
+        returnValueForMissingStub: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
@@ -499,11 +910,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i6.SectorRepository get sectorRepository => (super.noSuchMethod(
         Invocation.getter(#sectorRepository),
-        returnValue: _FakeSectorRepository_5(
+        returnValue: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
-        returnValueForMissingStub: _FakeSectorRepository_5(
+        returnValueForMissingStub: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
@@ -522,11 +933,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i2.RxBool get updateUserInfo => (super.noSuchMethod(
         Invocation.getter(#updateUserInfo),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#updateUserInfo),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#updateUserInfo),
         ),
@@ -544,11 +955,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i7.ImagePicker get picker => (super.noSuchMethod(
         Invocation.getter(#picker),
-        returnValue: _FakeImagePicker_7(
+        returnValue: _FakeImagePicker_11(
           this,
           Invocation.getter(#picker),
         ),
-        returnValueForMissingStub: _FakeImagePicker_7(
+        returnValueForMissingStub: _FakeImagePicker_11(
           this,
           Invocation.getter(#picker),
         ),
@@ -588,11 +999,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i2.RxBool get loadProfileImage => (super.noSuchMethod(
         Invocation.getter(#loadProfileImage),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadProfileImage),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadProfileImage),
         ),
@@ -601,11 +1012,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i8.File get feedbackImage => (super.noSuchMethod(
         Invocation.getter(#feedbackImage),
-        returnValue: _FakeFile_8(
+        returnValue: _FakeFile_12(
           this,
           Invocation.getter(#feedbackImage),
         ),
-        returnValueForMissingStub: _FakeFile_8(
+        returnValueForMissingStub: _FakeFile_12(
           this,
           Invocation.getter(#feedbackImage),
         ),
@@ -623,11 +1034,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i2.RxBool get loadFeedbackImage => (super.noSuchMethod(
         Invocation.getter(#loadFeedbackImage),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadFeedbackImage),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadFeedbackImage),
         ),
@@ -636,11 +1047,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i2.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
         Invocation.getter(#onStart),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
@@ -649,11 +1060,11 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   _i2.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
         Invocation.getter(#onDelete),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
@@ -697,16 +1108,25 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
       );
 
   @override
-  _i15.Future<dynamic> refreshProfile({bool? showMessage = false}) =>
+  _i16.Future<dynamic> refreshProfile({bool? showMessage = false}) =>
       (super.noSuchMethod(
         Invocation.method(
           #refreshProfile,
           [],
           {#showMessage: showMessage},
         ),
-        returnValue: _i15.Future<dynamic>.value(),
-        returnValueForMissingStub: _i15.Future<dynamic>.value(),
-      ) as _i15.Future<dynamic>);
+        returnValue: _i16.Future<dynamic>.value(),
+        returnValueForMissingStub: _i16.Future<dynamic>.value(),
+      ) as _i16.Future<dynamic>);
+
+  @override
+  dynamic initializeMyPostDetails(_i11.Post? post) => super.noSuchMethod(
+        Invocation.method(
+          #initializeMyPostDetails,
+          [post],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   dynamic profileImagePicker(String? source) => super.noSuchMethod(
@@ -779,7 +1199,7 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
       );
 
   @override
-  _i16.Disposer addListener(_i16.GetStateUpdate? listener) =>
+  _i17.Disposer addListener(_i17.GetStateUpdate? listener) =>
       (super.noSuchMethod(
         Invocation.method(
           #addListener,
@@ -787,10 +1207,10 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
-  void removeListener(_i17.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i18.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -828,7 +1248,7 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
   @override
   void removeListenerId(
     Object? id,
-    _i17.VoidCallback? listener,
+    _i18.VoidCallback? listener,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -851,9 +1271,9 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
       );
 
   @override
-  _i16.Disposer addListenerId(
+  _i17.Disposer addListenerId(
     Object? key,
-    _i16.GetStateUpdate? listener,
+    _i17.GetStateUpdate? listener,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -865,7 +1285,7 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
   void disposeId(Object? id) => super.noSuchMethod(
@@ -880,22 +1300,22 @@ class MockProfileController extends _i1.Mock implements _i13.ProfileController {
 /// A class which mocks [AuthController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthController extends _i1.Mock implements _i18.AuthController {
+class MockAuthController extends _i1.Mock implements _i19.AuthController {
   @override
-  _i2.Rx<_i14.UserModel> get currentUser => (super.noSuchMethod(
+  _i2.Rx<_i15.UserModel> get currentUser => (super.noSuchMethod(
         Invocation.getter(#currentUser),
-        returnValue: _FakeRx_0<_i14.UserModel>(
+        returnValue: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-        returnValueForMissingStub: _FakeRx_0<_i14.UserModel>(
+        returnValueForMissingStub: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-      ) as _i2.Rx<_i14.UserModel>);
+      ) as _i2.Rx<_i15.UserModel>);
 
   @override
-  set currentUser(_i2.Rx<_i14.UserModel>? _currentUser) => super.noSuchMethod(
+  set currentUser(_i2.Rx<_i15.UserModel>? _currentUser) => super.noSuchMethod(
         Invocation.setter(
           #currentUser,
           _currentUser,
@@ -906,11 +1326,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i3.GlobalKey<_i3.FormState> get loginFormKey => (super.noSuchMethod(
         Invocation.getter(#loginFormKey),
-        returnValue: _FakeGlobalKey_10<_i3.FormState>(
+        returnValue: _FakeGlobalKey_14<_i3.FormState>(
           this,
           Invocation.getter(#loginFormKey),
         ),
-        returnValueForMissingStub: _FakeGlobalKey_10<_i3.FormState>(
+        returnValueForMissingStub: _FakeGlobalKey_14<_i3.FormState>(
           this,
           Invocation.getter(#loginFormKey),
         ),
@@ -929,11 +1349,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i3.GlobalKey<_i3.FormState> get registerFormKey => (super.noSuchMethod(
         Invocation.getter(#registerFormKey),
-        returnValue: _FakeGlobalKey_10<_i3.FormState>(
+        returnValue: _FakeGlobalKey_14<_i3.FormState>(
           this,
           Invocation.getter(#registerFormKey),
         ),
-        returnValueForMissingStub: _FakeGlobalKey_10<_i3.FormState>(
+        returnValueForMissingStub: _FakeGlobalKey_14<_i3.FormState>(
           this,
           Invocation.getter(#registerFormKey),
         ),
@@ -950,13 +1370,38 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
+  _i3.GlobalKey<_i3.FormState> get institutionalUserFormKey =>
+      (super.noSuchMethod(
+        Invocation.getter(#institutionalUserFormKey),
+        returnValue: _FakeGlobalKey_14<_i3.FormState>(
+          this,
+          Invocation.getter(#institutionalUserFormKey),
+        ),
+        returnValueForMissingStub: _FakeGlobalKey_14<_i3.FormState>(
+          this,
+          Invocation.getter(#institutionalUserFormKey),
+        ),
+      ) as _i3.GlobalKey<_i3.FormState>);
+
+  @override
+  set institutionalUserFormKey(
+          _i3.GlobalKey<_i3.FormState>? _institutionalUserFormKey) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionalUserFormKey,
+          _institutionalUserFormKey,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxBool get hidePassword => (super.noSuchMethod(
         Invocation.getter(#hidePassword),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#hidePassword),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#hidePassword),
         ),
@@ -965,11 +1410,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loading => (super.noSuchMethod(
         Invocation.getter(#loading),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loading),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loading),
         ),
@@ -987,11 +1432,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get registerNext => (super.noSuchMethod(
         Invocation.getter(#registerNext),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#registerNext),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#registerNext),
         ),
@@ -1007,13 +1452,36 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
+  _i2.RxBool get institutionalUserNext => (super.noSuchMethod(
+        Invocation.getter(#institutionalUserNext),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#institutionalUserNext),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#institutionalUserNext),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set institutionalUserNext(_i2.RxBool? _institutionalUserNext) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionalUserNext,
+          _institutionalUserNext,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxBool get registerNextStep1 => (super.noSuchMethod(
         Invocation.getter(#registerNextStep1),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#registerNextStep1),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#registerNextStep1),
         ),
@@ -1031,11 +1499,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i7.ImagePicker get picker => (super.noSuchMethod(
         Invocation.getter(#picker),
-        returnValue: _FakeImagePicker_7(
+        returnValue: _FakeImagePicker_11(
           this,
           Invocation.getter(#picker),
         ),
-        returnValueForMissingStub: _FakeImagePicker_7(
+        returnValueForMissingStub: _FakeImagePicker_11(
           this,
           Invocation.getter(#picker),
         ),
@@ -1053,11 +1521,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i8.File get profileImage => (super.noSuchMethod(
         Invocation.getter(#profileImage),
-        returnValue: _FakeFile_8(
+        returnValue: _FakeFile_12(
           this,
           Invocation.getter(#profileImage),
         ),
-        returnValueForMissingStub: _FakeFile_8(
+        returnValueForMissingStub: _FakeFile_12(
           this,
           Invocation.getter(#profileImage),
         ),
@@ -1075,11 +1543,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loadProfileImage => (super.noSuchMethod(
         Invocation.getter(#loadProfileImage),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadProfileImage),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadProfileImage),
         ),
@@ -1088,11 +1556,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxString get birthDate => (super.noSuchMethod(
         Invocation.getter(#birthDate),
-        returnValue: _FakeRxString_11(
+        returnValue: _FakeRxString_6(
           this,
           Invocation.getter(#birthDate),
         ),
-        returnValueForMissingStub: _FakeRxString_11(
+        returnValueForMissingStub: _FakeRxString_6(
           this,
           Invocation.getter(#birthDate),
         ),
@@ -1200,13 +1668,168 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
+  _i3.TextEditingController get phoneController => (super.noSuchMethod(
+        Invocation.getter(#phoneController),
+        returnValue: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#phoneController),
+        ),
+        returnValueForMissingStub: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#phoneController),
+        ),
+      ) as _i3.TextEditingController);
+
+  @override
+  set phoneController(_i3.TextEditingController? _phoneController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #phoneController,
+          _phoneController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.TextEditingController get institutionNameController =>
+      (super.noSuchMethod(
+        Invocation.getter(#institutionNameController),
+        returnValue: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionNameController),
+        ),
+        returnValueForMissingStub: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionNameController),
+        ),
+      ) as _i3.TextEditingController);
+
+  @override
+  set institutionNameController(
+          _i3.TextEditingController? _institutionNameController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionNameController,
+          _institutionNameController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.TextEditingController get institutionEmailController =>
+      (super.noSuchMethod(
+        Invocation.getter(#institutionEmailController),
+        returnValue: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionEmailController),
+        ),
+        returnValueForMissingStub: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionEmailController),
+        ),
+      ) as _i3.TextEditingController);
+
+  @override
+  set institutionEmailController(
+          _i3.TextEditingController? _institutionEmailController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionEmailController,
+          _institutionEmailController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.TextEditingController get institutionPhoneController =>
+      (super.noSuchMethod(
+        Invocation.getter(#institutionPhoneController),
+        returnValue: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionPhoneController),
+        ),
+        returnValueForMissingStub: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionPhoneController),
+        ),
+      ) as _i3.TextEditingController);
+
+  @override
+  set institutionPhoneController(
+          _i3.TextEditingController? _institutionPhoneController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionPhoneController,
+          _institutionPhoneController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.TextEditingController get institutionDescriptionController =>
+      (super.noSuchMethod(
+        Invocation.getter(#institutionDescriptionController),
+        returnValue: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionDescriptionController),
+        ),
+        returnValueForMissingStub: _FakeTextEditingController_1(
+          this,
+          Invocation.getter(#institutionDescriptionController),
+        ),
+      ) as _i3.TextEditingController);
+
+  @override
+  set institutionDescriptionController(
+          _i3.TextEditingController? _institutionDescriptionController) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionDescriptionController,
+          _institutionDescriptionController,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get emailFocus => (super.noSuchMethod(
+        Invocation.getter(#emailFocus),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set emailFocus(bool? _emailFocus) => super.noSuchMethod(
+        Invocation.setter(
+          #emailFocus,
+          _emailFocus,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  bool get phoneFocus => (super.noSuchMethod(
+        Invocation.getter(#phoneFocus),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  set phoneFocus(bool? _phoneFocus) => super.noSuchMethod(
+        Invocation.setter(
+          #phoneFocus,
+          _phoneFocus,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxBool get loadingRegions => (super.noSuchMethod(
         Invocation.getter(#loadingRegions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingRegions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingRegions),
         ),
@@ -1224,11 +1847,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get regions => (super.noSuchMethod(
         Invocation.getter(#regions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regions),
         ),
@@ -1246,11 +1869,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get regionSelected => (super.noSuchMethod(
         Invocation.getter(#regionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#regionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#regionSelected),
         ),
@@ -1268,11 +1891,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxInt get regionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#regionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#regionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#regionSelectedIndex),
         ),
@@ -1291,11 +1914,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get listRegions => (super.noSuchMethod(
         Invocation.getter(#listRegions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listRegions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listRegions),
         ),
@@ -1329,11 +1952,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get regionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#regionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regionSelectedValue),
         ),
@@ -1352,11 +1975,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loadingDivisions => (super.noSuchMethod(
         Invocation.getter(#loadingDivisions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingDivisions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingDivisions),
         ),
@@ -1374,11 +1997,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get divisions => (super.noSuchMethod(
         Invocation.getter(#divisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisions),
         ),
@@ -1396,11 +2019,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get divisionSelected => (super.noSuchMethod(
         Invocation.getter(#divisionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#divisionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#divisionSelected),
         ),
@@ -1418,11 +2041,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get divisionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#divisionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisionSelectedValue),
         ),
@@ -1441,11 +2064,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxInt get divisionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#divisionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#divisionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#divisionSelectedIndex),
         ),
@@ -1464,11 +2087,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get listDivisions => (super.noSuchMethod(
         Invocation.getter(#listDivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listDivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listDivisions),
         ),
@@ -1502,11 +2125,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loadingSubdivisions => (super.noSuchMethod(
         Invocation.getter(#loadingSubdivisions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSubdivisions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSubdivisions),
         ),
@@ -1525,11 +2148,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get subdivisions => (super.noSuchMethod(
         Invocation.getter(#subdivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisions),
         ),
@@ -1547,11 +2170,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get subdivisionSelected => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#subdivisionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#subdivisionSelected),
         ),
@@ -1570,11 +2193,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get subdivisionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisionSelectedValue),
         ),
@@ -1594,11 +2217,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxInt get subdivisionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#subdivisionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#subdivisionSelectedIndex),
         ),
@@ -1617,11 +2240,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get listSubdivisions => (super.noSuchMethod(
         Invocation.getter(#listSubdivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSubdivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSubdivisions),
         ),
@@ -1657,11 +2280,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loadingSectors => (super.noSuchMethod(
         Invocation.getter(#loadingSectors),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSectors),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSectors),
         ),
@@ -1679,11 +2302,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loginOrRegister => (super.noSuchMethod(
         Invocation.getter(#loginOrRegister),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loginOrRegister),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loginOrRegister),
         ),
@@ -1701,11 +2324,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get sectors => (super.noSuchMethod(
         Invocation.getter(#sectors),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectors),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectors),
         ),
@@ -1723,11 +2346,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get sectorsSelected => (super.noSuchMethod(
         Invocation.getter(#sectorsSelected),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectorsSelected),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectorsSelected),
         ),
@@ -1746,11 +2369,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxInt get selectedIndex => (super.noSuchMethod(
         Invocation.getter(#selectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#selectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#selectedIndex),
         ),
@@ -1768,11 +2391,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<dynamic> get listSectors => (super.noSuchMethod(
         Invocation.getter(#listSectors),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSectors),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSectors),
         ),
@@ -1806,11 +2429,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get chooseSector => (super.noSuchMethod(
         Invocation.getter(#chooseSector),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseSector),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseSector),
         ),
@@ -1828,11 +2451,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get chooseRegion => (super.noSuchMethod(
         Invocation.getter(#chooseRegion),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseRegion),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseRegion),
         ),
@@ -1850,11 +2473,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get chooseDivision => (super.noSuchMethod(
         Invocation.getter(#chooseDivision),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseDivision),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseDivision),
         ),
@@ -1872,11 +2495,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get chooseSubdivision => (super.noSuchMethod(
         Invocation.getter(#chooseSubdivision),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseSubdivision),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseSubdivision),
         ),
@@ -1894,11 +2517,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get loginWithPhoneNumber => (super.noSuchMethod(
         Invocation.getter(#loginWithPhoneNumber),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loginWithPhoneNumber),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loginWithPhoneNumber),
         ),
@@ -1926,11 +2549,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   String get confirmPassword => (super.noSuchMethod(
         Invocation.getter(#confirmPassword),
-        returnValue: _i19.dummyValue<String>(
+        returnValue: _i20.dummyValue<String>(
           this,
           Invocation.getter(#confirmPassword),
         ),
-        returnValueForMissingStub: _i19.dummyValue<String>(
+        returnValueForMissingStub: _i20.dummyValue<String>(
           this,
           Invocation.getter(#confirmPassword),
         ),
@@ -1948,11 +2571,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxBool get isConfidentialityChecked => (super.noSuchMethod(
         Invocation.getter(#isConfidentialityChecked),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#isConfidentialityChecked),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#isConfidentialityChecked),
         ),
@@ -1971,11 +2594,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i4.UserRepository get userRepository => (super.noSuchMethod(
         Invocation.getter(#userRepository),
-        returnValue: _FakeUserRepository_3(
+        returnValue: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
-        returnValueForMissingStub: _FakeUserRepository_3(
+        returnValueForMissingStub: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
@@ -1993,11 +2616,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i5.ZoneRepository get zoneRepository => (super.noSuchMethod(
         Invocation.getter(#zoneRepository),
-        returnValue: _FakeZoneRepository_4(
+        returnValue: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
-        returnValueForMissingStub: _FakeZoneRepository_4(
+        returnValueForMissingStub: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
@@ -2015,11 +2638,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i6.SectorRepository get sectorRepository => (super.noSuchMethod(
         Invocation.getter(#sectorRepository),
-        returnValue: _FakeSectorRepository_5(
+        returnValue: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
-        returnValueForMissingStub: _FakeSectorRepository_5(
+        returnValueForMissingStub: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
@@ -2038,11 +2661,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxString get selectedGender => (super.noSuchMethod(
         Invocation.getter(#selectedGender),
-        returnValue: _FakeRxString_11(
+        returnValue: _FakeRxString_6(
           this,
           Invocation.getter(#selectedGender),
         ),
-        returnValueForMissingStub: _FakeRxString_11(
+        returnValueForMissingStub: _FakeRxString_6(
           this,
           Invocation.getter(#selectedGender),
         ),
@@ -2058,13 +2681,36 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
+  _i2.RxString get selectedCoverageZone => (super.noSuchMethod(
+        Invocation.getter(#selectedCoverageZone),
+        returnValue: _FakeRxString_6(
+          this,
+          Invocation.getter(#selectedCoverageZone),
+        ),
+        returnValueForMissingStub: _FakeRxString_6(
+          this,
+          Invocation.getter(#selectedCoverageZone),
+        ),
+      ) as _i2.RxString);
+
+  @override
+  set selectedCoverageZone(_i2.RxString? _selectedCoverageZone) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #selectedCoverageZone,
+          _selectedCoverageZone,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxList<String> get genderList => (super.noSuchMethod(
         Invocation.getter(#genderList),
-        returnValue: _FakeRxList_12<String>(
+        returnValue: _FakeRxList_2<String>(
           this,
           Invocation.getter(#genderList),
         ),
-        returnValueForMissingStub: _FakeRxList_12<String>(
+        returnValueForMissingStub: _FakeRxList_2<String>(
           this,
           Invocation.getter(#genderList),
         ),
@@ -2080,13 +2726,37 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
+  _i2.RxList<String> get institutionZoneCoverageList => (super.noSuchMethod(
+        Invocation.getter(#institutionZoneCoverageList),
+        returnValue: _FakeRxList_2<String>(
+          this,
+          Invocation.getter(#institutionZoneCoverageList),
+        ),
+        returnValueForMissingStub: _FakeRxList_2<String>(
+          this,
+          Invocation.getter(#institutionZoneCoverageList),
+        ),
+      ) as _i2.RxList<String>);
+
+  @override
+  set institutionZoneCoverageList(
+          _i2.RxList<String>? _institutionZoneCoverageList) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #institutionZoneCoverageList,
+          _institutionZoneCoverageList,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxString get selectedLanguage => (super.noSuchMethod(
         Invocation.getter(#selectedLanguage),
-        returnValue: _FakeRxString_11(
+        returnValue: _FakeRxString_6(
           this,
           Invocation.getter(#selectedLanguage),
         ),
-        returnValueForMissingStub: _FakeRxString_11(
+        returnValueForMissingStub: _FakeRxString_6(
           this,
           Invocation.getter(#selectedLanguage),
         ),
@@ -2104,11 +2774,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.RxList<String> get languageList => (super.noSuchMethod(
         Invocation.getter(#languageList),
-        returnValue: _FakeRxList_12<String>(
+        returnValue: _FakeRxList_2<String>(
           this,
           Invocation.getter(#languageList),
         ),
-        returnValueForMissingStub: _FakeRxList_12<String>(
+        returnValueForMissingStub: _FakeRxList_2<String>(
           this,
           Invocation.getter(#languageList),
         ),
@@ -2124,13 +2794,79 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
+  _i9.GetStorage get box => (super.noSuchMethod(
+        Invocation.getter(#box),
+        returnValue: _FakeGetStorage_15(
+          this,
+          Invocation.getter(#box),
+        ),
+        returnValueForMissingStub: _FakeGetStorage_15(
+          this,
+          Invocation.getter(#box),
+        ),
+      ) as _i9.GetStorage);
+
+  @override
+  set box(_i9.GetStorage? _box) => super.noSuchMethod(
+        Invocation.setter(
+          #box,
+          _box,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxDouble get progress => (super.noSuchMethod(
+        Invocation.getter(#progress),
+        returnValue: _FakeRxDouble_4(
+          this,
+          Invocation.getter(#progress),
+        ),
+        returnValueForMissingStub: _FakeRxDouble_4(
+          this,
+          Invocation.getter(#progress),
+        ),
+      ) as _i2.RxDouble);
+
+  @override
+  set progress(_i2.RxDouble? _progress) => super.noSuchMethod(
+        Invocation.setter(
+          #progress,
+          _progress,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Duration get duration => (super.noSuchMethod(
+        Invocation.getter(#duration),
+        returnValue: _FakeDuration_16(
+          this,
+          Invocation.getter(#duration),
+        ),
+        returnValueForMissingStub: _FakeDuration_16(
+          this,
+          Invocation.getter(#duration),
+        ),
+      ) as Duration);
+
+  @override
+  set duration(Duration? _duration) => super.noSuchMethod(
+        Invocation.setter(
+          #duration,
+          _duration,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
         Invocation.getter(#onStart),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
@@ -2139,11 +2875,11 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   _i2.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
         Invocation.getter(#onDelete),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
@@ -2181,6 +2917,24 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   void onInit() => super.noSuchMethod(
         Invocation.method(
           #onInit,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void startProgress() => super.noSuchMethod(
+        Invocation.method(
+          #startProgress,
           [],
         ),
         returnValueForMissingStub: null,
@@ -2302,7 +3056,7 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
-  _i16.Disposer addListener(_i16.GetStateUpdate? listener) =>
+  _i17.Disposer addListener(_i17.GetStateUpdate? listener) =>
       (super.noSuchMethod(
         Invocation.method(
           #addListener,
@@ -2310,10 +3064,10 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
-  void removeListener(_i17.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i18.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -2351,7 +3105,7 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
   @override
   void removeListenerId(
     Object? id,
-    _i17.VoidCallback? listener,
+    _i18.VoidCallback? listener,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2365,18 +3119,9 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
       );
 
   @override
-  void dispose() => super.noSuchMethod(
-        Invocation.method(
-          #dispose,
-          [],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i16.Disposer addListenerId(
+  _i17.Disposer addListenerId(
     Object? key,
-    _i16.GetStateUpdate? listener,
+    _i17.GetStateUpdate? listener,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -2388,7 +3133,7 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
   void disposeId(Object? id) => super.noSuchMethod(
@@ -2404,28 +3149,28 @@ class MockAuthController extends _i1.Mock implements _i18.AuthController {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCommunityController extends _i1.Mock
-    implements _i20.CommunityController {
+    implements _i21.CommunityController {
   @override
-  _i2.Rx<_i14.UserModel> get currentUser => (super.noSuchMethod(
+  _i2.Rx<_i15.UserModel> get currentUser => (super.noSuchMethod(
         Invocation.getter(#currentUser),
-        returnValue: _FakeRx_0<_i14.UserModel>(
+        returnValue: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-        returnValueForMissingStub: _FakeRx_0<_i14.UserModel>(
+        returnValueForMissingStub: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-      ) as _i2.Rx<_i14.UserModel>);
+      ) as _i2.Rx<_i15.UserModel>);
 
   @override
   _i2.RxBool get floatingActionButtonTapped => (super.noSuchMethod(
         Invocation.getter(#floatingActionButtonTapped),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#floatingActionButtonTapped),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#floatingActionButtonTapped),
         ),
@@ -2444,11 +3189,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get loadingAPost => (super.noSuchMethod(
         Invocation.getter(#loadingAPost),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingAPost),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingAPost),
         ),
@@ -2464,20 +3209,20 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i9.CommunityRepository get communityRepository => (super.noSuchMethod(
+  _i10.CommunityRepository get communityRepository => (super.noSuchMethod(
         Invocation.getter(#communityRepository),
-        returnValue: _FakeCommunityRepository_13(
+        returnValue: _FakeCommunityRepository_17(
           this,
           Invocation.getter(#communityRepository),
         ),
-        returnValueForMissingStub: _FakeCommunityRepository_13(
+        returnValueForMissingStub: _FakeCommunityRepository_17(
           this,
           Invocation.getter(#communityRepository),
         ),
-      ) as _i9.CommunityRepository);
+      ) as _i10.CommunityRepository);
 
   @override
-  set communityRepository(_i9.CommunityRepository? _communityRepository) =>
+  set communityRepository(_i10.CommunityRepository? _communityRepository) =>
       super.noSuchMethod(
         Invocation.setter(
           #communityRepository,
@@ -2489,11 +3234,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get allPosts => (super.noSuchMethod(
         Invocation.getter(#allPosts),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#allPosts),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#allPosts),
         ),
@@ -2527,11 +3272,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get loadingPosts => (super.noSuchMethod(
         Invocation.getter(#loadingPosts),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingPosts),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingPosts),
         ),
@@ -2549,11 +3294,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get createPosts => (super.noSuchMethod(
         Invocation.getter(#createPosts),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#createPosts),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#createPosts),
         ),
@@ -2569,35 +3314,13 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i2.RxBool get createUpdatePosts => (super.noSuchMethod(
-        Invocation.getter(#createUpdatePosts),
-        returnValue: _FakeRxBool_6(
-          this,
-          Invocation.getter(#createUpdatePosts),
-        ),
-        returnValueForMissingStub: _FakeRxBool_6(
-          this,
-          Invocation.getter(#createUpdatePosts),
-        ),
-      ) as _i2.RxBool);
-
-  @override
-  set createUpdatePosts(_i2.RxBool? _createUpdatePosts) => super.noSuchMethod(
-        Invocation.setter(
-          #createUpdatePosts,
-          _createUpdatePosts,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i2.RxBool get updatePosts => (super.noSuchMethod(
         Invocation.getter(#updatePosts),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#updatePosts),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#updatePosts),
         ),
@@ -2613,13 +3336,35 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
+  _i2.RxBool get createUpdatePosts => (super.noSuchMethod(
+        Invocation.getter(#createUpdatePosts),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#createUpdatePosts),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#createUpdatePosts),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set createUpdatePosts(_i2.RxBool? _createUpdatePosts) => super.noSuchMethod(
+        Invocation.setter(
+          #createUpdatePosts,
+          _createUpdatePosts,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxBool get searchField => (super.noSuchMethod(
         Invocation.getter(#searchField),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#searchField),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#searchField),
         ),
@@ -2637,11 +3382,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get noFilter => (super.noSuchMethod(
         Invocation.getter(#noFilter),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#noFilter),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#noFilter),
         ),
@@ -2659,11 +3404,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get createPostNotEvent => (super.noSuchMethod(
         Invocation.getter(#createPostNotEvent),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#createPostNotEvent),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#createPostNotEvent),
         ),
@@ -2679,20 +3424,20 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i10.Post get post => (super.noSuchMethod(
+  _i11.Post get post => (super.noSuchMethod(
         Invocation.getter(#post),
-        returnValue: _FakePost_14(
+        returnValue: _FakePost_18(
           this,
           Invocation.getter(#post),
         ),
-        returnValueForMissingStub: _FakePost_14(
+        returnValueForMissingStub: _FakePost_18(
           this,
           Invocation.getter(#post),
         ),
-      ) as _i10.Post);
+      ) as _i11.Post);
 
   @override
-  set post(_i10.Post? _post) => super.noSuchMethod(
+  set post(_i11.Post? _post) => super.noSuchMethod(
         Invocation.setter(
           #post,
           _post,
@@ -2701,20 +3446,20 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i2.Rx<_i10.Post> get postDetails => (super.noSuchMethod(
+  _i2.Rx<_i11.Post> get postDetails => (super.noSuchMethod(
         Invocation.getter(#postDetails),
-        returnValue: _FakeRx_0<_i10.Post>(
+        returnValue: _FakeRx_0<_i11.Post>(
           this,
           Invocation.getter(#postDetails),
         ),
-        returnValueForMissingStub: _FakeRx_0<_i10.Post>(
+        returnValueForMissingStub: _FakeRx_0<_i11.Post>(
           this,
           Invocation.getter(#postDetails),
         ),
-      ) as _i2.Rx<_i10.Post>);
+      ) as _i2.Rx<_i11.Post>);
 
   @override
-  set postDetails(_i2.Rx<_i10.Post>? _postDetails) => super.noSuchMethod(
+  set postDetails(_i2.Rx<_i11.Post>? _postDetails) => super.noSuchMethod(
         Invocation.setter(
           #postDetails,
           _postDetails,
@@ -2723,13 +3468,46 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
+  List<Map<String, dynamic>> get zones => (super.noSuchMethod(
+        Invocation.getter(#zones),
+        returnValue: <Map<String, dynamic>>[],
+        returnValueForMissingStub: <Map<String, dynamic>>[],
+      ) as List<Map<String, dynamic>>);
+
+  @override
+  set zones(List<Map<String, dynamic>>? _zones) => super.noSuchMethod(
+        Invocation.setter(
+          #zones,
+          _zones,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  List<Map<String, dynamic>> get listAllZones => (super.noSuchMethod(
+        Invocation.getter(#listAllZones),
+        returnValue: <Map<String, dynamic>>[],
+        returnValueForMissingStub: <Map<String, dynamic>>[],
+      ) as List<Map<String, dynamic>>);
+
+  @override
+  set listAllZones(List<Map<String, dynamic>>? _listAllZones) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #listAllZones,
+          _listAllZones,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxBool get loadingRegions => (super.noSuchMethod(
         Invocation.getter(#loadingRegions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingRegions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingRegions),
         ),
@@ -2747,11 +3525,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get regions => (super.noSuchMethod(
         Invocation.getter(#regions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regions),
         ),
@@ -2769,11 +3547,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get regionSelected => (super.noSuchMethod(
         Invocation.getter(#regionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#regionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#regionSelected),
         ),
@@ -2791,11 +3569,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get regionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#regionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#regionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#regionSelectedIndex),
         ),
@@ -2814,11 +3592,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get listRegions => (super.noSuchMethod(
         Invocation.getter(#listRegions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listRegions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listRegions),
         ),
@@ -2852,11 +3630,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get regionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#regionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regionSelectedValue),
         ),
@@ -2873,13 +3651,36 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
+  _i2.RxBool get cancelSearchSubDivision => (super.noSuchMethod(
+        Invocation.getter(#cancelSearchSubDivision),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#cancelSearchSubDivision),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#cancelSearchSubDivision),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set cancelSearchSubDivision(_i2.RxBool? _cancelSearchSubDivision) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #cancelSearchSubDivision,
+          _cancelSearchSubDivision,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i2.RxBool get loadingDivisions => (super.noSuchMethod(
         Invocation.getter(#loadingDivisions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingDivisions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingDivisions),
         ),
@@ -2897,11 +3698,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get divisions => (super.noSuchMethod(
         Invocation.getter(#divisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisions),
         ),
@@ -2919,11 +3720,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get divisionSelected => (super.noSuchMethod(
         Invocation.getter(#divisionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#divisionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#divisionSelected),
         ),
@@ -2941,11 +3742,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get divisionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#divisionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisionSelectedValue),
         ),
@@ -2964,11 +3765,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get divisionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#divisionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#divisionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#divisionSelectedIndex),
         ),
@@ -2987,11 +3788,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get listDivisions => (super.noSuchMethod(
         Invocation.getter(#listDivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listDivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listDivisions),
         ),
@@ -3025,11 +3826,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get loadingSubdivisions => (super.noSuchMethod(
         Invocation.getter(#loadingSubdivisions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSubdivisions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSubdivisions),
         ),
@@ -3048,11 +3849,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get subdivisions => (super.noSuchMethod(
         Invocation.getter(#subdivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisions),
         ),
@@ -3070,11 +3871,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get subdivisionSelected => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#subdivisionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#subdivisionSelected),
         ),
@@ -3093,11 +3894,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get subdivisionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisionSelectedValue),
         ),
@@ -3117,11 +3918,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get subdivisionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#subdivisionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#subdivisionSelectedIndex),
         ),
@@ -3140,11 +3941,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get listSubdivisions => (super.noSuchMethod(
         Invocation.getter(#listSubdivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSubdivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSubdivisions),
         ),
@@ -3180,11 +3981,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get loadingSectors => (super.noSuchMethod(
         Invocation.getter(#loadingSectors),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSectors),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSectors),
         ),
@@ -3202,11 +4003,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get sectors => (super.noSuchMethod(
         Invocation.getter(#sectors),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectors),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectors),
         ),
@@ -3224,11 +4025,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get sectorsSelected => (super.noSuchMethod(
         Invocation.getter(#sectorsSelected),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectorsSelected),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectorsSelected),
         ),
@@ -3247,11 +4048,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get postFollowed => (super.noSuchMethod(
         Invocation.getter(#postFollowed),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#postFollowed),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#postFollowed),
         ),
@@ -3269,11 +4070,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get postUnFollowed => (super.noSuchMethod(
         Invocation.getter(#postUnFollowed),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#postUnFollowed),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#postUnFollowed),
         ),
@@ -3292,11 +4093,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get selectedIndex => (super.noSuchMethod(
         Invocation.getter(#selectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#selectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#selectedIndex),
         ),
@@ -3314,11 +4115,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get listSectors => (super.noSuchMethod(
         Invocation.getter(#listSectors),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSectors),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSectors),
         ),
@@ -3368,11 +4169,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get registerNextStep1 => (super.noSuchMethod(
         Invocation.getter(#registerNextStep1),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#registerNextStep1),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#registerNextStep1),
         ),
@@ -3390,11 +4191,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i4.UserRepository get userRepository => (super.noSuchMethod(
         Invocation.getter(#userRepository),
-        returnValue: _FakeUserRepository_3(
+        returnValue: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
-        returnValueForMissingStub: _FakeUserRepository_3(
+        returnValueForMissingStub: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
@@ -3412,11 +4213,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i5.ZoneRepository get zoneRepository => (super.noSuchMethod(
         Invocation.getter(#zoneRepository),
-        returnValue: _FakeZoneRepository_4(
+        returnValue: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
-        returnValueForMissingStub: _FakeZoneRepository_4(
+        returnValueForMissingStub: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
@@ -3434,11 +4235,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i6.SectorRepository get sectorRepository => (super.noSuchMethod(
         Invocation.getter(#sectorRepository),
-        returnValue: _FakeSectorRepository_5(
+        returnValue: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
-        returnValueForMissingStub: _FakeSectorRepository_5(
+        returnValueForMissingStub: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
@@ -3455,20 +4256,20 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i10.Post get postModel => (super.noSuchMethod(
+  _i11.Post get postModel => (super.noSuchMethod(
         Invocation.getter(#postModel),
-        returnValue: _FakePost_14(
+        returnValue: _FakePost_18(
           this,
           Invocation.getter(#postModel),
         ),
-        returnValueForMissingStub: _FakePost_14(
+        returnValueForMissingStub: _FakePost_18(
           this,
           Invocation.getter(#postModel),
         ),
-      ) as _i10.Post);
+      ) as _i11.Post);
 
   @override
-  set postModel(_i10.Post? _postModel) => super.noSuchMethod(
+  set postModel(_i11.Post? _postModel) => super.noSuchMethod(
         Invocation.setter(
           #postModel,
           _postModel,
@@ -3479,11 +4280,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i3.ScrollController get scrollbarController => (super.noSuchMethod(
         Invocation.getter(#scrollbarController),
-        returnValue: _FakeScrollController_15(
+        returnValue: _FakeScrollController_7(
           this,
           Invocation.getter(#scrollbarController),
         ),
-        returnValueForMissingStub: _FakeScrollController_15(
+        returnValueForMissingStub: _FakeScrollController_7(
           this,
           Invocation.getter(#scrollbarController),
         ),
@@ -3502,11 +4303,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get imageFiles => (super.noSuchMethod(
         Invocation.getter(#imageFiles),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#imageFiles),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#imageFiles),
         ),
@@ -3540,11 +4341,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get likeTapped => (super.noSuchMethod(
         Invocation.getter(#likeTapped),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#likeTapped),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#likeTapped),
         ),
@@ -3562,11 +4363,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get selectedPost => (super.noSuchMethod(
         Invocation.getter(#selectedPost),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#selectedPost),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#selectedPost),
         ),
@@ -3584,11 +4385,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get unlikedPost => (super.noSuchMethod(
         Invocation.getter(#unlikedPost),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#unlikedPost),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#unlikedPost),
         ),
@@ -3606,11 +4407,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get sharedPost => (super.noSuchMethod(
         Invocation.getter(#sharedPost),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sharedPost),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sharedPost),
         ),
@@ -3628,11 +4429,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxDouble get postSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#postSelectedIndex),
-        returnValue: _FakeRxDouble_16(
+        returnValue: _FakeRxDouble_4(
           this,
           Invocation.getter(#postSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxDouble_16(
+        returnValueForMissingStub: _FakeRxDouble_4(
           this,
           Invocation.getter(#postSelectedIndex),
         ),
@@ -3650,11 +4451,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get postFollowedIndex => (super.noSuchMethod(
         Invocation.getter(#postFollowedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#postFollowedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#postFollowedIndex),
         ),
@@ -3672,11 +4473,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get postSharedIndex => (super.noSuchMethod(
         Invocation.getter(#postSharedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#postSharedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#postSharedIndex),
         ),
@@ -3694,11 +4495,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxString get comment => (super.noSuchMethod(
         Invocation.getter(#comment),
-        returnValue: _FakeRxString_11(
+        returnValue: _FakeRxString_6(
           this,
           Invocation.getter(#comment),
         ),
-        returnValueForMissingStub: _FakeRxString_11(
+        returnValueForMissingStub: _FakeRxString_6(
           this,
           Invocation.getter(#comment),
         ),
@@ -3716,11 +4517,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get sendComment => (super.noSuchMethod(
         Invocation.getter(#sendComment),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#sendComment),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#sendComment),
         ),
@@ -3738,11 +4539,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxList<dynamic> get commentList => (super.noSuchMethod(
         Invocation.getter(#commentList),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#commentList),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#commentList),
         ),
@@ -3753,6 +4554,50 @@ class MockCommunityController extends _i1.Mock
         Invocation.setter(
           #commentList,
           _commentList,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get likeMyPost => (super.noSuchMethod(
+        Invocation.getter(#likeMyPost),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#likeMyPost),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#likeMyPost),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set likeMyPost(_i2.RxBool? _likeMyPost) => super.noSuchMethod(
+        Invocation.setter(
+          #likeMyPost,
+          _likeMyPost,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i2.RxBool get shareMyPost => (super.noSuchMethod(
+        Invocation.getter(#shareMyPost),
+        returnValue: _FakeRxBool_3(
+          this,
+          Invocation.getter(#shareMyPost),
+        ),
+        returnValueForMissingStub: _FakeRxBool_3(
+          this,
+          Invocation.getter(#shareMyPost),
+        ),
+      ) as _i2.RxBool);
+
+  @override
+  set shareMyPost(_i2.RxBool? _shareMyPost) => super.noSuchMethod(
+        Invocation.setter(
+          #shareMyPost,
+          _shareMyPost,
         ),
         returnValueForMissingStub: null,
       );
@@ -3830,11 +4675,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxInt get rating => (super.noSuchMethod(
         Invocation.getter(#rating),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#rating),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#rating),
         ),
@@ -3879,11 +4724,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get copyLink => (super.noSuchMethod(
         Invocation.getter(#copyLink),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#copyLink),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#copyLink),
         ),
@@ -3901,11 +4746,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get chooseARegion => (super.noSuchMethod(
         Invocation.getter(#chooseARegion),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseARegion),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseARegion),
         ),
@@ -3923,11 +4768,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get chooseADivision => (super.noSuchMethod(
         Invocation.getter(#chooseADivision),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseADivision),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseADivision),
         ),
@@ -3945,11 +4790,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get chooseASubDivision => (super.noSuchMethod(
         Invocation.getter(#chooseASubDivision),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseASubDivision),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseASubDivision),
         ),
@@ -3967,11 +4812,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get inputImage => (super.noSuchMethod(
         Invocation.getter(#inputImage),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#inputImage),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#inputImage),
         ),
@@ -3987,45 +4832,45 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i2.RxBool get inputSector => (super.noSuchMethod(
-        Invocation.getter(#inputSector),
-        returnValue: _FakeRxBool_6(
+  _i2.RxBool get filterBySector => (super.noSuchMethod(
+        Invocation.getter(#filterBySector),
+        returnValue: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputSector(_i2.RxBool? _inputSector) => super.noSuchMethod(
+  set filterBySector(_i2.RxBool? _filterBySector) => super.noSuchMethod(
         Invocation.setter(
-          #inputSector,
-          _inputSector,
+          #filterBySector,
+          _filterBySector,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i2.RxBool get inputZone => (super.noSuchMethod(
-        Invocation.getter(#inputZone),
-        returnValue: _FakeRxBool_6(
+  _i2.RxBool get filterByLocation => (super.noSuchMethod(
+        Invocation.getter(#filterByLocation),
+        returnValue: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputZone(_i2.RxBool? _inputZone) => super.noSuchMethod(
+  set filterByLocation(_i2.RxBool? _filterByLocation) => super.noSuchMethod(
         Invocation.setter(
-          #inputZone,
-          _inputZone,
+          #filterByLocation,
+          _filterByLocation,
         ),
         returnValueForMissingStub: null,
       );
@@ -4033,11 +4878,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i7.ImagePicker get picker => (super.noSuchMethod(
         Invocation.getter(#picker),
-        returnValue: _FakeImagePicker_7(
+        returnValue: _FakeImagePicker_11(
           this,
           Invocation.getter(#picker),
         ),
-        returnValueForMissingStub: _FakeImagePicker_7(
+        returnValueForMissingStub: _FakeImagePicker_11(
           this,
           Invocation.getter(#picker),
         ),
@@ -4055,11 +4900,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i8.File get feedbackImage => (super.noSuchMethod(
         Invocation.getter(#feedbackImage),
-        returnValue: _FakeFile_8(
+        returnValue: _FakeFile_12(
           this,
           Invocation.getter(#feedbackImage),
         ),
-        returnValueForMissingStub: _FakeFile_8(
+        returnValueForMissingStub: _FakeFile_12(
           this,
           Invocation.getter(#feedbackImage),
         ),
@@ -4077,11 +4922,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.RxBool get loadFeedbackImage => (super.noSuchMethod(
         Invocation.getter(#loadFeedbackImage),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadFeedbackImage),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadFeedbackImage),
         ),
@@ -4090,11 +4935,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
         Invocation.getter(#onStart),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
@@ -4103,11 +4948,11 @@ class MockCommunityController extends _i1.Mock
   @override
   _i2.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
         Invocation.getter(#onDelete),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
@@ -4233,15 +5078,15 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i15.Future<dynamic> pickImage(_i7.ImageSource? source) =>
+  _i16.Future<dynamic> pickImage(_i7.ImageSource? source) =>
       (super.noSuchMethod(
         Invocation.method(
           #pickImage,
           [source],
         ),
-        returnValue: _i15.Future<dynamic>.value(),
-        returnValueForMissingStub: _i15.Future<dynamic>.value(),
-      ) as _i15.Future<dynamic>);
+        returnValue: _i16.Future<dynamic>.value(),
+        returnValueForMissingStub: _i16.Future<dynamic>.value(),
+      ) as _i16.Future<dynamic>);
 
   @override
   dynamic feedbackImagePicker(String? source) => super.noSuchMethod(
@@ -4262,7 +5107,7 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  dynamic createPost(_i10.Post? post) => super.noSuchMethod(
+  dynamic createPost(_i11.Post? post) => super.noSuchMethod(
         Invocation.method(
           #createPost,
           [post],
@@ -4271,7 +5116,7 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  dynamic updatePost(_i10.Post? post) => super.noSuchMethod(
+  dynamic updatePost(_i11.Post? post) => super.noSuchMethod(
         Invocation.method(
           #updatePost,
           [post],
@@ -4296,7 +5141,7 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  dynamic initializePostDetails(_i10.Post? post) => super.noSuchMethod(
+  dynamic initializePostDetails(_i11.Post? post) => super.noSuchMethod(
         Invocation.method(
           #initializePostDetails,
           [post],
@@ -4330,10 +5175,17 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  dynamic sharePost(int? postId) => super.noSuchMethod(
+  dynamic sharePost(
+    int? postId,
+    int? index,
+  ) =>
+      super.noSuchMethod(
         Invocation.method(
           #sharePost,
-          [postId],
+          [
+            postId,
+            index,
+          ],
         ),
         returnValueForMissingStub: null,
       );
@@ -4432,7 +5284,7 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i16.Disposer addListener(_i16.GetStateUpdate? listener) =>
+  _i17.Disposer addListener(_i17.GetStateUpdate? listener) =>
       (super.noSuchMethod(
         Invocation.method(
           #addListener,
@@ -4440,10 +5292,10 @@ class MockCommunityController extends _i1.Mock
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
-  void removeListener(_i17.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i18.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -4481,7 +5333,7 @@ class MockCommunityController extends _i1.Mock
   @override
   void removeListenerId(
     Object? id,
-    _i17.VoidCallback? listener,
+    _i18.VoidCallback? listener,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -4495,9 +5347,9 @@ class MockCommunityController extends _i1.Mock
       );
 
   @override
-  _i16.Disposer addListenerId(
+  _i17.Disposer addListenerId(
     Object? key,
-    _i16.GetStateUpdate? listener,
+    _i17.GetStateUpdate? listener,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -4509,7 +5361,7 @@ class MockCommunityController extends _i1.Mock
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
   void disposeId(Object? id) => super.noSuchMethod(
@@ -4524,22 +5376,22 @@ class MockCommunityController extends _i1.Mock
 /// A class which mocks [EventsController].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockEventsController extends _i1.Mock implements _i21.EventsController {
+class MockEventsController extends _i1.Mock implements _i22.EventsController {
   @override
-  _i2.Rx<_i14.UserModel> get currentUser => (super.noSuchMethod(
+  _i2.Rx<_i15.UserModel> get currentUser => (super.noSuchMethod(
         Invocation.getter(#currentUser),
-        returnValue: _FakeRx_0<_i14.UserModel>(
+        returnValue: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-        returnValueForMissingStub: _FakeRx_0<_i14.UserModel>(
+        returnValueForMissingStub: _FakeRx_0<_i15.UserModel>(
           this,
           Invocation.getter(#currentUser),
         ),
-      ) as _i2.Rx<_i14.UserModel>);
+      ) as _i2.Rx<_i15.UserModel>);
 
   @override
-  set currentUser(_i2.Rx<_i14.UserModel>? _currentUser) => super.noSuchMethod(
+  set currentUser(_i2.Rx<_i15.UserModel>? _currentUser) => super.noSuchMethod(
         Invocation.setter(
           #currentUser,
           _currentUser,
@@ -4550,11 +5402,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxString get startingDate => (super.noSuchMethod(
         Invocation.getter(#startingDate),
-        returnValue: _FakeRxString_11(
+        returnValue: _FakeRxString_6(
           this,
           Invocation.getter(#startingDate),
         ),
-        returnValueForMissingStub: _FakeRxString_11(
+        returnValueForMissingStub: _FakeRxString_6(
           this,
           Invocation.getter(#startingDate),
         ),
@@ -4572,11 +5424,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxString get endingDate => (super.noSuchMethod(
         Invocation.getter(#endingDate),
-        returnValue: _FakeRxString_11(
+        returnValue: _FakeRxString_6(
           this,
           Invocation.getter(#endingDate),
         ),
-        returnValueForMissingStub: _FakeRxString_11(
+        returnValueForMissingStub: _FakeRxString_6(
           this,
           Invocation.getter(#endingDate),
         ),
@@ -4592,20 +5444,20 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i11.EventsRepository get eventsRepository => (super.noSuchMethod(
+  _i12.EventsRepository get eventsRepository => (super.noSuchMethod(
         Invocation.getter(#eventsRepository),
-        returnValue: _FakeEventsRepository_17(
+        returnValue: _FakeEventsRepository_19(
           this,
           Invocation.getter(#eventsRepository),
         ),
-        returnValueForMissingStub: _FakeEventsRepository_17(
+        returnValueForMissingStub: _FakeEventsRepository_19(
           this,
           Invocation.getter(#eventsRepository),
         ),
-      ) as _i11.EventsRepository);
+      ) as _i12.EventsRepository);
 
   @override
-  set eventsRepository(_i11.EventsRepository? _eventsRepository) =>
+  set eventsRepository(_i12.EventsRepository? _eventsRepository) =>
       super.noSuchMethod(
         Invocation.setter(
           #eventsRepository,
@@ -4617,11 +5469,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get allEvents => (super.noSuchMethod(
         Invocation.getter(#allEvents),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#allEvents),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#allEvents),
         ),
@@ -4639,11 +5491,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get imageFiles => (super.noSuchMethod(
         Invocation.getter(#imageFiles),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#imageFiles),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#imageFiles),
         ),
@@ -4677,11 +5529,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get loadingEvents => (super.noSuchMethod(
         Invocation.getter(#loadingEvents),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingEvents),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingEvents),
         ),
@@ -4699,11 +5551,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get createEvents => (super.noSuchMethod(
         Invocation.getter(#createEvents),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#createEvents),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#createEvents),
         ),
@@ -4721,11 +5573,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get createUpdateEvents => (super.noSuchMethod(
         Invocation.getter(#createUpdateEvents),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#createUpdateEvents),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#createUpdateEvents),
         ),
@@ -4743,11 +5595,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get updateEvents => (super.noSuchMethod(
         Invocation.getter(#updateEvents),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#updateEvents),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#updateEvents),
         ),
@@ -4765,11 +5617,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get searchField => (super.noSuchMethod(
         Invocation.getter(#searchField),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#searchField),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#searchField),
         ),
@@ -4787,11 +5639,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get noFilter => (super.noSuchMethod(
         Invocation.getter(#noFilter),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#noFilter),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#noFilter),
         ),
@@ -4823,20 +5675,20 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i12.Event get event => (super.noSuchMethod(
+  _i13.Event get event => (super.noSuchMethod(
         Invocation.getter(#event),
-        returnValue: _FakeEvent_18(
+        returnValue: _FakeEvent_20(
           this,
           Invocation.getter(#event),
         ),
-        returnValueForMissingStub: _FakeEvent_18(
+        returnValueForMissingStub: _FakeEvent_20(
           this,
           Invocation.getter(#event),
         ),
-      ) as _i12.Event);
+      ) as _i13.Event);
 
   @override
-  set event(_i12.Event? _event) => super.noSuchMethod(
+  set event(_i13.Event? _event) => super.noSuchMethod(
         Invocation.setter(
           #event,
           _event,
@@ -4845,20 +5697,20 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i12.Event get eventDetails => (super.noSuchMethod(
+  _i13.Event get eventDetails => (super.noSuchMethod(
         Invocation.getter(#eventDetails),
-        returnValue: _FakeEvent_18(
+        returnValue: _FakeEvent_20(
           this,
           Invocation.getter(#eventDetails),
         ),
-        returnValueForMissingStub: _FakeEvent_18(
+        returnValueForMissingStub: _FakeEvent_20(
           this,
           Invocation.getter(#eventDetails),
         ),
-      ) as _i12.Event);
+      ) as _i13.Event);
 
   @override
-  set eventDetails(_i12.Event? _eventDetails) => super.noSuchMethod(
+  set eventDetails(_i13.Event? _eventDetails) => super.noSuchMethod(
         Invocation.setter(
           #eventDetails,
           _eventDetails,
@@ -4869,11 +5721,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i3.ScrollController get scrollbarController => (super.noSuchMethod(
         Invocation.getter(#scrollbarController),
-        returnValue: _FakeScrollController_15(
+        returnValue: _FakeScrollController_7(
           this,
           Invocation.getter(#scrollbarController),
         ),
-        returnValueForMissingStub: _FakeScrollController_15(
+        returnValueForMissingStub: _FakeScrollController_7(
           this,
           Invocation.getter(#scrollbarController),
         ),
@@ -4892,11 +5744,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get loadingRegions => (super.noSuchMethod(
         Invocation.getter(#loadingRegions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingRegions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingRegions),
         ),
@@ -4914,11 +5766,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get regions => (super.noSuchMethod(
         Invocation.getter(#regions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regions),
         ),
@@ -4936,11 +5788,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get regionSelected => (super.noSuchMethod(
         Invocation.getter(#regionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#regionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#regionSelected),
         ),
@@ -4958,11 +5810,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxInt get regionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#regionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#regionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#regionSelectedIndex),
         ),
@@ -4981,11 +5833,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get listRegions => (super.noSuchMethod(
         Invocation.getter(#listRegions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listRegions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listRegions),
         ),
@@ -5019,11 +5871,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get regionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#regionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#regionSelectedValue),
         ),
@@ -5042,11 +5894,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get loadingDivisions => (super.noSuchMethod(
         Invocation.getter(#loadingDivisions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingDivisions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingDivisions),
         ),
@@ -5064,11 +5916,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get divisions => (super.noSuchMethod(
         Invocation.getter(#divisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisions),
         ),
@@ -5086,11 +5938,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get divisionSelected => (super.noSuchMethod(
         Invocation.getter(#divisionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#divisionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#divisionSelected),
         ),
@@ -5108,11 +5960,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get divisionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#divisionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#divisionSelectedValue),
         ),
@@ -5131,11 +5983,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxInt get divisionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#divisionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#divisionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#divisionSelectedIndex),
         ),
@@ -5154,11 +6006,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get listDivisions => (super.noSuchMethod(
         Invocation.getter(#listDivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listDivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listDivisions),
         ),
@@ -5192,11 +6044,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get loadingSubdivisions => (super.noSuchMethod(
         Invocation.getter(#loadingSubdivisions),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSubdivisions),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSubdivisions),
         ),
@@ -5215,11 +6067,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get subdivisions => (super.noSuchMethod(
         Invocation.getter(#subdivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisions),
         ),
@@ -5237,11 +6089,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get subdivisionSelected => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelected),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#subdivisionSelected),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#subdivisionSelected),
         ),
@@ -5260,11 +6112,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get subdivisionSelectedValue => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelectedValue),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisionSelectedValue),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#subdivisionSelectedValue),
         ),
@@ -5284,11 +6136,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxInt get subdivisionSelectedIndex => (super.noSuchMethod(
         Invocation.getter(#subdivisionSelectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#subdivisionSelectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#subdivisionSelectedIndex),
         ),
@@ -5307,11 +6159,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get listSubdivisions => (super.noSuchMethod(
         Invocation.getter(#listSubdivisions),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSubdivisions),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSubdivisions),
         ),
@@ -5347,11 +6199,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get loadingSectors => (super.noSuchMethod(
         Invocation.getter(#loadingSectors),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSectors),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#loadingSectors),
         ),
@@ -5369,11 +6221,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get sectors => (super.noSuchMethod(
         Invocation.getter(#sectors),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectors),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectors),
         ),
@@ -5391,11 +6243,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get sectorsSelected => (super.noSuchMethod(
         Invocation.getter(#sectorsSelected),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectorsSelected),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#sectorsSelected),
         ),
@@ -5414,11 +6266,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxInt get selectedIndex => (super.noSuchMethod(
         Invocation.getter(#selectedIndex),
-        returnValue: _FakeRxInt_2(
+        returnValue: _FakeRxInt_5(
           this,
           Invocation.getter(#selectedIndex),
         ),
-        returnValueForMissingStub: _FakeRxInt_2(
+        returnValueForMissingStub: _FakeRxInt_5(
           this,
           Invocation.getter(#selectedIndex),
         ),
@@ -5436,11 +6288,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxList<dynamic> get listSectors => (super.noSuchMethod(
         Invocation.getter(#listSectors),
-        returnValue: _FakeRxList_12<dynamic>(
+        returnValue: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSectors),
         ),
-        returnValueForMissingStub: _FakeRxList_12<dynamic>(
+        returnValueForMissingStub: _FakeRxList_2<dynamic>(
           this,
           Invocation.getter(#listSectors),
         ),
@@ -5474,11 +6326,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i4.UserRepository get userRepository => (super.noSuchMethod(
         Invocation.getter(#userRepository),
-        returnValue: _FakeUserRepository_3(
+        returnValue: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
-        returnValueForMissingStub: _FakeUserRepository_3(
+        returnValueForMissingStub: _FakeUserRepository_8(
           this,
           Invocation.getter(#userRepository),
         ),
@@ -5496,11 +6348,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i5.ZoneRepository get zoneRepository => (super.noSuchMethod(
         Invocation.getter(#zoneRepository),
-        returnValue: _FakeZoneRepository_4(
+        returnValue: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
-        returnValueForMissingStub: _FakeZoneRepository_4(
+        returnValueForMissingStub: _FakeZoneRepository_9(
           this,
           Invocation.getter(#zoneRepository),
         ),
@@ -5518,11 +6370,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i6.SectorRepository get sectorRepository => (super.noSuchMethod(
         Invocation.getter(#sectorRepository),
-        returnValue: _FakeSectorRepository_5(
+        returnValue: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
-        returnValueForMissingStub: _FakeSectorRepository_5(
+        returnValueForMissingStub: _FakeSectorRepository_10(
           this,
           Invocation.getter(#sectorRepository),
         ),
@@ -5541,11 +6393,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get chooseARegion => (super.noSuchMethod(
         Invocation.getter(#chooseARegion),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseARegion),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseARegion),
         ),
@@ -5563,11 +6415,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get chooseADivision => (super.noSuchMethod(
         Invocation.getter(#chooseADivision),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseADivision),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseADivision),
         ),
@@ -5585,11 +6437,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get chooseASubDivision => (super.noSuchMethod(
         Invocation.getter(#chooseASubDivision),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseASubDivision),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#chooseASubDivision),
         ),
@@ -5607,11 +6459,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.RxBool get inputImage => (super.noSuchMethod(
         Invocation.getter(#inputImage),
-        returnValue: _FakeRxBool_6(
+        returnValue: _FakeRxBool_3(
           this,
           Invocation.getter(#inputImage),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
           Invocation.getter(#inputImage),
         ),
@@ -5627,45 +6479,45 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i2.RxBool get inputSector => (super.noSuchMethod(
-        Invocation.getter(#inputSector),
-        returnValue: _FakeRxBool_6(
+  _i2.RxBool get filterBySector => (super.noSuchMethod(
+        Invocation.getter(#filterBySector),
+        returnValue: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputSector),
+          Invocation.getter(#filterBySector),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputSector(_i2.RxBool? _inputSector) => super.noSuchMethod(
+  set filterBySector(_i2.RxBool? _filterBySector) => super.noSuchMethod(
         Invocation.setter(
-          #inputSector,
-          _inputSector,
+          #filterBySector,
+          _filterBySector,
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  _i2.RxBool get inputZone => (super.noSuchMethod(
-        Invocation.getter(#inputZone),
-        returnValue: _FakeRxBool_6(
+  _i2.RxBool get filterByLocation => (super.noSuchMethod(
+        Invocation.getter(#filterByLocation),
+        returnValue: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
-        returnValueForMissingStub: _FakeRxBool_6(
+        returnValueForMissingStub: _FakeRxBool_3(
           this,
-          Invocation.getter(#inputZone),
+          Invocation.getter(#filterByLocation),
         ),
       ) as _i2.RxBool);
 
   @override
-  set inputZone(_i2.RxBool? _inputZone) => super.noSuchMethod(
+  set filterByLocation(_i2.RxBool? _filterByLocation) => super.noSuchMethod(
         Invocation.setter(
-          #inputZone,
-          _inputZone,
+          #filterByLocation,
+          _filterByLocation,
         ),
         returnValueForMissingStub: null,
       );
@@ -5766,11 +6618,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.InternalFinalCallback<void> get onStart => (super.noSuchMethod(
         Invocation.getter(#onStart),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onStart),
         ),
@@ -5779,11 +6631,11 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   _i2.InternalFinalCallback<void> get onDelete => (super.noSuchMethod(
         Invocation.getter(#onDelete),
-        returnValue: _FakeInternalFinalCallback_9<void>(
+        returnValue: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
-        returnValueForMissingStub: _FakeInternalFinalCallback_9<void>(
+        returnValueForMissingStub: _FakeInternalFinalCallback_13<void>(
           this,
           Invocation.getter(#onDelete),
         ),
@@ -5827,16 +6679,16 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i15.Future<dynamic> refreshEvents({bool? showMessage = false}) =>
+  _i16.Future<dynamic> refreshEvents({bool? showMessage = false}) =>
       (super.noSuchMethod(
         Invocation.method(
           #refreshEvents,
           [],
           {#showMessage: showMessage},
         ),
-        returnValue: _i15.Future<dynamic>.value(),
-        returnValueForMissingStub: _i15.Future<dynamic>.value(),
-      ) as _i15.Future<dynamic>);
+        returnValue: _i16.Future<dynamic>.value(),
+        returnValueForMissingStub: _i16.Future<dynamic>.value(),
+      ) as _i16.Future<dynamic>);
 
   @override
   void dispose() => super.noSuchMethod(
@@ -5848,15 +6700,15 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i15.Future<dynamic> pickImage(_i7.ImageSource? source) =>
+  _i16.Future<dynamic> pickImage(_i7.ImageSource? source) =>
       (super.noSuchMethod(
         Invocation.method(
           #pickImage,
           [source],
         ),
-        returnValue: _i15.Future<dynamic>.value(),
-        returnValueForMissingStub: _i15.Future<dynamic>.value(),
-      ) as _i15.Future<dynamic>);
+        returnValue: _i16.Future<dynamic>.value(),
+        returnValueForMissingStub: _i16.Future<dynamic>.value(),
+      ) as _i16.Future<dynamic>);
 
   @override
   void filterSearchRegions(String? query) => super.noSuchMethod(
@@ -5968,7 +6820,7 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  dynamic createEvent(_i12.Event? event) => super.noSuchMethod(
+  dynamic createEvent(_i13.Event? event) => super.noSuchMethod(
         Invocation.method(
           #createEvent,
           [event],
@@ -5977,7 +6829,7 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  dynamic updateEvent(_i12.Event? event) => super.noSuchMethod(
+  dynamic updateEvent(_i13.Event? event) => super.noSuchMethod(
         Invocation.method(
           #updateEvent,
           [event],
@@ -6038,7 +6890,7 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i16.Disposer addListener(_i16.GetStateUpdate? listener) =>
+  _i17.Disposer addListener(_i17.GetStateUpdate? listener) =>
       (super.noSuchMethod(
         Invocation.method(
           #addListener,
@@ -6046,10 +6898,10 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
-  void removeListener(_i17.VoidCallback? listener) => super.noSuchMethod(
+  void removeListener(_i18.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
           #removeListener,
           [listener],
@@ -6087,7 +6939,7 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
   @override
   void removeListenerId(
     Object? id,
-    _i17.VoidCallback? listener,
+    _i18.VoidCallback? listener,
   ) =>
       super.noSuchMethod(
         Invocation.method(
@@ -6101,9 +6953,9 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
       );
 
   @override
-  _i16.Disposer addListenerId(
+  _i17.Disposer addListenerId(
     Object? key,
-    _i16.GetStateUpdate? listener,
+    _i17.GetStateUpdate? listener,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -6115,7 +6967,7 @@ class MockEventsController extends _i1.Mock implements _i21.EventsController {
         ),
         returnValue: () {},
         returnValueForMissingStub: () {},
-      ) as _i16.Disposer);
+      ) as _i17.Disposer);
 
   @override
   void disposeId(Object? id) => super.noSuchMethod(

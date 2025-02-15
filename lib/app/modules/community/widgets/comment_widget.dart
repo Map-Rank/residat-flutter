@@ -7,11 +7,12 @@ class CommentWidget extends StatelessWidget {
   const CommentWidget({Key? key,
     required this.user,
     required this.comment,
-    required this.imageUrl,}) : super(key: key);
+    this.userAvatar,}) : super(key: key);
 
   final String user;
+  final userAvatar;
   final String comment;
-  final String imageUrl;
+
 
 
   @override
@@ -20,25 +21,7 @@ class CommentWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipOval(
-              child: FadeInImage(
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.cover,
-                  image: NetworkImage(this.imageUrl, headers: GlobalService.getTokenHeaders()),
-                  placeholder: AssetImage(
-                      "assets/images/loading.gif"),
-                  imageErrorBuilder:
-                      (context, error, stackTrace) {
-                    return Image.asset(
-                        "assets/images/user_admin.png",
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.fitWidth);
-                  }
-              )
-          ).marginOnly(right: 10),
-
+          userAvatar,
 
           Expanded(
             child: Container(

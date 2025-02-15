@@ -21,9 +21,6 @@ abstract class Model {
     return other.id == id;
   }
 
-  @override
-  int get hashCode => id.hashCode;
-
   Map<String, dynamic> toJson();
 
   @override

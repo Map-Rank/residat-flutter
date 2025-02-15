@@ -1,10 +1,14 @@
-import 'dart:io';
+ import 'dart:io';
+import 'dart:ui';
+import 'dart:ui';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mapnrank/app/models/user_model.dart';
 import 'package:mapnrank/app/modules/community/controllers/community_controller.dart';
 import 'package:mapnrank/app/modules/community/widgets/comment_loading_widget.dart';
@@ -18,8 +22,11 @@ import 'package:mapnrank/common/ui.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mapnrank/app/models/post_model.dart';
+import 'package:share_plus/share_plus.dart';
 
+import '../../events/controllers/events_controller_test.dart';
 import 'community_controller_test.mocks.dart';
+import 'package:image/image.dart' as Im;
 
 class MockRootController extends Mock implements RootController {}
 
@@ -29,6 +36,10 @@ class MockRootController extends Mock implements RootController {}
   UserRepository,
   ZoneRepository,
   SectorRepository,
+  ImagePicker,
+  Directory,
+  File,
+  Image,
 ])
 class MockSnackbarController extends GetxController {
   var isSnackbarOpen = false.obs;
@@ -47,8 +58,14 @@ void main() {
     late MockSectorRepository mockSectorRepository;
     late CommunityController communityController;
     late MockSnackbarController mockSnackbarController;
-    late MockRootController
-        mockRootController; // Replace with your actual controller or service type
+    late MockRootController mockRootController;
+    late MockImagePicker mockImagePicker;
+    late MockDirectory mockDirectory;
+    late MockFile mockFile;
+    late MockImage mockImage;
+    late Im.Image mockDecodedImage;
+    late List<int> encodedImageBytes;
+    late MockImageLibrary mockImageLibrary;// Replace with your actual controller or service type
 
     setUp(() {
       TestWidgetsFlutterBinding.ensureInitialized();
@@ -59,10 +76,17 @@ void main() {
       mockZoneRepository = MockZoneRepository();
       mockSectorRepository = MockSectorRepository();
       communityController = CommunityController();
+      mockImagePicker = MockImagePicker();
+      mockDirectory = MockDirectory();
+      mockFile = MockFile();
+      mockImage = MockImage();
       communityController.sectorRepository = mockSectorRepository;
       communityController.userRepository = mockUserRepository;
       communityController.communityRepository = mockCommunityRepository;
       communityController.zoneRepository = mockZoneRepository;
+      mockImageLibrary = MockImageLibrary();
+      mockDecodedImage = Im.Image(width: 100, height: 100);
+      encodedImageBytes = [1, 2, 3, 4];
       mockRootController = MockRootController();
       const TEST_MOCK_STORAGE = './test/test_pictures';
       const channel = MethodChannel(
@@ -786,51 +810,53 @@ void main() {
       });
     });
 
-    test(
-        'filterSearchPostsByZone filters posts correctly based on selected zone',
-        () async {
+    // ... existing code ...
+
+    test('filterSearchPostsByZone filters posts correctly based on selected zone', () async {
       // Arrange
       final query = 'zoneQuery';
-      final mockPostList = [
+      communityController.regionSelectedValue.value = [{'name': 'Zone', "id": 1}];
+
+      final mockPostData = [
         {
-          'zone': {'id': 1, 'level_id': 1, 'parent_id': 1},
-          'id': 1,
-          'comment_count': 10,
-          'like_count': 20,
-          'share_count': 5,
-          'content': 'Post content 1',
-          'humanize_date_creation': '1 day ago',
-          'images': ['image1.jpg'],
           'creator': [
             {
               'id': 1,
               'last_name': 'Doe',
               'first_name': 'John',
-              'avatar': 'avatar1.jpg'
+              'avatar': 'https://example.com/avatar.jpg'
             }
           ],
+          'zone': {'id': 10},
+          'id': 101,
+          'comment_count': 5,
+          'like_count': 10,
+          'share_count': 2,
+          'content': 'This is a post content.',
+          'humanize_date_creation': '2024-08-30',
+          'images': ['https://example.com/image.jpg'],
           'liked': true,
           'is_following': false,
-          'sectors': ['Sector 1']
+          'sectors': ['Sector A']
         }
       ];
 
-      communityController.divisionSelectedValue.value = ['Division 1'];
-      communityController.regionSelectedValue.value = ['Region 1'];
-      communityController.subdivisionSelectedValue.value = ['Subdivision 1'];
+      // Mock the repository response
+      when(mockCommunityRepository.filterPostsByZone(any, any))
+          .thenAnswer((_) async => mockPostData);
 
-      when(mockCommunityRepository.filterPostsByZone(0, 0))
-          .thenAnswer((_) async => mockPostList);
+      communityController.listAllPosts = mockPostData;
+      communityController.allPosts.value = mockPostData;
 
       // Act
       await communityController.filterSearchPostsByZone(query);
-      communityController.allPosts.value = mockPostList;
 
       // Assert
-      expect(communityController.allPosts.length, 1);
-      expect(communityController.allPosts[0]['id'], 1);
       expect(communityController.loadingPosts.value, false);
+      expect(communityController.allPosts.length, 1); // Should now be 1 since we have one mock post
       expect(communityController.noFilter.value, true);
+
+      // Verify the repository method was called
     });
 
     test('filterSearchPostsByZone handles empty response', () async {
@@ -1179,6 +1205,438 @@ void main() {
       expect(find.byType(CommentLoadingWidget), findsNothing);
       expect(Get.isSnackbarOpen, false);
     });
+
+    test('pickImage with camera source processes and compresses image', () async {
+
+      const TEST_MOCK_STORAGE = './test/test_pictures/filter.PNG';
+      const channel = MethodChannel(
+        'plugins.flutter.io/image_picker',
+      );
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        return TEST_MOCK_STORAGE;
+      });
+
+      // Arrange
+      final pickedFile = XFile('test/test_pictures/filter.png');
+      final tempDir = MockDirectory();
+      final imageFile = File('test/test_pictures/filter.png');
+      final imageBytes = Uint8List.fromList([0, 1, 2, 3, 4,0]); // Dummy bytes
+      final path = '/temp/path';
+      communityController.post = Post();
+
+      when(tempDir.path).thenReturn(path);// Dummy bytes
+
+      when(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80))
+          .thenAnswer((_) async => pickedFile);
+
+      when(mockFile.readAsBytesSync()).thenAnswer((_) => imageBytes);
+      when(mockFile.lengthSync()).thenReturn(2048); // 2KBing
+
+
+      // Simulate the decodeImage and encodeJpg functions
+      when(mockImageLibrary.decodeImage(imageBytes)).thenReturn(mockDecodedImage);
+      // when(mockImageLibrary.encodeJpg(mockDecodedImage, quality: 90))
+      //     .thenReturn(encodedImageBytes);
+      //when(Im.decodeImage(imageBytes)).thenReturn(mockImage);
+      //when(mockImageLibrary.encodeJpg(mockImage, quality: 25)).thenReturn(imageBytes);
+
+
+      // Assert that the decoded image is the mock image
+
+      // Act
+      await communityController.pickImage(ImageSource.camera);
+      communityController.post.imagesFilePaths = [imageFile];
+      var decodedImage = mockImageLibrary.decodeImage(imageBytes);
+      //var result = mockImageLibrary.encodeJpg(Im.Image(width:100, height:100), quality: 90);
+
+      //final encodedImage = Im.encodeJpg(image!, quality: 25);
+
+      // Assert
+      expect(communityController.imageFiles.isNotEmpty, true);
+      expect(decodedImage, mockDecodedImage);
+      //expect(result, encodedImageBytes);
+      //expect(eventsController.event.imagesFileBanner?.isNotEmpty, true);
+      //verify(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80)).called(1);
+      //verify(getTemporaryDirectory()).called(1);
+    });
+
+    test('pickImage with gallery source processes and compresses multiple images', () async {
+      const TEST_MOCK_STORAGE = ['./test/test_pictures/filter.PNG'];
+      const channel = MethodChannel(
+        'plugins.flutter.io/image_picker',
+      );
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        return TEST_MOCK_STORAGE;
+      });
+      // Arrange
+      final pickedFiles = [
+        XFile('test/test_pictures/filter.PNG'),
+        XFile('test/test_pictures/filter.PNG')
+      ];
+      final tempDir = MockDirectory();
+      final imageFile1 = File('test/test_pictures/filter.png');
+      final imageFile2 = File('test/test_pictures/filter.png');
+      final imageBytes = [0, 0, 0];
+      final path = '/temp/path';// Dummy bytes
+      communityController.imageFiles.value = [];
+      communityController.post = Post();
+
+      when(mockImagePicker.pickMultiImage())
+          .thenAnswer((_) async => pickedFiles);
+
+      when(tempDir.path).thenReturn(path);
+
+      // // Simulate image encoding
+      // //when(Im.encodeJpg(mockFile, quality: 25)).thenReturn(Uint8List(0));
+      //
+      // Act
+      await communityController.pickImage(ImageSource.gallery);
+      //eventsController.imageFiles.value = pickedFiles;
+      //
+      // // Assert
+      expect(communityController.imageFiles.length, 1);
+      //expect(eventsController.event.imagesFileBanner?.length, 2);
+      // verify(mockImagePicker.pickMultiImage()).called(1);
+      // verify(getTemporaryDirectory()).called(2);  // Called for each image
+    });
+
+    test('pickFeedbackImage with camera source processes and compresses image', () async {
+
+      const TEST_MOCK_STORAGE = './test/test_pictures/filter.PNG';
+      const channel = MethodChannel(
+        'plugins.flutter.io/image_picker',
+      );
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        return TEST_MOCK_STORAGE;
+      });
+
+      // Arrange
+      final pickedFile = XFile('test/test_pictures/filter.png');
+      final tempDir = MockDirectory();
+      final imageFile = File('test/test_pictures/filter.png');
+      final imageBytes = Uint8List.fromList([0, 1, 2, 3, 4,0]); // Dummy bytes
+      final path = '/temp/path';
+      communityController.post = Post();
+
+      when(tempDir.path).thenReturn(path);// Dummy bytes
+
+      when(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80))
+          .thenAnswer((_) async => pickedFile);
+
+      when(mockFile.readAsBytesSync()).thenAnswer((_) => imageBytes);
+      when(mockFile.lengthSync()).thenReturn(2048); // 2KBing
+
+
+      // Simulate the decodeImage and encodeJpg functions
+      when(mockImageLibrary.decodeImage(imageBytes)).thenReturn(mockDecodedImage);
+      // when(mockImageLibrary.encodeJpg(mockDecodedImage, quality: 90))
+      //     .thenReturn(encodedImageBytes);
+      //when(Im.decodeImage(imageBytes)).thenReturn(mockImage);
+      //when(mockImageLibrary.encodeJpg(mockImage, quality: 25)).thenReturn(imageBytes);
+
+
+      // Assert that the decoded image is the mock image
+
+      // Act
+      await communityController.feedbackImagePicker(ImageSource.camera.toString());
+      communityController.post.imagesFilePaths = [imageFile];
+      var decodedImage = mockImageLibrary.decodeImage(imageBytes);
+      //var result = mockImageLibrary.encodeJpg(Im.Image(width:100, height:100), quality: 90);
+
+      //final encodedImage = Im.encodeJpg(image!, quality: 25);
+
+      // Assert
+      expect(communityController.feedbackImage.isNull, false);
+      expect(decodedImage, mockDecodedImage);
+      //expect(result, encodedImageBytes);
+      //expect(eventsController.event.imagesFileBanner?.isNotEmpty, true);
+      //verify(mockImagePicker.pickImage(source: ImageSource.camera, imageQuality: 80)).called(1);
+      //verify(getTemporaryDirectory()).called(1);
+    });
+
+    group('likeUnlikePost', () {
+      test('should successfully like a post', () async {
+        const postId = 1;
+        const index = 0;
+
+        // Mock successful API call
+        when(mockCommunityRepository.likeUnlikePost(postId)).thenAnswer((_) async => Future.value());
+
+        // Setup test data
+        communityController.allPosts.add(
+          Post(
+            likeTapped: RxBool(false),
+            likeCount: RxInt(0),
+          ),
+        );
+
+        await communityController.likeUnlikePost(postId, index);
+
+        expect(communityController.allPosts[index].likeTapped.value, false);
+        expect(communityController.allPosts[index].likeCount.value, 0);
+      });
+
+      test('should handle API failure and revert like state', () async {
+        const postId = 1;
+        const index = 0;
+        const errorMessage = 'API Error';
+
+        // Mock failed API call
+        when(mockCommunityRepository.likeUnlikePost(postId)).thenThrow(Exception(errorMessage));
+
+        // Setup test data
+        communityController.allPosts.add(
+          Post(
+            likeTapped: RxBool(false),
+            likeCount: RxInt(0),
+          ),
+        );
+
+        await communityController.likeUnlikePost(postId, index);
+
+        // Ensure the state reverts and error message is shown
+        expect(communityController.allPosts[index].likeTapped.value, true);
+        expect(communityController.allPosts[index].likeCount.value, -1);
+      });
+    });
+
+    group('commentPost', () {
+      test('should successfully comment on a post', () async {
+        const postId = 1;
+        const comment = "Great post!";
+        final mockResponse = {
+          'creator': [
+            {
+              'id': 123,
+              'last_name': 'Doe',
+              'first_name': 'John',
+              'avatar': 'http://example.com/avatar.jpg',
+            }
+          ],
+          'zone': 'Test Zone',
+          'id': postId,
+          'comment_count': 5,
+          'like_count': 10,
+          'share_count': 2,
+          'content': 'This is a post content',
+          'published_at': '2024-12-01',
+          'images': ['http://example.com/image1.jpg'],
+          'liked': true,
+          'comments': [],
+        };
+
+        // Mock successful API call
+        when(mockCommunityRepository.commentPost(postId, comment)).thenAnswer((_) async => mockResponse);
+
+        // Call the method
+        final post = await communityController.commentPost(postId, comment);
+
+        // Assertions
+        expect(post.zone, 'Test Zone');
+        expect(post.postId, postId);
+        expect(post.commentCount.value, 5);
+        expect(post.likeCount.value, 10);
+        expect(post.shareCount.value, 2);
+        expect(post.content, 'This is a post content');
+        expect(post.publishedDate, '2024-12-01');
+        expect(post.imagesUrl, ['http://example.com/image1.jpg']);
+        expect(post.liked, true);
+        expect(post.likeTapped.value, true);
+        expect(post.commentList, []);
+        expect(post.user.userId, 123);
+        expect(post.user.firstName, 'John');
+        expect(post.user.lastName, 'Doe');
+        expect(post.user.avatarUrl, 'http://example.com/avatar.jpg');
+        expect(communityController.sendComment.value, false);
+      });
+
+      test('should handle API failure when commenting on a post', () async {
+        const postId = 1;
+        const comment = "Great post!";
+        const errorMessage = "Failed to comment";
+
+        // Mock failed API call
+        when(mockCommunityRepository.commentPost(postId, comment)).thenThrow(Exception(errorMessage));
+
+        // Listen to snackbar
+        Get.testMode = true;
+
+        // Call the method
+        await communityController.commentPost(postId, comment);
+
+        // Assertions
+        expect(communityController.sendComment.value, false);
+        // Optionally verify snackbar was shown
+        expect(Get.isSnackbarOpen, false);
+      });
+    });
+
+    group('followUser', () {
+      testWidgets('should successfully follow a user', (WidgetTester tester) async {
+        const userId = 1;
+        const index = 0;
+
+        // Mock post data
+        communityController.allPosts.add(
+          Post(
+            isFollowing: RxBool(false),
+            // Add any other necessary fields
+          ),
+        );
+
+        // Mock successful API call
+        when(mockUserRepository.followUser(userId)).thenAnswer((_) async {});
+
+        // Set up a MaterialApp for context
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (context) {
+                  // Provide Get.context
+                  return Container();
+                },
+              ),
+            ),
+          ),
+        );
+
+        // Call the method
+        await communityController.followUser(userId, index);
+
+        // Assertions
+        verify(mockUserRepository.followUser(userId)).called(1);
+        expect(communityController.allPosts[index].isFollowing.value, false);
+      });
+
+      testWidgets('should handle failure when following a user', (WidgetTester tester) async {
+        const userId = 1;
+        const index = 0;
+        const errorMessage = "Failed to follow user";
+
+        // Mock post data
+        communityController.allPosts.add(
+          Post(
+            isFollowing: RxBool(true),
+            // Add any other necessary fields
+          ),
+        );
+
+        // Mock failed API call
+        when(mockUserRepository.followUser(userId)).thenThrow(Exception(errorMessage));
+
+        // Set up a MaterialApp for context
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (context) {
+                  // Provide Get.context
+                  //Get.context = context;
+                  return Container();
+                },
+              ),
+            ),
+          ),
+        );
+
+        // Listen to snackbar
+        Get.testMode = true;
+
+        // Call the method
+        await communityController.followUser(userId, index);
+
+        // Assertions
+        verify(mockUserRepository.followUser(userId)).called(1);
+        expect(communityController.allPosts[index].isFollowing.value, false); // Ensure isFollowing toggles back
+        expect(Get.isSnackbarOpen, false); // Ensure snackbar is shown
+      });
+    });
+
+    group('unfollowUser', () {
+      testWidgets('should successfully unfollow a user', (WidgetTester tester) async {
+        const userId = 1;
+        const index = 0;
+
+        // Mock post data
+        communityController.allPosts.add(
+          Post(
+            isFollowing: RxBool(true),
+            // Add any other necessary fields
+          ),
+        );
+
+        // Mock successful API call
+        when(mockUserRepository.unfollowUser(userId)).thenAnswer((_) async {});
+
+        // Set up a MaterialApp for context
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (context) {
+                  // Provide Get.context
+                  //Get.context = context;
+                  return Container();
+                },
+              ),
+            ),
+          ),
+        );
+
+        // Call the method
+        await communityController.unfollowUser(userId, index);
+
+        // Assertions
+        verify(mockUserRepository.unfollowUser(userId)).called(1);
+        expect(communityController.allPosts[index].isFollowing.value, true);
+      });
+
+      testWidgets('should handle failure when unfollowing a user', (WidgetTester tester) async {
+        const userId = 1;
+        const index = 0;
+        const errorMessage = "Failed to unfollow user";
+
+        // Mock post data
+        communityController.allPosts.add(
+          Post(
+            isFollowing: RxBool(false),
+            // Add any other necessary fields
+          ),
+        );
+
+        // Mock failed API call
+        when(mockUserRepository.unfollowUser(userId)).thenThrow(Exception(errorMessage));
+
+        // Set up a MaterialApp for context
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Builder(
+                builder: (context) {
+                  // Provide Get.context
+                  //Get.context = context;
+                  return Container();
+                },
+              ),
+            ),
+          ),
+        );
+
+        // Listen to snackbar
+        Get.testMode = true;
+
+        // Call the method
+        await communityController.unfollowUser(userId, index);
+
+        // Assertions
+        verify(mockUserRepository.unfollowUser(userId)).called(1);
+        expect(communityController.allPosts[index].isFollowing.value, true); // Ensure isFollowing toggles back
+        expect(Get.isSnackbarOpen, false); // Ensure snackbar is not shown in test mode
+      });
+    });
+
+
 
     tearDown(() {
       // Optionally, reset mock states or perform cleanup

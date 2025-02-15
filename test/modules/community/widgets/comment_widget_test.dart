@@ -18,7 +18,7 @@ void main() {
           body: CommentWidget(
             user: user,
             comment: comment,
-            imageUrl: imageUrl,
+            userAvatar: SizedBox(),
           ),
         ),
       ),
@@ -26,8 +26,8 @@ void main() {
 
     // Verify the presence of key widgets and properties
     expect(find.byType(Row), findsWidgets);
-    expect(find.byType(ClipOval), findsOneWidget);
-    expect(find.byType(FadeInImage), findsOneWidget);
+    //expect(find.byType(ClipOval), findsOneWidget);
+    //expect(find.byType(FadeInImage), findsOneWidget);
     expect(find.byType(Text), findsNWidgets(2)); // One for user, one for comment
 
     // Verify user text
@@ -37,8 +37,8 @@ void main() {
     expect(find.text(comment), findsOneWidget);
 
     // Verify image loading and error handling
-    final imageWidget = tester.widget<FadeInImage>(find.byType(FadeInImage));
-    expect(imageWidget.placeholder, isA<AssetImage>());
-    expect(imageWidget.image, isA<NetworkImage>());
+    // final imageWidget = tester.widget<FadeInImage>(find.byType(FadeInImage));
+    // expect(imageWidget.placeholder, isA<AssetImage>());
+    // expect(imageWidget.image, isA<NetworkImage>());
   });
 }

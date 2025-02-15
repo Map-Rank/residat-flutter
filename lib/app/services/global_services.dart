@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:mapnrank/app/services/auth_service.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../../common/helper.dart';
 
 class GlobalService extends GetxService {
@@ -22,4 +23,14 @@ class GlobalService extends GetxService {
     return headers;
   }
   static String contactUsNumber = "+237620162316";
+  static var notificationPermission = false;
+  static var appVersion = '';
+
+  Future<void> getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version; // e.g., "1.0.0"
+    String buildNumber = packageInfo.buildNumber; // e.g., "1"
+    appVersion = "$version+$buildNumber";
+  }
 }

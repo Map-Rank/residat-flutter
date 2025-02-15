@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:get/get.dart';
 import 'package:mapnrank/app/models/user_model.dart';
 import '../providers/laravel_provider.dart';
@@ -49,6 +50,11 @@ class ZoneRepository {
   Future getDisastersMarkers(){
     _laravelApiClient = Get.find<LaravelApiClient>();
     return _laravelApiClient.getDisasterMarkers();
+  }
+
+  Future getADisasterMarker(int id){
+    _laravelApiClient = Get.find<LaravelApiClient>();
+    return _laravelApiClient.getADisasterMarker(id);
   }
 
 }

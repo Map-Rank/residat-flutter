@@ -26,7 +26,6 @@ class OtherUserProfileView extends GetView<OtherUserProfileController> {
       backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: () async {
-          await controller.refreshProfile(showMessage: true);
         },
         child:  Container(
           color: backgroundColor,
@@ -133,7 +132,7 @@ class OtherUserProfileView extends GetView<OtherUserProfileController> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          '0',
+                                          controller.currentUser.value.followerCount??'0',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 16.0),
@@ -142,6 +141,38 @@ class OtherUserProfileView extends GetView<OtherUserProfileController> {
                                           padding: EdgeInsets.only(top: 8.0),
                                           child: Text(
                                             AppLocalizations.of(context).followers_count,
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 14.0),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const Padding(
+                                    padding:
+                                    EdgeInsets.symmetric(horizontal: 16.0),
+                                    child: Text(
+                                      '|',
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 14.0),
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          controller.currentUser.value.followingCount??'0',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16.0),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 8.0),
+                                          child: Text(
+                                            AppLocalizations.of(context).following,
                                             style: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 14.0),

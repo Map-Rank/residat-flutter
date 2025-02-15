@@ -19,7 +19,7 @@ class ReadMoreText extends StatefulWidget {
       this.data, {
         Key? key,
         this.maxCharsLength = 240,
-        this.maxLines = 2,
+        this.maxLines = 3,
         this.trimMode = TrimMode.length,
         required this.textStyle,
         this.textDirection,

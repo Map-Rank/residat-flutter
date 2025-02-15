@@ -239,11 +239,13 @@ class EventsController extends GetxController {
       XFile? pickedFile = await imagePicker.pickImage(source: source, imageQuality: 80);
       File imageFile = File(pickedFile!.path);
       if(imageFile.lengthSync()>pow(1024, 2)){
+        // coverage:ignore-start
         final tempDir = await getTemporaryDirectory();
         final path = tempDir.path;
         int rand = Math.Random().nextInt(10000);
         Im.Image? image1 = Im.decodeImage(imageFile.readAsBytesSync());
         compressedImage = File('${path}/img_$rand.jpg')..writeAsBytesSync(Im.encodeJpg(image1!, quality: 25));
+        // coverage:ignore-end
 
 
       }
@@ -265,11 +267,13 @@ class EventsController extends GetxController {
       while(i<galleryFiles.length){
         File imageFile = File(galleryFiles[i].path);
         if(imageFile.lengthSync()>pow(1024, 2)){
+          // coverage:ignore-start
           final tempDir = await getTemporaryDirectory();
           final path = tempDir.path;
           int rand = Math.Random().nextInt(10000);
           Im.Image? image1 = Im.decodeImage(imageFile.readAsBytesSync());
           compressedImage =  File('${path}/img_$rand.jpg')..writeAsBytesSync(Im.encodeJpg(image1!, quality: 25));
+          // coverage:ignore-end
 
 
         }

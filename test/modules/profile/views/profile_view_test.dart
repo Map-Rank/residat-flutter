@@ -39,6 +39,7 @@ void main() {
 
 
   setUp(() {
+    Get.testMode = true;
     Get.lazyPut(()=>ProfileController());
     Get.lazyPut(()=>AuthService());
     Get.lazyPut(()=>CommunityController());
@@ -66,35 +67,14 @@ void main() {
       lastName: 'Doe',
       email: 'john.doe@example.com',
       avatarUrl: null,
+      birthdate: '1994-02-02',
       myPosts: ['Post1', 'Post2'], // Example post identifiers
       myEvents: ['Event1', 'Event2'], );
 
-    //communityController.listAllPosts = [];// Example event identifiers )
-
-
-
-    // Provide mock instances via GetX dependency injection
-    // Get.put<ProfileController>(mockProfileController);
-    // Get.put<AuthController>(mockAuthController);
-    // Get.put<CommunityController>(mockCommunityController);
-    // Get.put<EventsController>(mockEventsController);
-
-    // Mock some basic values for the tests
-    // when(mockAppLocalizations.profile).thenReturn('Profile');
-    // when(mockAppLocalizations.sign_out).thenReturn('Sign Out');
-    // when(mockAppLocalizations.logout_of_app).thenReturn('Log out of the app');
-    // when(mockAppLocalizations.delete_account).thenReturn('Delete Account');
-    // when(mockAppLocalizations.delete_account_of_app).thenReturn('Delete account of the app');
   });
 
   testWidgets('ProfileView displays correctly with avatar url being null', (WidgetTester tester) async {
     // Arrange
-    // when(mockProfileController.currentUser.value.firstName).thenReturn('John');
-    // when(mockProfileController.currentUser.value.lastName).thenReturn('Doe');
-    // when(mockProfileController.currentUser.value.avatarUrl).thenReturn(null);
-    // when(mockProfileController.loadProfileImage.value).thenReturn(false);
-    // when(mockProfileController.currentUser.value.myPosts).thenReturn([]);
-    //when(mockProfileController.currentUser.value.myEvents).thenReturn([]);
 
     // Act
     await tester.pumpWidget(
@@ -108,11 +88,117 @@ void main() {
       ),
     );
 
+    // await tester.scrollUntilVisible(
+    //   find.byKey(Key('signoutkey')), // The key for the target widget
+    //   100.0, // Scroll increment
+    //   //scrollable: find.byKey(Key('listView')),
+    //   scrollable: find.ancestor(
+    //     of: find.byKey(Key('signoutkey')),
+    //     matching: find.byType(Scrollable),
+    //   ),
+    // );
+
+    // Act
+
     // Assert
     expect(find.text('Profile'), findsOneWidget);
     expect(find.text('John Doe'), findsOneWidget);
     expect(find.byType(CircleAvatar), findsAtLeast(1));
   });
+
+  testWidgets('Log out of the application action',
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: ProfileView(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+            ],
+            locale: const Locale('en'),
+          ),
+        );
+
+        // Give more time for the widget to settle
+        await tester.pumpAndSettle(const Duration(seconds: 2));
+
+        // First find any Scrollable widgets
+        final scrollables = find.byType(Scrollable);
+        expect(scrollables, findsWidgets, reason: 'No scrollable widgets found');
+
+        // Find all possible scrollable containers
+        final listViews = find.byType(ListView);
+        final singleChildScrollViews = find.byType(SingleChildScrollView);
+
+        print('Found ${listViews.evaluate().length} ListViews');
+        print('Found ${singleChildScrollViews.evaluate().length} SingleChildScrollViews');
+
+        // Try scrolling the first available scrollable
+        final scrollable = find.byType(Scrollable).first;
+
+        // Perform multiple small scrolls to ensure we cover the entire content
+        for (var i = 0; i < 3; i++) {
+          await tester.scrollUntilVisible(
+            find.byKey(const Key('logOutKey')),
+            100.0,
+            scrollable: scrollable,
+          );
+          await tester.pumpAndSettle();
+        }
+
+        final signOutButton = find.byKey(const Key('logOutKey'));
+        expect(signOutButton, findsOneWidget);
+        await tester.tap(signOutButton);
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(const Key('logout_app')), findsOneWidget);
+      });
+
+  testWidgets('Delete account from the application action',
+          (WidgetTester tester) async {
+        await tester.pumpWidget(
+          GetMaterialApp(
+            home: ProfileView(),
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+            ],
+            locale: const Locale('en'),
+          ),
+        );
+
+        // Give more time for the widget to settle
+        await tester.pumpAndSettle(const Duration(seconds: 2));
+
+        // First find any Scrollable widgets
+        final scrollables = find.byType(Scrollable);
+        expect(scrollables, findsWidgets, reason: 'No scrollable widgets found');
+
+        // Find all possible scrollable containers
+        final listViews = find.byType(ListView);
+        final singleChildScrollViews = find.byType(SingleChildScrollView);
+
+        print('Found ${listViews.evaluate().length} ListViews');
+        print('Found ${singleChildScrollViews.evaluate().length} SingleChildScrollViews');
+
+        // Try scrolling the first available scrollable
+        final scrollable = find.byType(Scrollable).first;
+
+        // Perform multiple small scrolls to ensure we cover the entire content
+        for (var i = 0; i < 3; i++) {
+          await tester.scrollUntilVisible(
+            find.byKey(const Key('deleteAccountKey')),
+            100.0,
+            scrollable: scrollable,
+          );
+          await tester.pumpAndSettle();
+        }
+
+        final signOutButton = find.byKey(const Key('deleteAccountKey'));
+        expect(signOutButton, findsOneWidget);
+        await tester.tap(signOutButton);
+        await tester.pumpAndSettle();
+
+        expect(find.byKey(const Key('deleteAccountDialog')), findsOneWidget);
+      });
 
   testWidgets('ProfileView displays correctly with avatar url being non null', (WidgetTester tester) async {
     // Arrange
